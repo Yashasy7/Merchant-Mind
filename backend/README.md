@@ -223,6 +223,137 @@ Insights are generated using deterministic mathematical rules:
 
 ---
 
-## 7. Accounting & Advisory Safety Notice
+## 7. Customer Intelligence (Module 3)
+
+### Purpose
+The Customer Intelligence layer transforms merchant transaction and customer records into actionable, customer-level business intelligence. It deterministically classifies shoppers into behavioral cohorts, measures retention, ranks top contributors, flags churn risk, and generates rule-based observations to guide merchant growth without requiring any LLM.
+
+```text
+CUSTOMER HISTORY → RFM COMPUTATION → BEHAVIORAL SEGMENTATION → RISK & LOYALTY SIGNALS → (FUTURE CAMPAIGNS)
+```
+
+### Deterministic RFM Methodology
+RFM scoring evaluates each customer on a deterministic 1 to 5 scale based on successful transactions relative to an analysis reference date:
+
+* **Recency (R Score):** Days since the customer's most recent successful transaction.
+  * Score 5: $\le 7$ days
+  * Score 4: $8 - 14$ days
+  * Score 3: $15 - 30$ days
+  * Score 2: $31 - 60$ days
+  * Score 1: $> 60$ days
+* **Frequency (F Score):** Total count of successful transactions.
+  * Score 5: $\ge 15$ orders
+  * Score 4: $8 - 14$ orders
+  * Score 3: $4 - 7$ orders
+  * Score 2: $2 - 3$ orders
+  * Score 1: $1$ order
+* **Monetary (M Score):** Cumulative lifetime spend in INR across successful transactions.
+  * Score 5: $\ge ₹10,000$
+  * Score 4: $₹5,000 - ₹9,999$
+  * Score 3: $₹2,000 - ₹4,999$
+  * Score 2: $₹500 - ₹1,999$
+  * Score 1: $< ₹500$
+* **RFM Code:** Standard 3-digit concatenated representation (e.g. `555` represents top-tier recency, frequency, and spend).
+
+### Customer Segmentation Rules
+Customers are assigned to mutually exclusive behavioral segments using deterministic criteria aligned with the project blueprint:
+
+| Segment | Criteria | Description |
+| :--- | :--- | :--- |
+| **VIP** | Spend $\ge ₹12,000$, $\ge 8$ orders, Recency $\le 14$ days | Highest value shoppers with frequent visits and recent store activity. |
+| **Loyal** | $\ge 5$ orders, Spend $\ge ₹5,000$, Recency $\le 21$ days | Consistent regular shoppers with strong repeat purchase habits. |
+| **New** | $\le 2$ orders, Recency $\le 30$ days | Recently acquired shoppers with 1–2 visits within the past month. |
+| **At-Risk** | $\ge 3$ orders, Recency $22 - 45$ days | Previously regular customers showing signs of churning. |
+| **Inactive** | Recency $> 45$ days | Dormant shoppers with no store activity for more than 45 days. |
+
+### Endpoint Reference
+All endpoints are available under `/api/v1/customers/*` (with unversioned aliases at `/api/customers/*`):
+
+* `GET /api/v1/customers/summary` — Merchant-level customer KPIs (total, active, inactive, at-risk, new, repeat customer rate, average spend, and lifetime revenue).
+* `GET /api/v1/customers/segments` — Aggregate metrics and revenue distribution across behavioral segments (VIP, Loyal, New, At-Risk, Inactive).
+* `GET /api/v1/customers/top` — Ranked leaderboard of top customers sorted by `revenue` (spend) or `frequency` (orders). Supports configurable `limit` (1–100).
+* `GET /api/v1/customers/at-risk` — Customers absent for 22–45 days requiring win-back engagement, including risk level (`high` / `medium`) and reason.
+* `GET /api/v1/customers/inactive` — Dormant customers absent for $> 45$ days, including dormancy duration and previous spending.
+* `GET /api/v1/customers/insights` — Deterministic, structured insights covering revenue concentration, churn exposure, and loyalty strength.
+* `GET /api/v1/customers/{customer_id}` — Individual customer profile with RFM score breakdown and recent transaction history.
+
+### Query Parameters
+| Parameter | Endpoints | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `merchant_id` | All | `demo-merchant-001` | Merchant identifier (enforces strict data isolation) |
+| `as_of_date` | `/summary` | Latest transaction date | Reference date for recency calculations (`YYYY-MM-DD`) |
+| `by` | `/top` | `revenue` | Sorting criterion: `revenue` or `frequency` |
+| `limit` | `/top`, `/at-risk`, `/inactive` | `10` or `50` | Maximum number of customer records to return |
+
+### Example Request & Response
+```bash
+# Get customer summary for demo merchant
+curl http://127.0.0.1:8000/api/v1/customers/summary
+```
+```json
+{
+  "merchant_id": "demo-merchant-001",
+  "total_customers": 299,
+  "active_customers": 143,
+  "inactive_customers": 126,
+  "at_risk_customers": 45,
+  "new_customers": 45,
+  "repeat_customers": 279,
+  "repeat_customer_rate": 93.31,
+  "average_customer_spend": 5441.6,
+  "average_transactions_per_customer": 9.62,
+  "total_customer_revenue": 1627038.31
+}
+```
+
+```bash
+# Get single customer profile with RFM scoring
+curl http://127.0.0.1:8000/api/v1/customers/cust-001-0001
+```
+```json
+{
+  "customer_id": "cust-001-0001",
+  "merchant_id": "demo-merchant-001",
+  "name": "Deepa Sharma",
+  "phone": "+91 9846913810",
+  "total_spend": 14901.74,
+  "transaction_count": 22,
+  "average_transaction_value": 677.35,
+  "first_transaction_date": "2026-05-06T18:47:52.124157+00:00",
+  "last_transaction_date": "2026-09-16T07:47:52.124157+00:00",
+  "days_since_last_transaction": 1,
+  "segment": "VIP",
+  "rfm": {
+    "recency_days": 1,
+    "frequency": 22,
+    "monetary": 14901.74,
+    "r_score": 5,
+    "f_score": 5,
+    "m_score": 5,
+    "rfm_code": "555"
+  },
+  "recent_transactions": [
+    {
+      "transaction_id": "tx-001-2856",
+      "timestamp": "2026-09-16T07:47:52.124157+00:00",
+      "amount": 745.5,
+      "payment_method": "UPI",
+      "status": "success"
+    }
+  ]
+}
+```
+
+### Business Rules & Safeguards
+1. **Success-Only Transactions:** Only transactions with `status == "success"` contribute to monetary spend and frequency metrics. Failed payments are excluded.
+2. **Strict Merchant Isolation:** All queries filter on `merchant_id`. Attempting to retrieve another merchant's customer ID returns HTTP 404.
+3. **Deterministic Recency:** When `as_of_date` is omitted, recency is anchored to the latest recorded transaction date in the dataset, ensuring stable metrics.
+4. **NaN & Infinity Sanitization:** All floating-point figures are sanitized and rounded to 2 decimal places. Zero-customer stores cleanly return 0.0 without division errors.
+5. **Zero-LLM Operation:** Segmentation, RFM scores, and insights are calculated entirely through deterministic mathematics and business logic.
+
+---
+
+## 8. Accounting & Advisory Safety Notice
 
 MerchantMind is an AI business copilot that organizes, analyzes, and explains merchant records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.
+

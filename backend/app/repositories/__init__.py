@@ -4,5 +4,6 @@ Repositories package initialization.
 
 from app.repositories.base import BaseRepository
 from app.repositories.transaction_repository import TransactionRepository
+from app.repositories.customer_repository import CustomerRepository
 
-__all__ = ["BaseRepository", "TransactionRepository"]
+__all__ = ["BaseRepository", "TransactionRepository", "CustomerRepository"]

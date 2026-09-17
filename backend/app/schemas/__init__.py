@@ -6,7 +6,24 @@ Exports all Pydantic schemas for data transfer and validation.
 from app.schemas.health import HealthResponse, DatabaseHealth
 from app.schemas.common import APIResponse, ErrorDetail, ErrorResponse
 from app.schemas.merchant import MerchantBase, MerchantCreate, MerchantResponse
-from app.schemas.customer import CustomerResponse, TransactionResponse
+from app.schemas.customer import (
+    CustomerResponse,
+    TransactionResponse,
+    CustomerSummaryResponse,
+    RFMScore,
+    CustomerSegmentStat,
+    CustomerSegmentsResponse,
+    CustomerRankingItem,
+    TopCustomersResponse,
+    AtRiskCustomerItem,
+    AtRiskCustomersResponse,
+    InactiveCustomerItem,
+    InactiveCustomersResponse,
+    CustomerTransactionSummary,
+    CustomerDetailResponse,
+    CustomerInsightItem,
+    CustomerInsightsResponse,
+)
 from app.schemas.sales import (
     SalesSummaryResponse,
     SalesTrendPoint,
@@ -34,6 +51,20 @@ __all__ = [
     "MerchantResponse",
     "CustomerResponse",
     "TransactionResponse",
+    "CustomerSummaryResponse",
+    "RFMScore",
+    "CustomerSegmentStat",
+    "CustomerSegmentsResponse",
+    "CustomerRankingItem",
+    "TopCustomersResponse",
+    "AtRiskCustomerItem",
+    "AtRiskCustomersResponse",
+    "InactiveCustomerItem",
+    "InactiveCustomersResponse",
+    "CustomerTransactionSummary",
+    "CustomerDetailResponse",
+    "CustomerInsightItem",
+    "CustomerInsightsResponse",
     "SalesSummaryResponse",
     "SalesTrendPoint",
     "SalesTrendsResponse",

@@ -54,6 +54,20 @@ from app.schemas.what_if import (
     WhatIfCompareRequest,
     WhatIfComparisonResponse,
 )
+from app.schemas.campaign import (
+    CampaignStatus,
+    CampaignOfferType,
+    CampaignAuditAction,
+    CampaignCreateRequest,
+    CampaignApproveRequest,
+    CampaignRejectRequest,
+    CampaignExecuteRequest,
+    CampaignResponse,
+    CampaignListResponse,
+    CampaignResultResponse,
+    CampaignAuditLogResponse,
+    CampaignAuditHistoryResponse,
+)
 
 __all__ = [
     "HealthResponse",
@@ -104,5 +118,18 @@ __all__ = [
     "SimulationRequest",
     "WhatIfCompareRequest",
     "WhatIfComparisonResponse",
+    "CampaignStatus",
+    "CampaignOfferType",
+    "CampaignAuditAction",
+    "CampaignCreateRequest",
+    "CampaignApproveRequest",
+    "CampaignRejectRequest",
+    "CampaignExecuteRequest",
+    "CampaignResponse",
+    "CampaignListResponse",
+    "CampaignResultResponse",
+    "CampaignAuditLogResponse",
+    "CampaignAuditHistoryResponse",
 ]
+
 

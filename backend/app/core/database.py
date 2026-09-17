@@ -104,8 +104,40 @@ def init_db() -> bool:
 
         logger.info(f"Initializing database schema ({len(registered_tables)} tables: {registered_tables})...")
         Base.metadata.create_all(bind=engine)
+
+        # Synchronize new Campaign columns if table already existed from earlier milestones
+        if "campaigns" in registered_tables and not settings.database_url.startswith("sqlite"):
+            with engine.begin() as conn:
+                conn.execute(text("""
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS name VARCHAR(200);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS description VARCHAR(500);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS discount_percent NUMERIC(5, 2);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS cashback_amount NUMERIC(8, 2);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS minimum_transaction_amount NUMERIC(8, 2) DEFAULT 0.00;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS target_days VARCHAR(50);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS target_hours VARCHAR(50);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS source_recommendation_id VARCHAR(100);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS source_simulation_id VARCHAR(100);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS projected_revenue NUMERIC(12, 2) DEFAULT 0.00;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS projected_transactions INTEGER DEFAULT 0;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS estimated_incentive_cost NUMERIC(10, 2) DEFAULT 0.00;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS estimated_roi NUMERIC(6, 2);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS simulated_revenue NUMERIC(12, 2) DEFAULT 0.00;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS simulated_transactions INTEGER DEFAULT 0;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS simulated_cost NUMERIC(10, 2) DEFAULT 0.00;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS simulated_net_impact NUMERIC(12, 2) DEFAULT 0.00;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS simulated_roi NUMERIC(6, 2);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS approved_at TIMESTAMP WITH TIME ZONE;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS executed_at TIMESTAMP WITH TIME ZONE;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS rejected_at TIMESTAMP WITH TIME ZONE;
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS rejection_reason VARCHAR(500);
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS created_by VARCHAR(100) DEFAULT 'Merchant';
+                    ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS approved_by VARCHAR(100);
+                """))
+
         logger.info("Database schema initialized successfully.")
         return True
+
     except Exception as exc:
         logger.error(f"Database initialization failed: {exc}")
         return False

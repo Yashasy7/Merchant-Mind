@@ -589,7 +589,101 @@ curl -X POST "http://127.0.0.1:8000/api/v1/what-if/compare" \
 
 ---
 
-## 10. Accounting & Advisory Safety Notice
+## 10. Module 6 — Campaign / Approval / Action Layer
+
+Paytm MerchantMind implements an explicit **Human-in-the-Loop** campaign orchestration layer. It transforms analytical recommendations (Module 4) and what-if promotional simulations (Module 5) into concrete marketing campaigns with mandatory human approval, pre-execution validation, safe simulated execution, deterministic outcome measurement, and a complete audit trail.
+
+### Strict Safety Boundary & Lifecycle
+Under no circumstances can an AI recommendation or promotional strategy execute autonomously. All marketing actions require explicit merchant consent.
+
+```
+       [ Recommendation / Simulation ]
+                      │
+                      ▼
+                   DRAFT
+                      │ (Auto-promoted on creation)
+                      ▼
+              PENDING_APPROVAL ◄─── (Cannot execute: HTTP 409 Conflict)
+               │            │
+      [Approve]│            │[Reject]
+               ▼            ▼
+           APPROVED      REJECTED
+               │
+      [Execute]│
+               ▼
+           VALIDATING
+               │
+               ▼
+           EXECUTING
+               │ (Deterministic Synthetic Execution)
+               ▼
+           COMPLETED
+```
+
+* **No Direct Execution:** Any attempt to execute a campaign in `PENDING_APPROVAL`, `REJECTED`, or `DRAFT` status is strictly rejected with `HTTP 409 Conflict`.
+* **Idempotency:** Approved, rejected, or completed campaigns cannot be re-approved or executed twice.
+* **Merchant Isolation:** All campaign creation, listing, approval, execution, and audit queries are strictly scoped by `merchant_id`. Cross-merchant access attempts return `HTTP 404 Not Found`.
+
+### Safe Simulated Execution & Synthetic Demo Disclaimer
+> [!IMPORTANT]
+> **SIMULATED SANDBOX DISCLAIMER:** Campaign execution in Paytm MerchantMind is completely simulated for hackathon demonstration. It does **NOT** call real Paytm merchant APIs, create live coupons, deduct funds, or dispatch real SMS/WhatsApp messages to actual consumers. Instead, it generates a deterministic synthetic campaign performance result (`is_demo_result: true`, `data_type: "SYNTHETIC_DEMO"`) derived directly from the Module 5 mathematical projection model.
+
+### Database Models
+* **`Campaign` (`campaigns` table):**
+  * Core identity: `id` (`camp-...`), `merchant_id`, `name`, `description`.
+  * Offer parameters: `target_segment`, `offer_type`, `discount_percent`, `cashback_amount`, `minimum_transaction_amount`, `target_days`, `target_hours`, `start_date`, `end_date`.
+  * Lifecycle state: `status` (`DRAFT`, `PENDING_APPROVAL`, `APPROVED`, `REJECTED`, `VALIDATING`, `EXECUTING`, `COMPLETED`, `FAILED`, `CANCELLED`).
+  * Linkages: `source_recommendation_id`, `source_simulation_id`.
+  * Projections (Module 5): `projected_revenue`, `projected_transactions`, `estimated_incentive_cost`, `estimated_roi`.
+  * Simulated outcomes: `simulated_transactions`, `simulated_revenue`, `simulated_cost`, `simulated_net_impact`, `simulated_roi`.
+  * Audit timestamps: `created_at`, `approved_at`, `executed_at`, `rejected_at`, `created_by`, `approved_by`.
+* **`CampaignAuditLog` (`campaign_audit_logs` table):**
+  * Immutable record of sensitive lifecycle transitions: `campaign_id`, `merchant_id`, `action` (`CREATE`, `APPROVE`, `REJECT`, `VALIDATE`, `EXECUTE`, `COMPLETE`, `FAIL`, `CANCEL`), `previous_status`, `new_status`, `actor`, `reason`, `created_at`.
+
+### Endpoint Reference
+Available under `/api/v1/campaigns/*` with unversioned aliases at `/api/campaigns/*`:
+
+* `POST /api/v1/campaigns` — Creates a new campaign draft in `PENDING_APPROVAL` status from simulation parameters or recommendations. Validates business rules, ensures finite financial inputs, runs Module 5 simulation to project outcomes, and records a `CREATE` audit log.
+* `GET /api/v1/campaigns` — Lists campaigns for a merchant with optional filtering by `status` and `limit`.
+* `GET /api/v1/campaigns/{campaign_id}` — Retrieves full campaign metadata, status, projections, and execution results.
+* `POST /api/v1/campaigns/{campaign_id}/approve` — Merchant approval transition (`PENDING_APPROVAL` $\to$ `APPROVED`). Does **not** execute.
+* `POST /api/v1/campaigns/{campaign_id}/reject` — Merchant rejection transition (`PENDING_APPROVAL` $\to$ `REJECTED`) with persisted rejection reason.
+* `POST /api/v1/campaigns/{campaign_id}/execute` — Safe simulated execution (`APPROVED` $\to$ `VALIDATING` $\to$ `EXECUTING` $\to$ `COMPLETED`). Generates deterministic synthetic performance metrics and records lifecycle audit events.
+* `GET /api/v1/campaigns/{campaign_id}/result` — Retrieves simulated campaign performance metrics (409 if campaign has not completed execution).
+* `GET /api/v1/campaigns/{campaign_id}/audit` — Retrieves chronological audit trail for the campaign.
+* `POST /api/v1/campaigns/{campaign_id}/cancel` — Cancels an unexecuted campaign (`PENDING_APPROVAL` or `APPROVED` $\to$ `CANCELLED`).
+
+### Example Workflow
+```bash
+# 1. Create a campaign from an analytical recommendation (enters PENDING_APPROVAL)
+curl -X POST "http://127.0.0.1:8000/api/v1/campaigns" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "merchant_id": "demo-merchant-001",
+    "name": "Weekend Inactive Customer Winback",
+    "target_segment": "Inactive",
+    "offer_type": "fixed_cashback",
+    "cashback_amount": 50.0,
+    "minimum_transaction_amount": 250.0,
+    "target_days": "weekend",
+    "source_recommendation_id": "rec-demo-mer-inactive-winback"
+  }'
+
+# 2. Approve the campaign (status -> APPROVED)
+curl -X POST "http://127.0.0.1:8000/api/v1/campaigns/camp-a1b2c3d4e5f6/approve?merchant_id=demo-merchant-001" \
+  -H "Content-Type: application/json" \
+  -d '{"notes": "Approved for upcoming weekend push."}'
+
+# 3. Execute the campaign safely in simulated sandbox (status -> COMPLETED)
+curl -X POST "http://127.0.0.1:8000/api/v1/campaigns/camp-a1b2c3d4e5f6/execute?merchant_id=demo-merchant-001"
+
+# 4. View simulated campaign performance
+curl "http://127.0.0.1:8000/api/v1/campaigns/camp-a1b2c3d4e5f6/result?merchant_id=demo-merchant-001"
+```
+
+---
+
+## 11. Accounting & Advisory Safety Notice
 
 MerchantMind is an AI business copilot that organizes, analyzes, and explains merchant records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.
 

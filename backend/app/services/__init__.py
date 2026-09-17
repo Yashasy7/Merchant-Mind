@@ -7,6 +7,7 @@ from app.services.sales_service import SalesService
 from app.services.customer_service import CustomerService
 from app.services.growth_service import GrowthRecommendationService
 from app.services.what_if_service import WhatIfSimulationService
+from app.services.campaign_service import CampaignService
 
 __all__ = [
     "BaseService",
@@ -14,5 +15,7 @@ __all__ = [
     "CustomerService",
     "GrowthRecommendationService",
     "WhatIfSimulationService",
+    "CampaignService",
 ]
+
 

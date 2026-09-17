@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from app.models.transaction import Transaction
     from app.models.expense import Expense
     from app.models.invoice import Invoice
-    from app.models.campaign import Campaign
+    from app.models.campaign import Campaign, CampaignAuditLog
 
 
 class Merchant(Base):
@@ -62,6 +62,12 @@ class Merchant(Base):
         back_populates="merchant",
         cascade="all, delete-orphan"
     )
+    campaign_audit_logs: Mapped[List["CampaignAuditLog"]] = relationship(
+        "CampaignAuditLog",
+        back_populates="merchant",
+        cascade="all, delete-orphan"
+    )
+
 
     def __repr__(self) -> str:
         return f"<Merchant(id={self.merchant_id}, name={self.business_name}, type={self.business_type})>"

@@ -8,6 +8,7 @@ from app.api.v1.sales import router as sales_router
 from app.api.v1.customers import router as customers_router
 from app.api.v1.growth import router as growth_router
 from app.api.v1.what_if import router as what_if_router
+from app.api.v1.campaigns import router as campaigns_router
 
 api_router = APIRouter()
 
@@ -31,8 +32,13 @@ api_router.include_router(what_if_router, prefix="/v1/what-if")
 api_router.include_router(what_if_router, prefix="/what-if", include_in_schema=False)
 api_router.include_router(what_if_router, prefix="/campaign", include_in_schema=False)
 
+# Module 6 — Campaign / Approval / Action endpoints: /api/v1/campaigns/* and alias /api/campaigns/*
+api_router.include_router(campaigns_router, prefix="/v1/campaigns")
+api_router.include_router(campaigns_router, prefix="/campaigns", include_in_schema=False)
+
 # Note: Future modules will register their routers here:
 # api_router.include_router(copilot_router, prefix="/copilot", tags=["AI Copilot"])
 # api_router.include_router(accounting_router, prefix="/accounting", tags=["AI Accountant"])
 # api_router.include_router(forecast_router, prefix="/forecast", tags=["Forecasting"])
+
 

@@ -24,9 +24,18 @@ def test_check_db_connection_structure():
 
 
 def test_models_registered_on_base_metadata():
-    """Verify that all six core models are registered on Base.metadata without manual model imports."""
+    """Verify that all core models (including Module 6 campaign_audit_logs) are registered on Base.metadata."""
     from app.core.database import Base
     tables = list(Base.metadata.tables.keys())
-    assert len(tables) == 6
-    assert set(tables) == {"merchants", "customers", "transactions", "expenses", "invoices", "campaigns"}
+    assert len(tables) == 7
+    assert set(tables) == {
+        "merchants",
+        "customers",
+        "transactions",
+        "expenses",
+        "invoices",
+        "campaigns",
+        "campaign_audit_logs",
+    }
+
 

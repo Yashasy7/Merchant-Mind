@@ -7,6 +7,7 @@ from app.api.v1.sales import router as sales_router
 from app.api.v1.customers import router as customers_router
 from app.api.v1.growth import router as growth_router
 from app.api.v1.what_if import router as what_if_router
+from app.api.v1.campaigns import router as campaigns_router
 
 __all__ = [
     "health_router",
@@ -14,5 +15,7 @@ __all__ = [
     "customers_router",
     "growth_router",
     "what_if_router",
+    "campaigns_router",
 ]
+
 

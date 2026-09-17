@@ -164,6 +164,65 @@ pytest -v
 
 ---
 
-## 6. Accounting & Advisory Safety Notice
+## 6. Sales Intelligence (Module 2)
+
+### Purpose
+The Sales Intelligence layer processes raw merchant transaction history into deterministic business metrics and machine-readable observations. It forms the analytical foundation for the MerchantMind intelligence loop:
+```text
+MERCHANT QUESTION → SALES INTELLIGENCE → DETECT PATTERNS/DECLINE → IDENTIFY OPPORTUNITY → (FUTURE RECOMMENDATIONS)
+```
+
+### Supported Analysis
+1. **Sales Summary:** Total revenue, transactions, average/min/max transaction value, success/failed rates.
+2. **Daily Sales Trends:** Calendar-day aggregated chronological time-series of revenue and transactions.
+3. **Period Comparison:** Current vs. previous equivalent period with absolute and percentage change calculations.
+4. **Decline Detection:** Detection of contraction thresholds with volume vs. basket-size root-cause diagnosis.
+5. **Day-of-Week Breakdown:** Sales volume and revenue shares across Monday–Sunday; strongest and slowest days.
+6. **Hourly & Time Windows:** Hourly (0–23) distribution and operational windows (Morning, Afternoon, Evening, Night).
+7. **Weekday vs. Weekend Analysis:** Weekend revenue share, daily average comparisons, and underperformance gap ratios.
+8. **Deterministic Insights:** Rule-based, mathematical observations without LLM hallucinations.
+
+### Endpoint Reference
+All endpoints are available under `/api/v1/sales/*`:
+* `GET /api/v1/sales/summary` — Aggregate sales KPIs (revenue, volume, ATV, success rate).
+* `GET /api/v1/sales/trends` — Daily time series for charts.
+* `GET /api/v1/sales/comparison` — Period-over-period comparison (default 14 days).
+* `GET /api/v1/sales/day-of-week` — Performance across Monday through Sunday.
+* `GET /api/v1/sales/hourly` — Hourly (0–23) breakdown and 4 operational windows.
+* `GET /api/v1/sales/weekend` — Weekday vs weekend metrics and performance ratio.
+* `GET /api/v1/sales/insights` — Structured deterministic observations.
+
+Query Parameters supported: `merchant_id` (defaults to `demo-merchant-001`), `start_date` (YYYY-MM-DD), `end_date` (YYYY-MM-DD), `current_days` (default 14).
+
+### Example Request & Response
+```bash
+# Get sales summary for demo merchant
+curl http://127.0.0.1:8000/api/v1/sales/summary
+```
+```json
+{
+  "merchant_id": "demo-merchant-001",
+  "total_revenue": 1690173.23,
+  "total_transactions": 2934,
+  "average_transaction_value": 588.71,
+  "minimum_transaction_value": 50.08,
+  "maximum_transaction_value": 3196.81,
+  "successful_transactions": 2871,
+  "failed_transactions": 63,
+  "success_rate": 97.85,
+  "start_date": "2026-06-20",
+  "end_date": "2026-09-17"
+}
+```
+
+### Deterministic Insight Generation
+Insights are generated using deterministic mathematical rules:
+* **Severity Thresholds:** Critical (drop $\ge 20\%$), Warning (drop $\ge 10\%$), Moderate (drop $\ge 5\%$), Positive (growth $\ge 10\%$).
+* **Driver Attribution:** Compares transaction volume change % against average basket size change % to classify decline as `volume_driven` (footfall decline), `basket_driven` (lower ticket sizes), or `volume_and_basket_driven`.
+* **Zero-Hallucination:** 100% grounded in transactional calculations; no stochastic models or generative AI used in the metrics calculation layer.
+
+---
+
+## 7. Accounting & Advisory Safety Notice
 
 MerchantMind is an AI business copilot that organizes, analyzes, and explains merchant records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.

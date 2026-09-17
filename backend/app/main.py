@@ -66,6 +66,8 @@ app.add_middleware(
 
 # --- Centralized Exception Handlers ---
 
+from fastapi.encoders import jsonable_encoder
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
     """Handle request validation errors with clean structured response."""
@@ -76,9 +78,10 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             success=False,
             error_code="VALIDATION_ERROR",
             message="Invalid request payload or parameters",
-            details=exc.errors()
+            details=jsonable_encoder(exc.errors())
         ).model_dump()
     )
+
 
 
 @app.exception_handler(StarletteHTTPException)

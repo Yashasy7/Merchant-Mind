@@ -456,8 +456,142 @@ curl "http://127.0.0.1:8000/api/v1/growth/recommendations?merchant_id=demo-merch
 
 ---
 
-## 9. Accounting & Advisory Safety Notice
+## 9. What-if Simulator (Module 5)
+
+### Purpose
+The What-if Simulator is a deterministic promotional modeling engine that allows merchants to simulate, evaluate, and compare hypothetical promotional strategies (No Offer, Percentage Discounts, Fixed Cashback, or Custom Incentives) against their real historical transaction baseline before launching a campaign.
+
+```text
+GROWTH RECOMMENDATION / MERCHANT HYPOTHESIS
+                    ↓
+           HISTORICAL BASELINE (Sales + Customers)
+                    ↓
+       DETERMINISTIC SIMULATION ENGINE
+ (Uplift Model + Eligibility + Incentive Costing)
+                    ↓
+   MULTI-SCENARIO STRATEGY COMPARISON
+ (Net Incremental Revenue + Estimated ROI)
+                    ↓
+   [FUTURE: CAMPAIGN APPROVAL & SIMULATED EXECUTION]
+```
+
+> ⚠️ **CRITICAL DISCLAIMER:** All simulation projections and scenario figures are strictly **Synthetic / Illustrative Demo Projections** calculated using deterministic demand elasticity assumptions. They are **never** represented as guaranteed forecasts or real Paytm campaign predictions. No external or production Paytm campaign APIs are invoked.
+
+### Supported Scenario Types
+1. **`no_offer` (Status Quo Baseline):** Evaluates expected transactions and revenue without marketing spend (0% discount, ₹0 incentive cost, 0 incremental impact, ROI = N/A).
+2. **`percentage_discount`:** Simulates across-the-board or segment-specific percentage discounts (e.g. 5%, 10%) with volume uplift and merchant margin impact.
+3. **`fixed_cashback`:** Models flat Paytm cashback per qualifying order (e.g. ₹50 cashback on baskets exceeding ₹200).
+4. **`custom`:** User-defined promotional configuration supporting custom uplift assumptions and eligibility rates.
+
+### Mathematical Projection Formulas
+* **Baseline Order Value (ATV):**
+  $$\text{ATV}_0 = \frac{\text{Baseline Revenue}_0}{\text{Baseline Transactions}_0}$$
+* **Projected Order Volume:**
+  $$\text{Incremental Transactions} = \text{round}\left(\text{Baseline Transactions}_0 \times \frac{\text{Uplift \%}}{100}\right)$$
+  $$\text{Projected Transactions} = \text{Baseline Transactions}_0 + \text{Incremental Transactions}$$
+* **Gross Projected GMV:**
+  $$\text{Gross Projected Revenue} = \text{Projected Transactions} \times \text{ATV}_0$$
+* **Incentive Cost:**
+  * *For Percentage Discount:*
+    $$\text{Eligible Revenue} = \text{Gross Projected Revenue} \times \frac{\text{Participation Rate \%}}{100}$$
+    $$\text{Incentive Cost} = \text{Eligible Revenue} \times \frac{\text{Discount \%}}{100}$$
+  * *For Fixed Cashback:*
+    $$\text{Eligible Transactions} = \text{Projected Transactions} \times \frac{\text{Participation Rate \%}}{100}$$
+    $$\text{Incentive Cost} = \text{Eligible Transactions} \times \text{Cashback Amount}$$
+* **Incremental Revenue & Net Impact:**
+  $$\text{Gross Incremental Revenue} = \text{Gross Projected Revenue} - \text{Baseline Revenue}_0$$
+  $$\text{Net Incremental Impact} = \text{Gross Incremental Revenue} - \text{Incentive Cost}$$
+* **Estimated ROI:**
+  $$\text{ROI} = \frac{\text{Net Incremental Impact}}{\text{Incentive Cost}} \quad (\text{finite float multiplier, e.g. } 2.4\text{x}; \text{ null when Cost} = 0)$$
+
+### Recommended Scenario Selection
+The simulator evaluates all promotional strategies and deterministically selects the top outcome using a multi-key sorting priority:
+1. **Highest Net Incremental Impact** (maximum monetary gain after subtracting incentive costs).
+2. **Highest Estimated ROI** (capital efficiency tie-breaker).
+3. **Lowest Incentive Cost** (budget risk tie-breaker).
+4. **Scenario ID** (lexicographical tie-breaker).
+
+### Endpoint Reference
+Available under `/api/v1/what-if/*` with aliases at `/api/what-if/*` and `/api/campaign/*`:
+* `GET /api/v1/what-if/baseline` — Calculates historical merchant baseline (revenue, txns, ATV) with optional segment, weekend, or hour filters.
+* `POST /api/v1/what-if/simulate` — Simulates a single custom promotional strategy.
+* `POST /api/v1/what-if/compare` — Simulates and compares standard promotional strategies (No Offer, 5% Discount, 10% Discount, ₹50 Cashback).
+* `GET /api/v1/what-if/scenarios` — Convenience GET endpoint retrieving the standard comparison table.
+
+### Example Request & Response
+```bash
+# Compare standard promotional strategies for demo merchant
+curl -X POST "http://127.0.0.1:8000/api/v1/what-if/compare" \
+     -H "Content-Type: application/json" \
+     -d '{"merchant_id": "demo-merchant-001"}'
+```
+```json
+{
+  "merchant_id": "demo-merchant-001",
+  "status": "success",
+  "target_segment": "All Customers",
+  "target_segment_size": 250,
+  "baseline": {
+    "merchant_id": "demo-merchant-001",
+    "has_sufficient_data": true,
+    "baseline_window": "Last 30 days transactions",
+    "target_segment": "All Customers",
+    "baseline_revenue": 1690173.23,
+    "baseline_transactions": 2871,
+    "baseline_average_order_value": 588.71,
+    "is_demo_projection": true
+  },
+  "scenarios": [
+    {
+      "scenario_id": "scenario-no-offer",
+      "scenario_name": "No Offer (Baseline)",
+      "scenario_type": "no_offer",
+      "projected_revenue": 1690173.23,
+      "projected_transactions": 2871,
+      "estimated_incentive_cost": 0.0,
+      "gross_incremental_revenue": 0.0,
+      "net_incremental_impact": 0.0,
+      "estimated_roi": null,
+      "roi_multiplier_label": "N/A"
+    },
+    {
+      "scenario_id": "scenario-5pct-discount",
+      "scenario_name": "5% Discount",
+      "scenario_type": "percentage_discount",
+      "projected_revenue": 1861303.8,
+      "projected_transactions": 3302,
+      "estimated_incentive_cost": 82616.62,
+      "gross_incremental_revenue": 253747.19,
+      "net_incremental_impact": 171130.57,
+      "estimated_roi": 2.07,
+      "roi_multiplier_label": "2.1x"
+    },
+    {
+      "scenario_id": "scenario-50-cashback",
+      "scenario_name": "₹50 Cashback",
+      "scenario_type": "fixed_cashback",
+      "projected_revenue": 2197065.72,
+      "projected_transactions": 3732,
+      "estimated_incentive_cost": 149280.0,
+      "gross_incremental_revenue": 506892.49,
+      "net_incremental_impact": 357612.49,
+      "estimated_roi": 2.4,
+      "roi_multiplier_label": "2.4x"
+    }
+  ],
+  "recommended_scenario_id": "scenario-50-cashback",
+  "recommended_scenario_name": "₹50 Cashback",
+  "recommendation_reason": "Highest estimated net incremental impact among simulated strategies: generates ₹357,612.49 in net economic gain over baseline at an estimated 2.4x ROI.",
+  "is_demo_projection": true,
+  "data_type": "SYNTHETIC_DEMO"
+}
+```
+
+---
+
+## 10. Accounting & Advisory Safety Notice
 
 MerchantMind is an AI business copilot that organizes, analyzes, and explains merchant records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.
+
 
 

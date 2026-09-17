@@ -46,6 +46,14 @@ from app.schemas.growth import (
     GrowthOpportunitiesResponse,
     GrowthSummaryResponse,
 )
+from app.schemas.what_if import (
+    ScenarioAssumptions,
+    SimulationScenario,
+    SimulationBaselineResponse,
+    SimulationRequest,
+    WhatIfCompareRequest,
+    WhatIfComparisonResponse,
+)
 
 __all__ = [
     "HealthResponse",
@@ -90,4 +98,11 @@ __all__ = [
     "GrowthRecommendationsResponse",
     "GrowthOpportunitiesResponse",
     "GrowthSummaryResponse",
+    "ScenarioAssumptions",
+    "SimulationScenario",
+    "SimulationBaselineResponse",
+    "SimulationRequest",
+    "WhatIfCompareRequest",
+    "WhatIfComparisonResponse",
 ]
+

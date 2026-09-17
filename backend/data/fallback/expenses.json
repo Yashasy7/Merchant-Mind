@@ -1,0 +1,218 @@
+[
+  {
+    "expense_id": "exp-001-0001",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-06-28",
+    "category": "Inventory",
+    "amount": 29965.37,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 1"
+  },
+  {
+    "expense_id": "exp-001-0002",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-05",
+    "category": "Inventory",
+    "amount": 31465.13,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 2"
+  },
+  {
+    "expense_id": "exp-001-0003",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-12",
+    "category": "Inventory",
+    "amount": 29684.42,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 3"
+  },
+  {
+    "expense_id": "exp-001-0004",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-19",
+    "category": "Inventory",
+    "amount": 31878.63,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 4"
+  },
+  {
+    "expense_id": "exp-001-0005",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-01",
+    "category": "Rent",
+    "amount": 35000.0,
+    "vendor": "Commercial Property Landlord",
+    "notes": "Storefront premises monthly lease"
+  },
+  {
+    "expense_id": "exp-001-0006",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-05",
+    "category": "Salaries",
+    "amount": 45000.0,
+    "vendor": "Store Helpers & Cashier (2 staff)",
+    "notes": "Monthly payroll"
+  },
+  {
+    "expense_id": "exp-001-0007",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-12",
+    "category": "Utilities",
+    "amount": 15500.0,
+    "vendor": "BESCOM (Bangalore Electricity)",
+    "notes": "Store refrigeration & air conditioning electricity bill"
+  },
+  {
+    "expense_id": "exp-001-0008",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-18",
+    "category": "Packaging & Misc",
+    "amount": 4025.5,
+    "vendor": "Krishna Packaging Supplies",
+    "notes": "Carry bags, thermal billing rolls, sanitization"
+  },
+  {
+    "expense_id": "exp-001-0009",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-07-28",
+    "category": "Inventory",
+    "amount": 28046.1,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 1"
+  },
+  {
+    "expense_id": "exp-001-0010",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-04",
+    "category": "Inventory",
+    "amount": 28263.1,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 2"
+  },
+  {
+    "expense_id": "exp-001-0011",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-11",
+    "category": "Inventory",
+    "amount": 29063.58,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 3"
+  },
+  {
+    "expense_id": "exp-001-0012",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-18",
+    "category": "Inventory",
+    "amount": 31673.63,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 4"
+  },
+  {
+    "expense_id": "exp-001-0013",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-01",
+    "category": "Rent",
+    "amount": 35000.0,
+    "vendor": "Commercial Property Landlord",
+    "notes": "Storefront premises monthly lease"
+  },
+  {
+    "expense_id": "exp-001-0014",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-05",
+    "category": "Salaries",
+    "amount": 45000.0,
+    "vendor": "Store Helpers & Cashier (2 staff)",
+    "notes": "Monthly payroll"
+  },
+  {
+    "expense_id": "exp-001-0015",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-12",
+    "category": "Utilities",
+    "amount": 15500.0,
+    "vendor": "BESCOM (Bangalore Electricity)",
+    "notes": "Store refrigeration & air conditioning electricity bill"
+  },
+  {
+    "expense_id": "exp-001-0016",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-18",
+    "category": "Packaging & Misc",
+    "amount": 5594.37,
+    "vendor": "Krishna Packaging Supplies",
+    "notes": "Carry bags, thermal billing rolls, sanitization"
+  },
+  {
+    "expense_id": "exp-001-0017",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-08-27",
+    "category": "Inventory",
+    "amount": 28869.71,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 1"
+  },
+  {
+    "expense_id": "exp-001-0018",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-03",
+    "category": "Inventory",
+    "amount": 29319.84,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 2"
+  },
+  {
+    "expense_id": "exp-001-0019",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-10",
+    "category": "Inventory",
+    "amount": 30109.95,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 3"
+  },
+  {
+    "expense_id": "exp-001-0020",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-17",
+    "category": "Inventory",
+    "amount": 30947.85,
+    "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
+    "notes": "Weekly FMCG restocking batch 4"
+  },
+  {
+    "expense_id": "exp-001-0021",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-01",
+    "category": "Rent",
+    "amount": 35000.0,
+    "vendor": "Commercial Property Landlord",
+    "notes": "Storefront premises monthly lease"
+  },
+  {
+    "expense_id": "exp-001-0022",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-05",
+    "category": "Salaries",
+    "amount": 45000.0,
+    "vendor": "Store Helpers & Cashier (2 staff)",
+    "notes": "Monthly payroll"
+  },
+  {
+    "expense_id": "exp-001-0023",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-12",
+    "category": "Utilities",
+    "amount": 17850.0,
+    "vendor": "BESCOM (Bangalore Electricity)",
+    "notes": "Store refrigeration & air conditioning electricity bill"
+  },
+  {
+    "expense_id": "exp-001-0024",
+    "merchant_id": "demo-merchant-001",
+    "date": "2026-09-18",
+    "category": "Packaging & Misc",
+    "amount": 4896.75,
+    "vendor": "Krishna Packaging Supplies",
+    "notes": "Carry bags, thermal billing rolls, sanitization"
+  }
+]

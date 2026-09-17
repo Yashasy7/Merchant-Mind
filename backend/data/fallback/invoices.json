@@ -1,0 +1,56 @@
+[
+  {
+    "invoice_id": "inv-001-0001",
+    "merchant_id": "demo-merchant-001",
+    "vendor": "Metro Cash & Carry",
+    "amount": 32500.0,
+    "date": "2026-08-24",
+    "due_date": "2026-09-08",
+    "status": "paid"
+  },
+  {
+    "invoice_id": "inv-001-0002",
+    "merchant_id": "demo-merchant-001",
+    "vendor": "Hindustan Unilever Dist.",
+    "amount": 18400.0,
+    "date": "2026-09-02",
+    "due_date": "2026-09-17",
+    "status": "paid"
+  },
+  {
+    "invoice_id": "inv-001-0003",
+    "merchant_id": "demo-merchant-001",
+    "vendor": "ITC Agri-Business Hub",
+    "amount": 14200.0,
+    "date": "2026-09-02",
+    "due_date": "2026-09-17",
+    "status": "paid"
+  },
+  {
+    "invoice_id": "inv-001-0004",
+    "merchant_id": "demo-merchant-001",
+    "vendor": "Amul Dairy Supply",
+    "amount": 9800.0,
+    "date": "2026-08-07",
+    "due_date": "2026-08-22",
+    "status": "pending"
+  },
+  {
+    "invoice_id": "inv-001-0005",
+    "merchant_id": "demo-merchant-001",
+    "vendor": "Britannia Direct Wholesale",
+    "amount": 7600.0,
+    "date": "2026-08-09",
+    "due_date": "2026-08-24",
+    "status": "pending"
+  },
+  {
+    "invoice_id": "inv-001-0006",
+    "merchant_id": "demo-merchant-001",
+    "vendor": "Tata Consumer Products",
+    "amount": 12300.0,
+    "date": "2026-08-03",
+    "due_date": "2026-08-18",
+    "status": "paid"
+  }
+]

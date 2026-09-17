@@ -353,7 +353,111 @@ curl http://127.0.0.1:8000/api/v1/customers/cust-001-0001
 
 ---
 
-## 8. Accounting & Advisory Safety Notice
+## 8. Growth Recommendation Engine (Module 4)
+
+### Purpose
+The Growth Recommendation Engine deterministically combines Sales Intelligence (Module 2) and Customer Intelligence (Module 3) to identify business growth opportunities and generate prioritized, evidence-backed recommendations for the merchant.
+
+```text
+SALES INTELLIGENCE (Module 2)
+              +
+CUSTOMER INTELLIGENCE (Module 3)
+              ↓
+GROWTH OPPORTUNITY EVALUATION
+              ↓
+ACTIONABLE RECOMMENDATION (Module 4)
+              ↓
+[FUTURE: MERCHANT APPROVAL → SIMULATED EXECUTION]
+```
+
+> **Architectural Boundary:** Module 4 identifies opportunities and recommends strategic interventions. It does **not** execute campaigns, optimize discount budgets, or ask for merchant approval. Those capabilities belong to subsequent modules.
+
+### Supported Opportunity Types
+
+| Opportunity Type | Trigger Condition | Target Cohort | Strategic Objective | Priority |
+| :--- | :--- | :--- | :--- | :--- |
+| **`sales_decline_recovery`** | 14-day sales drop $\ge 5\%$ vs. prior period | At-Risk | Recover declining revenue | High / Medium |
+| **`at_risk_reengagement`** | Regulars absent for 22–45 days | At-Risk | Reactivate at-risk customers | High / Medium |
+| **`inactive_winback`** | $\ge 5$ customers absent for $> 45$ days | Inactive | Reactivate dormant customers | Medium |
+| **`vip_retention`** | VIP cohort generates $\ge 15\%$ of store revenue | VIP | Protect core revenue foundation | High |
+| **`weekend_growth`** | Weekend daily run-rate lags weekdays | All Customers | Close weekend sales gap | High / Medium |
+| **`time_of_day_opportunity`** | Slowest operational window $< 60\%$ of peak | All Customers | Increase off-peak footfall | Medium |
+| **`revenue_concentration_risk`** | Top 10% of customers generate $\ge 40\%$ of revenue | Loyal | Broaden high-value customer base | Medium |
+
+### Deterministic Priority & Confidence Scoring
+* **Priority Classification:**
+  * **`high`:** Immediate revenue protection or recovery (steep sales drops $\ge 15\%$, high VIP revenue exposure, substantial at-risk customer base).
+  * **`medium`:** Incremental growth and operational efficiency (dormant customer reactivation, off-peak day/hour stimulation, revenue diversification).
+  * **`low`:** Minor adjustments with limited short-term financial leverage.
+* **Evidence Confidence:**
+  * Categorized as `strong` ($0.85 - 0.95$), `moderate` ($0.70 - 0.80$), or `weak` ($< 0.70$) based strictly on underlying transaction sample size and magnitude of observed variances.
+  * Zero probabilistic or stochastic hallucination.
+
+### Endpoint Reference
+Available under `/api/v1/growth/*` with unversioned aliases at `/api/growth/*`:
+
+* `GET /api/v1/growth/recommendations` — Prioritized, evidence-backed growth recommendations. Supports optional filtering by `goal` and truncation via `limit`.
+* `GET /api/v1/growth/opportunities` — Listing of all identified opportunities ranked by priority.
+* `GET /api/v1/growth/summary` — Executive overview including total opportunities, revenue at risk, current sales trend, and the primary key recommendation.
+
+### Query Parameters
+| Parameter | Endpoints | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `merchant_id` | All | `demo-merchant-001` | Merchant identifier (enforces strict data isolation) |
+| `goal` | `/recommendations` | `all` | Filter by strategic intent: `revenue`, `retention`, `recovery`, `reactivation`, `weekend`, `frequency` |
+| `limit` | `/recommendations`, `/opportunities` | `None` / `10` | Maximum recommendations to return (1–50) |
+
+### Example Request & Response
+```bash
+# Fetch growth recommendations filtered by retention goal
+curl "http://127.0.0.1:8000/api/v1/growth/recommendations?merchant_id=demo-merchant-001&goal=retention"
+```
+```json
+{
+  "merchant_id": "demo-merchant-001",
+  "goal_filter": "retention",
+  "total_recommendations": 2,
+  "high_priority_count": 2,
+  "medium_priority_count": 0,
+  "low_priority_count": 0,
+  "recommendations": [
+    {
+      "recommendation_id": "rec-demo-mer-vip-retention",
+      "type": "vip_retention",
+      "title": "Protect and Nurture VIP Customer Relationships",
+      "description": "18 VIP customers generate 20.2% (₹328,567.74) of store revenue with an average spend of ₹18,253.76.",
+      "priority": "high",
+      "confidence": "strong",
+      "confidence_score": 0.95,
+      "target_segment": "VIP",
+      "objective": "protect VIP revenue",
+      "suggested_action": "Establish dedicated VIP perks, express billing, and personal previews for incoming seasonal merchandise.",
+      "rationale": "VIP customers represent your core financial foundation. Losing even a single VIP materially impairs monthly profitability.",
+      "estimated_scope": "18 VIP shoppers contributing ₹328,567.74",
+      "evidence": [
+        {
+          "metric_name": "vip_revenue_percentage",
+          "metric_value": 20.19,
+          "baseline_value": 15.0,
+          "threshold_applied": ">= 15.0% revenue share",
+          "context": "Disproportionate revenue contribution"
+        }
+      ],
+      "supporting_metrics": {
+        "vip_customer_count": 18.0,
+        "vip_total_revenue": 328567.74,
+        "vip_revenue_share_percentage": 20.19,
+        "vip_average_spend": 18253.76
+      }
+    }
+  ]
+}
+```
+
+---
+
+## 9. Accounting & Advisory Safety Notice
 
 MerchantMind is an AI business copilot that organizes, analyzes, and explains merchant records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.
+
 

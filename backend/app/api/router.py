@@ -6,6 +6,7 @@ from fastapi import APIRouter
 from app.api.v1.health import router as health_router
 from app.api.v1.sales import router as sales_router
 from app.api.v1.customers import router as customers_router
+from app.api.v1.growth import router as growth_router
 
 api_router = APIRouter()
 
@@ -20,8 +21,11 @@ api_router.include_router(sales_router, prefix="/sales", include_in_schema=False
 api_router.include_router(customers_router, prefix="/v1/customers")
 api_router.include_router(customers_router, prefix="/customers", include_in_schema=False)
 
+# Module 4 — Growth Recommendation Engine endpoints: /api/v1/growth/* and alias /api/growth/*
+api_router.include_router(growth_router, prefix="/v1/growth")
+api_router.include_router(growth_router, prefix="/growth", include_in_schema=False)
+
 # Note: Future modules will register their routers here:
-# api_router.include_router(growth_router, prefix="/growth", tags=["Growth AI"])
 # api_router.include_router(campaign_router, prefix="/campaign", tags=["Campaign Simulator"])
 # api_router.include_router(copilot_router, prefix="/copilot", tags=["AI Copilot"])
 # api_router.include_router(accounting_router, prefix="/accounting", tags=["AI Accountant"])

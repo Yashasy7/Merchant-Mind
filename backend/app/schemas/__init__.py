@@ -39,6 +39,13 @@ from app.schemas.sales import (
     SalesInsight,
     SalesInsightsResponse,
 )
+from app.schemas.growth import (
+    RecommendationEvidence,
+    RecommendationItem,
+    GrowthRecommendationsResponse,
+    GrowthOpportunitiesResponse,
+    GrowthSummaryResponse,
+)
 
 __all__ = [
     "HealthResponse",
@@ -78,4 +85,9 @@ __all__ = [
     "WeekendAnalysisResponse",
     "SalesInsight",
     "SalesInsightsResponse",
+    "RecommendationEvidence",
+    "RecommendationItem",
+    "GrowthRecommendationsResponse",
+    "GrowthOpportunitiesResponse",
+    "GrowthSummaryResponse",
 ]

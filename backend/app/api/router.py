@@ -10,6 +10,7 @@ from app.api.v1.growth import router as growth_router
 from app.api.v1.what_if import router as what_if_router
 from app.api.v1.campaigns import router as campaigns_router
 from app.api.v1.agent import router as agent_router
+from app.api.v1.accountant import router as accountant_router
 
 api_router = APIRouter()
 
@@ -40,6 +41,10 @@ api_router.include_router(campaigns_router, prefix="/campaigns", include_in_sche
 # Module 7 — AI Marketing / Campaign Agent endpoints: /api/v1/agent/* and alias /api/agent/*
 api_router.include_router(agent_router, prefix="/v1/agent")
 api_router.include_router(agent_router, prefix="/agent", include_in_schema=False)
+
+# Module 8 — AI Accountant endpoints: /api/v1/accountant/* and alias /api/accountant/*
+api_router.include_router(accountant_router, prefix="/v1/accountant")
+api_router.include_router(accountant_router, prefix="/accountant", include_in_schema=False)
 
 # Note: Future modules will register their routers here:
 # api_router.include_router(copilot_router, prefix="/copilot", tags=["AI Copilot"])

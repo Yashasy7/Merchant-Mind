@@ -379,9 +379,24 @@ class MarketingCampaignAgent:
             if rec_res.get("status") == "success":
                 recommendation_dict = rec_res["data"].get("top_recommendation")
 
+        elif intent.intent == "analyze_financials":
+            fin_res = self._invoke_tool("analyze_financials", {})
+            if fin_res.get("status") == "success":
+                data = fin_res.get("data", {})
+                pl_data = data.get("profit_loss", {})
+                exp_data = data.get("expenses", {})
+                insights.append(
+                    f"Net Operating Profit is ₹{pl_data.get('net_profit', 0.0):,.2f} "
+                    f"with {pl_data.get('operating_margin_pct', 0.0)}% operating margin."
+                )
+                if exp_data.get("top_category"):
+                    insights.append(f"Largest expense category is '{exp_data.get('top_category')}'.")
+                for anom in exp_data.get("anomalies", []):
+                    insights.append(anom.get("message"))
+
         else:
             # Guidance / unsupported
-            insights.append("Supported goals: increase weekend sales, recover inactive customers, simulate offers, create campaigns.")
+            insights.append("Supported goals: increase weekend sales, recover inactive customers, simulate offers, create campaigns, view financial P&L.")
 
         # 3. Generate response text
         if not response_text:

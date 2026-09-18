@@ -174,7 +174,18 @@ class DeterministicFallbackClient(BaseLLMClient):
                 parameters=params
             )
 
-        # 6. Business analysis / overview
+        # 6. Accounting & Financial analysis
+        if any(w in msg for w in ["profit", "expense", "expenses", "p&l", "accounting", "accountant", "finances", "financials", "how much did i spend", "income vs expense", "invoices", "vendor bills"]):
+            return MerchantIntent(
+                intent="analyze_financials",
+                objective="accounting",
+                target_segment="All Customers",
+                time_window=None,
+                requested_action="accounting",
+                parameters=params
+            )
+
+        # 7. Business analysis / overview
         if any(w in msg for w in ["how is my business", "how are sales", "analyze", "overview", "summary", "report", "insights"]):
             return MerchantIntent(
                 intent="analyze_business",
@@ -185,7 +196,7 @@ class DeterministicFallbackClient(BaseLLMClient):
                 parameters=params
             )
 
-        # 7. Default general guidance
+        # 8. Default general guidance
         return MerchantIntent(
             intent="general_guidance",
             objective="guidance",
@@ -232,6 +243,13 @@ class DeterministicFallbackClient(BaseLLMClient):
             return (
                 f"I have simulated this promotional scenario for **{intent.target_segment}** using Module 5 What-If Simulator. "
                 "Review the projected revenue, incremental transactions, and expected ROI below."
+            )
+
+        if intent.intent == "analyze_financials":
+            return (
+                "Here is your real-time financial health and P&L summary based on your transactions and expense records. "
+                "Review your revenue, operating expenses, net profit, and expense breakdown below. "
+                "Note: MerchantMind assists with financial organization and does not replace a Chartered Accountant (CA)."
             )
 
         if intent.intent == "analyze_business":

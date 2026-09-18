@@ -15,6 +15,7 @@ from app.services.customer_service import CustomerService
 from app.services.growth_service import GrowthRecommendationService
 from app.services.what_if_service import WhatIfSimulationService
 from app.services.campaign_service import CampaignService
+from app.services.accountant_service import AccountantService
 
 from app.schemas.what_if import SimulationRequest
 from app.schemas.campaign import (
@@ -37,6 +38,7 @@ ALLOWED_TOOLS = {
     "execute_campaign",
     "get_campaign_status",
     "get_campaign_result",
+    "analyze_financials",
 }
 
 
@@ -54,6 +56,7 @@ class ToolRegistry:
         self.growth_service = GrowthRecommendationService(db)
         self.what_if_service = WhatIfSimulationService(db)
         self.campaign_service = CampaignService(db)
+        self.accountant_service = AccountantService(db)
 
     def execute_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -368,6 +371,19 @@ class ToolRegistry:
         result = self.campaign_service.get_campaign_result(campaign_id=campaign_id, merchant_id=merchant_id)
         return result.model_dump()
 
+    def _tool_analyze_financials(
+        self,
+        merchant_id: str,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        **kwargs: Any
+    ) -> Dict[str, Any]:
+        """Module 8: Analyze profit & loss, expense categories, anomalies, and financial summary."""
+        s_date = date.fromisoformat(start_date) if start_date else None
+        e_date = date.fromisoformat(end_date) if end_date else None
+        summary = self.accountant_service.get_accountant_summary(merchant_id=merchant_id, start_date=s_date, end_date=e_date)
+        return summary.model_dump()
+
     @staticmethod
     def get_tool_catalog() -> List[AgentToolDefinition]:
         """Public schema catalog for all allowlisted tools."""
@@ -472,6 +488,15 @@ class ToolRegistry:
                 category="Campaign Management",
                 parameters=[
                     AgentToolParameter(name="campaign_id", type="string", description="Unique campaign ID", required=True),
+                ]
+            ),
+            AgentToolDefinition(
+                name="analyze_financials",
+                description="Analyze P&L, revenue, expenses, net profit, operating margin, and anomalies (Module 8).",
+                category="AI Accountant",
+                parameters=[
+                    AgentToolParameter(name="start_date", type="string", description="Optional start date (YYYY-MM-DD)", required=False),
+                    AgentToolParameter(name="end_date", type="string", description="Optional end date (YYYY-MM-DD)", required=False),
                 ]
             ),
         ]

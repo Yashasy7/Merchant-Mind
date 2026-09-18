@@ -84,6 +84,20 @@ from app.schemas.accountant import (
     FinancialInsightsResponse,
     AccountantSummaryResponse,
 )
+from app.schemas.forecast import (
+    FORECAST_DISCLAIMER,
+    ForecastPoint,
+    ForecastSummaryResponse,
+)
+from app.schemas.business_health import (
+    HEALTH_DISCLAIMER,
+    HealthDimension,
+    RiskInsight,
+    OpportunityInsight,
+    BusinessHealthResponse,
+    RiskListResponse,
+    OpportunityListResponse,
+)
 
 __all__ = [
     "HealthResponse",
@@ -160,4 +174,14 @@ __all__ = [
     "FinancialInsight",
     "FinancialInsightsResponse",
     "AccountantSummaryResponse",
+    "FORECAST_DISCLAIMER",
+    "ForecastPoint",
+    "ForecastSummaryResponse",
+    "HEALTH_DISCLAIMER",
+    "HealthDimension",
+    "RiskInsight",
+    "OpportunityInsight",
+    "BusinessHealthResponse",
+    "RiskListResponse",
+    "OpportunityListResponse",
 ]

@@ -11,6 +11,8 @@ from app.api.v1.what_if import router as what_if_router
 from app.api.v1.campaigns import router as campaigns_router
 from app.api.v1.agent import router as agent_router
 from app.api.v1.accountant import router as accountant_router
+from app.api.v1.forecast import router as forecast_router
+from app.api.v1.business_health import router as business_health_router
 
 api_router = APIRouter()
 
@@ -46,9 +48,12 @@ api_router.include_router(agent_router, prefix="/agent", include_in_schema=False
 api_router.include_router(accountant_router, prefix="/v1/accountant")
 api_router.include_router(accountant_router, prefix="/accountant", include_in_schema=False)
 
-# Note: Future modules will register their routers here:
-# api_router.include_router(copilot_router, prefix="/copilot", tags=["AI Copilot"])
-# api_router.include_router(accounting_router, prefix="/accounting", tags=["AI Accountant"])
-# api_router.include_router(forecast_router, prefix="/forecast", tags=["Forecasting"])
+# Module 9 — Forecasting endpoints: /api/v1/forecast/* and alias /api/forecast/*
+api_router.include_router(forecast_router, prefix="/v1/forecast")
+api_router.include_router(forecast_router, prefix="/forecast", include_in_schema=False)
+
+# Module 9 — Business Health endpoints: /api/v1/business-health/* and alias /api/business-health/*
+api_router.include_router(business_health_router, prefix="/v1/business-health")
+api_router.include_router(business_health_router, prefix="/business-health", include_in_schema=False)
 
 

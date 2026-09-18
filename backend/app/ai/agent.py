@@ -394,9 +394,35 @@ class MarketingCampaignAgent:
                 for anom in exp_data.get("anomalies", []):
                     insights.append(anom.get("message"))
 
+        elif intent.intent == "forecast_sales":
+            fc_res = self._invoke_tool("forecast_sales", {})
+            if fc_res.get("status") == "success":
+                data = fc_res.get("data", {})
+                insights.append(
+                    f"Projected next-month revenue is ₹{data.get('projected_revenue', 0.0):,.2f} "
+                    f"(Range: ₹{data.get('lower_bound', 0.0):,.2f} to ₹{data.get('upper_bound', 0.0):,.2f})."
+                )
+                insights.append(
+                    f"Historical baseline trend is {data.get('trend_direction', 'stable')} "
+                    f"({data.get('trend_factor_pct', 0.0):+0.2f}% momentum)."
+                )
+
+        elif intent.intent == "get_business_health":
+            bh_res = self._invoke_tool("get_business_health", {})
+            if bh_res.get("status") == "success":
+                data = bh_res.get("data", {})
+                insights.append(
+                    f"Overall Store Health Score is {data.get('overall_score', 0.0)}/100 "
+                    f"({str(data.get('overall_status', 'stable')).upper()})."
+                )
+                for r in data.get("risks", []):
+                    insights.append(f"Risk: {r.get('title')} — {r.get('description')}")
+                for o in data.get("opportunities", []):
+                    insights.append(f"Opportunity: {o.get('title')} — {o.get('description')}")
+
         else:
             # Guidance / unsupported
-            insights.append("Supported goals: increase weekend sales, recover inactive customers, simulate offers, create campaigns, view financial P&L.")
+            insights.append("Supported goals: increase weekend sales, recover inactive customers, simulate offers, create campaigns, view financial P&L, forecast revenue, assess business health.")
 
         # 3. Generate response text
         if not response_text:

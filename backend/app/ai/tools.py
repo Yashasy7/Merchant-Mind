@@ -16,6 +16,8 @@ from app.services.growth_service import GrowthRecommendationService
 from app.services.what_if_service import WhatIfSimulationService
 from app.services.campaign_service import CampaignService
 from app.services.accountant_service import AccountantService
+from app.services.forecast_service import ForecastService
+from app.services.business_health_service import BusinessHealthService
 
 from app.schemas.what_if import SimulationRequest
 from app.schemas.campaign import (
@@ -39,6 +41,8 @@ ALLOWED_TOOLS = {
     "get_campaign_status",
     "get_campaign_result",
     "analyze_financials",
+    "forecast_sales",
+    "get_business_health",
 }
 
 
@@ -57,6 +61,8 @@ class ToolRegistry:
         self.what_if_service = WhatIfSimulationService(db)
         self.campaign_service = CampaignService(db)
         self.accountant_service = AccountantService(db)
+        self.forecast_service = ForecastService(db)
+        self.business_health_service = BusinessHealthService(db)
 
     def execute_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -384,6 +390,32 @@ class ToolRegistry:
         summary = self.accountant_service.get_accountant_summary(merchant_id=merchant_id, start_date=s_date, end_date=e_date)
         return summary.model_dump()
 
+    def _tool_forecast_sales(
+        self,
+        merchant_id: str,
+        historical_days: int = 28,
+        horizon_days: int = 30,
+        **kwargs: Any
+    ) -> Dict[str, Any]:
+        """Module 9: Generate statistical revenue forecast and daily projections."""
+        h_days = int(historical_days) if historical_days else 28
+        hz_days = int(kwargs["days"]) if "days" in kwargs and kwargs["days"] else (int(horizon_days) if horizon_days else 30)
+        res = self.forecast_service.get_forecast_summary(
+            merchant_id=merchant_id,
+            historical_days=h_days,
+            horizon_days=hz_days,
+        )
+        return res.model_dump()
+
+    def _tool_get_business_health(
+        self,
+        merchant_id: str,
+        **kwargs: Any
+    ) -> Dict[str, Any]:
+        """Module 9: Evaluate composite business health score, risks, and growth opportunities."""
+        res = self.business_health_service.get_business_health(merchant_id=merchant_id)
+        return res.model_dump()
+
     @staticmethod
     def get_tool_catalog() -> List[AgentToolDefinition]:
         """Public schema catalog for all allowlisted tools."""
@@ -499,4 +531,20 @@ class ToolRegistry:
                     AgentToolParameter(name="end_date", type="string", description="Optional end date (YYYY-MM-DD)", required=False),
                 ]
             ),
+            AgentToolDefinition(
+                name="forecast_sales",
+                description="Generate statistical revenue forecast and daily projections for future horizons (Module 9).",
+                category="Forecasting",
+                parameters=[
+                    AgentToolParameter(name="historical_days", type="integer", description="Lookback window in days (default: 28)", required=False, default=28),
+                    AgentToolParameter(name="horizon_days", type="integer", description="Forecast horizon in days (default: 30)", required=False, default=30),
+                ]
+            ),
+            AgentToolDefinition(
+                name="get_business_health",
+                description="Evaluate composite store business health, dimension scores, warning risks, and growth opportunities (Module 9).",
+                category="Business Health",
+                parameters=[]
+            ),
         ]
+

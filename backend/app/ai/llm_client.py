@@ -185,7 +185,29 @@ class DeterministicFallbackClient(BaseLLMClient):
                 parameters=params
             )
 
-        # 7. Business analysis / overview
+        # 7. Forecasting
+        if any(w in msg for w in ["forecast", "predict", "prediction", "future sales", "projected revenue", "next month sales", "project sales"]):
+            return MerchantIntent(
+                intent="forecast_sales",
+                objective="forecasting",
+                target_segment="All Customers",
+                time_window=None,
+                requested_action="forecast",
+                parameters=params
+            )
+
+        # 8. Business health & risk assessment
+        if any(w in msg for w in ["business health", "is my business healthy", "store health", "health score", "warning signals", "business risks", "how healthy is my store"]):
+            return MerchantIntent(
+                intent="get_business_health",
+                objective="health",
+                target_segment="All Customers",
+                time_window=None,
+                requested_action="health",
+                parameters=params
+            )
+
+        # 9. Business analysis / overview
         if any(w in msg for w in ["how is my business", "how are sales", "analyze", "overview", "summary", "report", "insights"]):
             return MerchantIntent(
                 intent="analyze_business",
@@ -196,7 +218,7 @@ class DeterministicFallbackClient(BaseLLMClient):
                 parameters=params
             )
 
-        # 8. Default general guidance
+        # 10. Default general guidance
         return MerchantIntent(
             intent="general_guidance",
             objective="guidance",
@@ -252,6 +274,19 @@ class DeterministicFallbackClient(BaseLLMClient):
                 "Note: MerchantMind assists with financial organization and does not replace a Chartered Accountant (CA)."
             )
 
+        if intent.intent == "forecast_sales":
+            return (
+                "Here is your statistical sales projection based on a 4-week rolling baseline and recent momentum trends. "
+                "Review the projected revenue range, trend direction, and daily projections below. "
+                "Note: Projections are prototype statistical estimates based on synthetic demo records."
+            )
+
+        if intent.intent == "get_business_health":
+            return (
+                "Here is your composite business health evaluation across Revenue, Customer Retention, Profitability, Operations, and Growth. "
+                "Review your overall health score, detected warning risks, and actionable upside growth opportunities below."
+            )
+
         if intent.intent == "analyze_business":
             return (
                 "Here is your real-time business health summary based on transaction history and customer intelligence. "
@@ -262,6 +297,7 @@ class DeterministicFallbackClient(BaseLLMClient):
             "I am your Paytm MerchantMind AI Marketing Partner. You can ask me to analyze sales, find inactive customers, "
             "simulate promotional campaigns (e.g. 'Simulate a ₹50 cashback campaign for inactive customers'), or create weekend growth campaigns."
         )
+
 
     def generate_marketing_copy(
         self,

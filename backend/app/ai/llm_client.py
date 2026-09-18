@@ -208,7 +208,11 @@ class DeterministicFallbackClient(BaseLLMClient):
             )
 
         # 9. Business analysis / overview
-        if any(w in msg for w in ["how is my business", "how are sales", "analyze", "overview", "summary", "report", "insights"]):
+        if any(w in msg for w in [
+            "how is my business", "how are sales", "how are my sales", 
+            "sales trend", "best customers", "top customers",
+            "analyze", "overview", "summary", "report", "insights"
+        ]):
             return MerchantIntent(
                 intent="analyze_business",
                 objective="analysis",

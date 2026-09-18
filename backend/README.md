@@ -683,9 +683,97 @@ curl "http://127.0.0.1:8000/api/v1/campaigns/camp-a1b2c3d4e5f6/result?merchant_i
 
 ---
 
-## 11. Accounting & Advisory Safety Notice
+## 11. Module 7 — AI Marketing & Campaign Agent
 
-MerchantMind is an AI business copilot that organizes, analyzes, and explains merchant records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.
+The AI Marketing Copilot serves as the merchant's natural language conversational partner:
+* **Interactive Chat (`POST /api/v1/agent/chat`):** Multimodal conversational endpoint with intent detection, tool invocation, and grounded explanation.
+* **Intent Classifier (`POST /api/v1/agent/intent`):** Deterministic classification covering 10+ merchant intent categories (`analyze_business`, `increase_weekend_revenue`, `recover_inactive_customers`, `simulate_campaign`, `create_campaign`, `analyze_financials`, `forecast_sales`, `get_business_health`, `approve_campaign`, `execute_campaign`, `general_guidance`).
+* **Tool Catalog (`GET /api/v1/agent/tools`):** Safe allowlist of internal analytical and action tools.
+* **Human-in-the-Loop Safety:** The AI Agent is strictly prohibited from autonomously executing campaigns. All campaign creation actions yield `PENDING_APPROVAL` status requiring merchant consent.
 
+---
 
+## 12. Module 8 — AI Accountant & Financial Intelligence
 
+Automates merchant bookkeeping, ledger management, and expense monitoring:
+* **P&L Reporting (`GET /api/v1/accountant/profit-loss`):** Net operating profit, gross revenue, operating expense breakdown, and margin percentages.
+* **Expense Anomaly Detection (`GET /api/v1/accountant/expenses`):** Dynamic comparison against rolling historical baselines to flag cost surges.
+* **Expense Management (`POST /api/v1/accountant/expenses`, `GET /api/v1/accountant/expenses`):** Categorized expense logging (Inventory, Rent, Salaries, Utilities, Maintenance).
+* **Vendor Invoice Ledger (`GET /api/v1/accountant/invoices`):** Tracks pending vs. paid vendor liabilities.
+
+---
+
+## 13. Module 9 — Forecasting & Business Health Intelligence
+
+Predictive intelligence and diagnostic monitoring across the merchant's enterprise:
+* **Sales Revenue Forecasting (`GET /api/v1/forecast/sales`):** 4-week rolling baseline + momentum trend model with upper/lower bounds and weekday seasonality multipliers.
+* **Composite Business Health Index (`GET /api/v1/business-health`):** 5-pillar radar assessment:
+  1. *Revenue Health* (25% weight)
+  2. *Customer Retention* (25% weight)
+  3. *Profitability* (20% weight)
+  4. *Operational Efficiency* (15% weight)
+  5. *Growth Trajectory* (15% weight)
+* **Dimension Deep-Dive (`GET /api/v1/business-health/dimension/{dimension}`):** Granular metrics and warning indicators for individual pillars.
+
+---
+
+## 14. Module 10 — System Integration & End-to-End Testing
+
+Integrates all 9 intelligence modules into one cohesive, production-grade engine:
+* **End-to-End Integration Suite (`backend/tests/test_integration.py`):** 15 automated scenarios verifying cross-module linkages:
+  1. Sales $\to$ Growth Recommendations
+  2. Growth $\to$ What-If Simulation
+  3. What-If $\to$ Campaign Draft (`PENDING_APPROVAL`)
+  4. Human Approval Boundary Enforcement (HTTP 409 Conflict)
+  5. Immutable Campaign Audit Trail
+  6. AI Accountant $\to$ Business Health Profitability
+  7. Cross-Module Financial & Health Harmony
+  8. AI Copilot $\to$ Forecast Sales Tool Grounding
+  9. AI Copilot $\to$ Business Health Tool Grounding
+  10. AI Copilot $\to$ Financials Tool Grounding
+  11. AI Copilot $\to$ Campaign Draft Safety Gate
+  12. Multi-Merchant Isolation & Cross-Tenant Boundary Protection
+  13. Unknown Merchant Graceful Safety Handling (HTTP 404)
+  14. Deterministic AI Grounding & Calculation Consistency
+  15. System Fallback & Resilience Under Degradation
+
+### 4 Critical Demo Flows Verified
+1. **Flow #1 (Sales $\to$ Growth $\to$ Campaign):** Sales dip analysis $\to$ Growth lever $\to$ What-if simulation $\to$ Campaign creation in `PENDING_APPROVAL` $\to$ Merchant approval $\to$ Safe simulated execution $\to$ Audit log verification.
+2. **Flow #2 (P&L $\to$ Anomaly $\to$ AI Explanation):** Financial review $\to$ Expense surge identification $\to$ AI Copilot natural language breakdown.
+3. **Flow #3 (Predictive Sales Forecast):** AI Copilot query "Forecast my sales for the next 14 days" $\to$ Statistical projection $\to$ Seasonality factors.
+4. **Flow #4 (Holistic Diagnostic Health):** AI Copilot query "Is my business healthy?" $\to$ 5-dimension radar score calculation.
+
+---
+
+## 15. Running Backend Tests
+
+The complete backend test suite comprises **193 automated tests** across all modules:
+
+```bash
+# Run full test suite:
+pytest -q
+
+# Run dedicated integration suite:
+pytest tests/test_integration.py -v
+
+# Run module-specific test suites:
+pytest tests/test_sales.py -v
+pytest tests/test_customers.py -v
+pytest tests/test_growth.py -v
+pytest tests/test_simulator.py -v
+pytest tests/test_campaigns.py -v
+pytest tests/test_agent.py -v
+pytest tests/test_accountant.py -v
+pytest tests/test_forecast.py -v
+pytest tests/test_business_health.py -v
+```
+
+---
+
+## 16. Mandatory Synthetic Data & Advisory Notice
+
+> [!IMPORTANT]
+> **SYNTHETIC DEMONSTRATION DATA:** All data used and presented by this application is synthetic demonstration data generated programmatically (`is_demo_data: true`). It does **not** access, store, or represent real Paytm merchant or customer data.
+
+> [!NOTE]
+> **ACCOUNTING & ADVISORY NOTICE:** MerchantMind is an AI business partner that organizes, analyzes, and explains merchant business records and data trends. It does **not** replace a Chartered Accountant (CA) or certified tax professional, nor does it file statutory returns. All financial features provide bookkeeping assistance, trend explanations, and expense anomaly detection.

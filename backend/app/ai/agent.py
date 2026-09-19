@@ -5,7 +5,8 @@ Module 5 (Simulator), and Module 6 (Campaigns & Approvals).
 Strictly enforces human-in-the-loop lifecycle and deterministic financial boundaries.
 """
 
-from datetime import date, datetime, timezone
+import uuid
+from datetime import date, datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import OrderedDict
 from sqlalchemy.orm import Session
@@ -27,26 +28,50 @@ from app.schemas.what_if import SimulationScenario
 # Simple in-memory bounded cache for short conversation continuity (max 200 sessions)
 _CONVERSATION_CACHE: OrderedDict[str, Dict[str, Any]] = OrderedDict()
 MAX_CACHE_SIZE = 200
+MAX_HISTORY_MESSAGES = 10  # 5 user turns, 5 assistant turns
 MAX_TOOL_CALLS_PER_REQUEST = 8
 
 
-def get_conversation_context(conversation_id: Optional[str]) -> Dict[str, Any]:
-    """Retrieve short-term session context without storing raw PII."""
-    if not conversation_id or conversation_id not in _CONVERSATION_CACHE:
+def get_conversation_context(conversation_id: Optional[str], merchant_id: Optional[str] = None) -> Dict[str, Any]:
+    """Retrieve short-term session context with merchant tenant isolation."""
+    if not conversation_id:
         return {}
-    # Move to end for LRU order
-    _CONVERSATION_CACHE.move_to_end(conversation_id)
-    return dict(_CONVERSATION_CACHE[conversation_id])
+    cache_key = f"{merchant_id}:{conversation_id}" if merchant_id else conversation_id
+    if cache_key not in _CONVERSATION_CACHE:
+        if conversation_id in _CONVERSATION_CACHE:
+            cache_key = conversation_id
+        else:
+            return {}
+    _CONVERSATION_CACHE.move_to_end(cache_key)
+    return dict(_CONVERSATION_CACHE[cache_key])
 
 
-def update_conversation_context(conversation_id: Optional[str], context_update: Dict[str, Any]) -> None:
-    """Update short-term session state with size cap."""
+def update_conversation_context(
+    conversation_id: Optional[str],
+    context_update: Dict[str, Any],
+    merchant_id: Optional[str] = None,
+) -> None:
+    """Update short-term session state with bounded message history and tenant isolation."""
     if not conversation_id:
         return
-    current = _CONVERSATION_CACHE.get(conversation_id, {})
-    current.update(context_update)
-    _CONVERSATION_CACHE[conversation_id] = current
-    _CONVERSATION_CACHE.move_to_end(conversation_id)
+    cache_key = f"{merchant_id}:{conversation_id}" if merchant_id else conversation_id
+    current = _CONVERSATION_CACHE.get(cache_key, {})
+
+    # Merge message history if present
+    if "messages" in context_update:
+        existing_msgs = current.get("messages", [])
+        new_msgs = context_update["messages"]
+        merged = existing_msgs + new_msgs
+        current["messages"] = merged[-MAX_HISTORY_MESSAGES:]
+        other_updates = {k: v for k, v in context_update.items() if k != "messages"}
+        current.update(other_updates)
+    else:
+        current.update(context_update)
+        if "messages" in current:
+            current["messages"] = current["messages"][-MAX_HISTORY_MESSAGES:]
+
+    _CONVERSATION_CACHE[cache_key] = current
+    _CONVERSATION_CACHE.move_to_end(cache_key)
 
     while len(_CONVERSATION_CACHE) > MAX_CACHE_SIZE:
         _CONVERSATION_CACHE.popitem(last=False)
@@ -65,6 +90,7 @@ class MarketingCampaignAgent:
         self.tools = ToolRegistry(db, self.merchant_id)
         self.llm = llm_client or get_llm_client()
         self.actions_taken: List[AgentToolCall] = []
+        self.executed_tool_data: List[Dict[str, Any]] = []
         self._tool_call_count = 0
 
     def _invoke_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
@@ -106,6 +132,15 @@ class MarketingCampaignAgent:
                 result_summary=summary
             )
         )
+        self.executed_tool_data.append(
+            {
+                "tool_name": tool_name,
+                "arguments": {k: v for k, v in arguments.items() if k != "merchant_id"},
+                "status": res.get("status", "error"),
+                "result_summary": summary,
+                "data": res.get("data")
+            }
+        )
         return res
 
     def _normalize_intent(
@@ -129,6 +164,17 @@ class MarketingCampaignAgent:
                     f"via deterministic normalization safety net."
                 )
                 return fallback_intent
+        elif intent.intent in ("analyze_sales", "analyze_customers", "analyze_financials"):
+            from app.ai.llm_client import DeterministicFallbackClient
+            fallback_intent = DeterministicFallbackClient().parse_intent(message, session_context)
+            if fallback_intent.intent == intent.intent and fallback_intent.parameters:
+                if not intent.parameters:
+                    intent.parameters = {}
+                for k, v in fallback_intent.parameters.items():
+                    if k not in intent.parameters or not intent.parameters[k]:
+                        intent.parameters[k] = v
+            if fallback_intent.target_segment and not intent.target_segment:
+                intent.target_segment = fallback_intent.target_segment
 
         return intent
 
@@ -139,10 +185,11 @@ class MarketingCampaignAgent:
         constructs campaign proposal, simulates impact, and stops at PENDING_APPROVAL.
         """
         self.actions_taken.clear()
+        self.executed_tool_data.clear()
         self._tool_call_count = 0
 
-        conv_id = request.conversation_id
-        session_context = get_conversation_context(conv_id)
+        conv_id = request.conversation_id or f"conv-{uuid.uuid4().hex[:12]}"
+        session_context = get_conversation_context(conv_id, merchant_id=self.merchant_id)
         if request.context:
             session_context.update(request.context)
 
@@ -432,7 +479,7 @@ class MarketingCampaignAgent:
             period_label = "recent period"
 
             msg_lower = request.message.lower()
-            if period == "this_month" or "this month" in msg_lower or "month" in msg_lower:
+            if period == "this_month" or "this month" in msg_lower or ("month" in msg_lower and "last" not in msg_lower and "prev" not in msg_lower):
                 all_df = self.tools.sales_service.repo.get_transactions_df(merchant_id=self.merchant_id, status="success")
                 if not all_df.empty:
                     ref_date = all_df["date"].max()
@@ -445,6 +492,19 @@ class MarketingCampaignAgent:
                 end_date_str = m_end.isoformat()
                 period_days = max((m_end - m_start).days + 1, 1)
                 period_label = f"this month ({m_start.strftime('%B %Y')})"
+            elif period == "last_month" or "last month" in msg_lower or "previous month" in msg_lower or "prior month" in msg_lower:
+                all_df = self.tools.sales_service.repo.get_transactions_df(merchant_id=self.merchant_id, status="success")
+                if not all_df.empty:
+                    ref_date = all_df["date"].max()
+                else:
+                    ref_date = datetime.now(timezone.utc).date()
+                first_of_this_month = date(ref_date.year, ref_date.month, 1)
+                last_day_of_last_month = first_of_this_month - timedelta(days=1)
+                first_day_of_last_month = date(last_day_of_last_month.year, last_day_of_last_month.month, 1)
+                start_date_str = first_day_of_last_month.isoformat()
+                end_date_str = last_day_of_last_month.isoformat()
+                period_days = (last_day_of_last_month - first_day_of_last_month).days + 1
+                period_label = f"last month ({first_day_of_last_month.strftime('%B %Y')})"
             elif "today" in msg_lower:
                 all_df = self.tools.sales_service.repo.get_transactions_df(merchant_id=self.merchant_id, status="success")
                 ref_date = all_df["date"].max() if not all_df.empty else datetime.now(timezone.utc).date()
@@ -475,6 +535,7 @@ class MarketingCampaignAgent:
                 sr = summary.get("success_rate", 100.0)
 
                 session_context["sales_summary"] = summary
+                session_context["comparison"] = comp
                 session_context["period_label"] = period_label
 
                 insights.append(
@@ -500,7 +561,11 @@ class MarketingCampaignAgent:
                     session_context["growth_recommendations"] = rec_res["data"].get("recommendations", [])
 
         elif intent.intent == "analyze_customers":
-            target_seg = intent.target_segment if intent.target_segment in ["Inactive", "At-Risk"] else ("At-Risk" if "at-risk" in request.message.lower() or "at risk" in request.message.lower() else "Inactive")
+            target_seg = intent.target_segment if intent.target_segment in ["VIP", "Loyal", "At-Risk", "Inactive"] else (
+                "VIP" if (intent.parameters and intent.parameters.get("focus") == "best_customers") or any(w in request.message.lower() for w in ["vip", "best", "top"])
+                else ("At-Risk" if "at-risk" in request.message.lower() or "at risk" in request.message.lower()
+                else "Inactive")
+            )
             cust_res = self._invoke_tool("analyze_customers", {})
             if cust_res.get("status") == "success":
                 session_context["customer_summary"] = cust_res["data"].get("summary")
@@ -509,7 +574,10 @@ class MarketingCampaignAgent:
             target_res = self._invoke_tool("get_target_customers", {"segment": target_seg, "limit": 10})
             if target_res.get("status") == "success":
                 cnt = target_res["data"].get("total_count", 0)
-                insights.append(f"Identified {cnt} {target_seg} customers available for reactivation.")
+                if target_seg in ["VIP", "Loyal"]:
+                    insights.append(f"Identified {cnt} top-tier {target_seg} customers contributing significant store revenue.")
+                else:
+                    insights.append(f"Identified {cnt} {target_seg} customers available for reactivation.")
 
         elif intent.intent in ("get_growth_recommendations", "analyze_business"):
             sales_res = self._invoke_tool("analyze_sales", {"period_days": 14})
@@ -541,6 +609,18 @@ class MarketingCampaignAgent:
                     insights.append(f"Largest expense category is '{exp_data.get('top_category')}'.")
                 for anom in exp_data.get("anomalies", []):
                     insights.append(anom.get("message"))
+
+        elif intent.intent == "analyze_cash_flow":
+            cf_res = self._invoke_tool("analyze_cash_flow", {})
+            if cf_res.get("status") == "success":
+                data = cf_res.get("data", {})
+                session_context["cash_flow"] = data
+                inflow = data.get("total_cash_inflow", 0.0)
+                outflow = data.get("total_cash_outflow", 0.0)
+                net_cf = data.get("net_cash_flow", 0.0)
+                insights.append(
+                    f"Net Cash Flow is ₹{net_cf:,.2f} (Total Inflows: ₹{inflow:,.2f}, Total Outflows: ₹{outflow:,.2f})."
+                )
 
         elif intent.intent == "forecast_sales":
             fc_res = self._invoke_tool("forecast_sales", {})
@@ -574,25 +654,55 @@ class MarketingCampaignAgent:
 
         # 3. Generate response text
         if not response_text:
-            tool_results_summary = [a.model_dump() for a in self.actions_taken]
+            tool_results = self.executed_tool_data
             try:
-                response_text = self.llm.generate_response(request.message, intent, tool_results_summary, session_context)
+                response_text = self.llm.generate_response(request.message, intent, tool_results, session_context)
             except Exception as e:
                 logger.warning(f"LLM generate_response failed ({e}). Using deterministic fallback generator.")
                 from app.ai.llm_client import DeterministicFallbackClient
-                response_text = DeterministicFallbackClient().generate_response(request.message, intent, tool_results_summary, session_context)
+                response_text = DeterministicFallbackClient().generate_response(request.message, intent, tool_results, session_context)
 
 
         # 4. Update short-term session continuity
+        topic = "guidance"
+        if intent.intent == "analyze_sales":
+            topic = "decline" if (intent.parameters and intent.parameters.get("focus") == "decline") else "sales"
+        elif intent.intent in ("get_growth_recommendations", "analyze_business"):
+            topic = "growth_recommendations"
+        elif intent.intent == "analyze_customers":
+            topic = "customer_intelligence"
+        elif intent.intent in ("increase_weekend_revenue", "recover_inactive_customers", "create_campaign"):
+            topic = "campaign"
+        elif intent.intent == "analyze_financials":
+            topic = "financials"
+        elif intent.intent == "analyze_cash_flow":
+            topic = "cash_flow"
+
+        user_entry = {"role": "user", "content": request.message}
+        assistant_entry = {"role": "assistant", "content": response_text}
+
         context_update: Dict[str, Any] = {
+            "messages": [user_entry, assistant_entry],
             "last_intent": intent.intent,
+            "last_topic": topic,
             "target_segment": intent.target_segment,
         }
+        if intent.parameters.get("focus"):
+            context_update["last_focus"] = intent.parameters["focus"]
         if campaign_id:
             context_update["campaign_id"] = campaign_id
         if status_str:
             context_update["status"] = status_str
-        update_conversation_context(conv_id, context_update)
+        if recommendation_dict:
+            context_update["last_recommendation"] = recommendation_dict
+        if session_context.get("sales_summary"):
+            context_update["sales_summary"] = session_context["sales_summary"]
+        if session_context.get("growth_recommendations"):
+            context_update["growth_recommendations"] = session_context["growth_recommendations"]
+        if session_context.get("comparison"):
+            context_update["comparison"] = session_context["comparison"]
+
+        update_conversation_context(conv_id, context_update, merchant_id=self.merchant_id)
 
         # 5. Persist useful business context to Cognee memory (best-effort, non-blocking)
         try:
@@ -641,4 +751,5 @@ class MarketingCampaignAgent:
             campaign_id=campaign_id,
             status=status_str,
             execution_result=execution_result_obj,
+            conversation_id=conv_id,
         )

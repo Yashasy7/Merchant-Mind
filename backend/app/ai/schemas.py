@@ -54,6 +54,7 @@ class AgentChatResponse(BaseModel):
     campaign_id: Optional[str] = Field(None, description="ID of campaign currently in workflow")
     status: Optional[str] = Field(None, description="Current campaign status, e.g. PENDING_APPROVAL, APPROVED, COMPLETED")
     execution_result: Optional[CampaignResultResponse] = Field(None, description="Module 6 Campaign result if executed")
+    conversation_id: Optional[str] = Field(None, description="Active conversation session ID")
     disclaimer: str = Field(
         default=(
             "Synthetic Demo / Decision Support — All financial projections and campaign execution are "

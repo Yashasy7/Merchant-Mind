@@ -441,7 +441,7 @@ const MOCK_FORECAST: ApiResponse<RevenueForecast> = {
 };
 
 // Copilot mock — returns a canned hero-query response
-const MOCK_COPILOT_RESPONSE: ApiResponse<CopilotChatResponse> = {
+export const MOCK_COPILOT_RESPONSE: ApiResponse<CopilotChatResponse> = {
   success: true,
   data: {
     message:
@@ -675,15 +675,69 @@ export async function getAtRiskCustomers(): Promise<ApiResponse<AtRiskData>> {
   }
 }
 
+function getDifferentiatedMockResponse(req: CopilotChatRequest): ApiResponse<CopilotChatResponse> {
+  const msg = (req.message || '').toLowerCase();
+  let text = '';
+  let intent = 'general_guidance';
+  let structured_data: any = undefined;
+
+  if (msg.includes('best customer') || msg.includes('top customer') || msg.includes('vip')) {
+    intent = 'analyze_customers';
+    text = 'Your store has **18 VIP customers** who represent your highest lifetime spend and frequency. Key top patrons include **Aarav Patel** (₹14,250.00), **Vikram Malhotra** (₹12,800.00), and **Neha Sharma** (₹11,400.00). We recommend loyalty rewards or personalized festive offers to maintain their high engagement.';
+  } else if (msg.includes('inactive')) {
+    intent = 'analyze_customers';
+    text = 'You currently have **126 inactive customers** who have not transacted at your store in the last 45+ days. Reactivating even 15–20% of this group via a targeted Paytm Soundbox or UPI cashback incentive could recover significant monthly revenue.';
+  } else if (msg.includes('at risk') || msg.includes('at-risk')) {
+    intent = 'analyze_customers';
+    text = 'You have **43 at-risk customers** showing decreased visit frequency over the last 30 days. Re-engaging them before they become fully inactive has a 3.2x higher return than reacquiring lapsed shoppers.';
+  } else if (msg.includes('expense') || msg.includes('cost')) {
+    intent = 'analyze_financials';
+    text = 'Your total operating expenses stand at **₹3,85,000.00**. Primary expense categories: Inventory/Procurement (**₹2,40,000.00**), Commercial Store Rent (**₹65,000.00**), and Staff Wages (**₹50,000.00**). Operating cost ratio is within normal parameters. Note: MerchantMind assists with financial organization and does not replace a Chartered Accountant (CA).';
+  } else if (msg.includes('profit') || msg.includes('margin')) {
+    intent = 'analyze_financials';
+    text = "Your store's Operating Profit Margin is **23.0%**. On net revenues of **₹5,00,000.00**, your net operating profit after all verified business expenses is **₹1,15,000.00**. Note: MerchantMind assists with financial organization and does not replace a Chartered Accountant (CA).";
+  } else if (msg.includes('transaction') || msg.includes('how many')) {
+    intent = 'analyze_sales';
+    text = 'For the last 14 days, your store recorded **1,040 successful transactions** generating **₹5,00,000.00** in total revenue (99.2% payment success rate).';
+  } else if (msg.includes('average transaction') || msg.includes('ticket') || msg.includes('atv')) {
+    intent = 'analyze_sales';
+    text = 'Your Average Transaction Value (ATV) is **₹480.77** across 1,040 transactions in the last 14 days. Weekend ATV averages ₹520.00, compared to ₹465.00 on weekdays.';
+  } else if (msg.includes('time') || msg.includes('hour') || msg.includes('peak')) {
+    intent = 'analyze_sales';
+    text = 'Peak sales occur during the **12:00 – 15:00** afternoon window, with highest hourly volume at **13:00 (1 PM)**. The weakest window is weekday evenings (18:00 – 21:00), showing a 31% footfall drop.';
+  } else if (msg.includes('forecast') || msg.includes('project') || msg.includes('next month')) {
+    intent = 'forecast_sales';
+    text = 'Based on a 4-week rolling baseline and recent momentum (+2.4%, stable trend), your projected next-month revenue is **₹5,18,400.00** (Estimated Range: ₹4,85,000.00 to ₹5,52,000.00). Note: Projections are prototype statistical estimates based on synthetic demo records.';
+  } else if (msg.includes('why') || msg.includes('decline') || msg.includes('falling') || msg.includes('grow') || msg.includes('weekend')) {
+    intent = 'growth_recommendation';
+    text = "I've analyzed Sharma General Store's last 14 days of transaction data. Here's what I found:\n\n**Sales Decline Detected:** Your revenue is down **16%** compared to the prior 2-week period. The biggest drop is in weekday evenings — between 6 PM and 9 PM, you're seeing a **31% decline**.\n\n**Customer Insight:** You have **126 inactive customers** who haven't visited in over 45 days, and **43 at-risk customers** who are close to becoming inactive.\n\n**My Recommendation:** A targeted ₹50 cashback offer on ₹300+ transactions, running 6–9 PM on weekdays, could reactivate these customers during your weakest window. Projected uplift: +18–24% evening revenue.\n\nWould you like to see the What-if Simulator to compare strategies?";
+    structured_data = {
+      type: 'recommendation',
+      payload: MOCK_RECOMMENDATION.data,
+    };
+  } else {
+    intent = 'general_guidance';
+    text = 'Namaste! I am your Paytm MerchantMind AI Copilot. I can help analyze your sales trends, customer segments, profit & loss, operating expenses, or simulate targeted marketing campaigns. What would you like to explore?';
+  }
+
+  return {
+    success: true,
+    data: {
+      message: text,
+      conversation_id: req.conversation_id ?? 'conv-001',
+      intent_detected: intent,
+      structured_data,
+    },
+    meta: mockMeta(),
+  };
+}
+
 export async function postCopilotChat(
   req: CopilotChatRequest
 ): Promise<ApiResponse<CopilotChatResponse>> {
   if (MOCK_MODE) {
     await delay(1800); // simulate LLM latency
-    return {
-      ...MOCK_COPILOT_RESPONSE,
-      data: { ...MOCK_COPILOT_RESPONSE.data, conversation_id: req.conversation_id ?? 'conv-001' },
-    };
+    return getDifferentiatedMockResponse(req);
   }
   try {
     const agentRes = await apiFetch<any>('/api/v1/agent/chat', {
@@ -728,7 +782,7 @@ export async function postCopilotChat(
       success: true,
       data: {
         message: agentRes.message,
-        conversation_id: req.conversation_id ?? 'conv-hero-001',
+        conversation_id: agentRes.conversation_id || req.conversation_id || 'conv-hero-001',
         intent_detected: agentRes.intent?.intent || 'growth_recommendation',
         structured_data,
       },
@@ -736,9 +790,14 @@ export async function postCopilotChat(
     };
   } catch (err) {
     console.warn('Live postCopilotChat failed:', err);
+    const fallbackRes = getDifferentiatedMockResponse(req);
     return {
-      ...MOCK_COPILOT_RESPONSE,
-      data: { ...MOCK_COPILOT_RESPONSE.data, conversation_id: req.conversation_id ?? 'conv-001' },
+      ...fallbackRes,
+      data: {
+        ...fallbackRes.data,
+        message: `${fallbackRes.data.message}\n\n*(Note: Displaying offline response — live server connection could not be completed)*`,
+        conversation_id: req.conversation_id ?? 'conv-001',
+      },
     };
   }
 }

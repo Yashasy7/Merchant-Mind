@@ -41,6 +41,9 @@ ALLOWED_TOOLS = {
     "get_campaign_status",
     "get_campaign_result",
     "analyze_financials",
+    "analyze_cash_flow",
+    "get_expenses",
+    "get_campaign_history",
     "forecast_sales",
     "get_business_health",
 }
@@ -124,6 +127,10 @@ class ToolRegistry:
         comparison = self.sales_service.get_period_comparison(merchant_id=merchant_id, current_days=period_days)
         insights = self.sales_service.get_sales_insights(merchant_id=merchant_id, current_days=period_days)
         weekend = self.sales_service.get_weekend_analysis(merchant_id=merchant_id)
+        hourly = self.sales_service.get_hourly_analysis(merchant_id=merchant_id, start_date=s_date, end_date=e_date)
+
+        peak_win = max(hourly.time_windows, key=lambda w: w.revenue) if hourly.time_windows else None
+        weak_win = min(hourly.time_windows, key=lambda w: w.revenue) if hourly.time_windows else None
 
         return {
             "summary": {
@@ -142,6 +149,17 @@ class ToolRegistry:
                 "weekend_daily_avg": weekend.daily_avg_weekend_revenue,
                 "weekend_gap_ratio": weekend.weekend_to_weekday_revenue_ratio,
                 "weekend_drop_flag": weekend.is_weekend_underperforming,
+            },
+            "hourly": {
+                "peak_hour": hourly.peak_hour,
+                "lowest_hour": hourly.lowest_hour,
+                "peak_window": peak_win.window_name if peak_win else "Afternoon",
+                "peak_window_hours": peak_win.hours_range if peak_win else "12:00 - 17:00",
+                "peak_window_revenue": peak_win.revenue if peak_win else 0.0,
+                "peak_window_transactions": peak_win.transaction_count if peak_win else 0,
+                "weakest_window": weak_win.window_name if weak_win else "Night",
+                "weakest_window_hours": weak_win.hours_range if weak_win else "21:00 - 06:00",
+                "weakest_window_revenue": weak_win.revenue if weak_win else 0.0,
             },
             "insights": [ins.model_dump() for ins in insights.insights[:3]],
         }
@@ -390,6 +408,42 @@ class ToolRegistry:
         summary = self.accountant_service.get_accountant_summary(merchant_id=merchant_id, start_date=s_date, end_date=e_date)
         return summary.model_dump()
 
+    def _tool_analyze_cash_flow(
+        self,
+        merchant_id: str,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        **kwargs: Any
+    ) -> Dict[str, Any]:
+        """Module 8: Analyze cash inflows, outflows, net cash flow, settlements, and payables."""
+        s_date = date.fromisoformat(start_date) if start_date else None
+        e_date = date.fromisoformat(end_date) if end_date else None
+        res = self.accountant_service.get_cash_flow(merchant_id=merchant_id, start_date=s_date, end_date=e_date)
+        return res.model_dump()
+
+    def _tool_get_expenses(
+        self,
+        merchant_id: str,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        **kwargs: Any
+    ) -> Dict[str, Any]:
+        """Module 8: Analyze detailed operational expense categories and anomalies."""
+        s_date = date.fromisoformat(start_date) if start_date else None
+        e_date = date.fromisoformat(end_date) if end_date else None
+        res = self.accountant_service.get_expenses_breakdown(merchant_id=merchant_id, start_date=s_date, end_date=e_date)
+        return res.model_dump()
+
+    def _tool_get_campaign_history(
+        self,
+        merchant_id: str,
+        limit: int = 5,
+        **kwargs: Any
+    ) -> Dict[str, Any]:
+        """Module 6: Retrieve historical campaign performance and conversion records."""
+        res = self.campaign_service.list_campaigns(merchant_id=merchant_id, limit=limit)
+        return res.model_dump()
+
     def _tool_forecast_sales(
         self,
         merchant_id: str,
@@ -545,6 +599,32 @@ class ToolRegistry:
                 description="Evaluate composite store business health, dimension scores, warning risks, and growth opportunities (Module 9).",
                 category="Business Health",
                 parameters=[]
+            ),
+            AgentToolDefinition(
+                name="analyze_cash_flow",
+                description="Analyze cash inflows, outflows, operating cash flow, payment settlements, and pending/overdue payables (Module 8).",
+                category="AI Accountant",
+                parameters=[
+                    AgentToolParameter(name="start_date", type="string", description="Optional start date (YYYY-MM-DD)", required=False),
+                    AgentToolParameter(name="end_date", type="string", description="Optional end date (YYYY-MM-DD)", required=False),
+                ]
+            ),
+            AgentToolDefinition(
+                name="get_expenses",
+                description="Fetch breakdown of operational expenses by category, top expense driver, and detected spending anomalies (Module 8).",
+                category="AI Accountant",
+                parameters=[
+                    AgentToolParameter(name="start_date", type="string", description="Optional start date (YYYY-MM-DD)", required=False),
+                    AgentToolParameter(name="end_date", type="string", description="Optional end date (YYYY-MM-DD)", required=False),
+                ]
+            ),
+            AgentToolDefinition(
+                name="get_campaign_history",
+                description="Fetch historical promotional campaigns, their statuses, conversion counts, and delivered revenue (Module 6).",
+                category="Campaign Management",
+                parameters=[
+                    AgentToolParameter(name="limit", type="integer", description="Max number of past campaigns to retrieve (default: 5)", required=False, default=5),
+                ]
             ),
         ]
 

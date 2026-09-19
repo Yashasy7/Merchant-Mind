@@ -7,9 +7,9 @@
     "transaction_count": 22,
     "total_spend": 14901.74,
     "average_transaction": 677.35,
-    "last_transaction": "2026-09-16T07:47:52.124157+00:00",
+    "last_transaction": "2026-09-17T18:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-05-06T18:47:52.124157+00:00"
+    "created_at": "2026-05-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0002",
@@ -19,9 +19,9 @@
     "transaction_count": 17,
     "total_spend": 14842.29,
     "average_transaction": 873.08,
-    "last_transaction": "2026-09-12T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T19:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-06-06T18:47:52.124157+00:00"
+    "created_at": "2026-06-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0003",
@@ -31,9 +31,9 @@
     "transaction_count": 28,
     "total_spend": 14865.73,
     "average_transaction": 530.92,
-    "last_transaction": "2026-09-12T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T00:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-06-16T18:47:52.124157+00:00"
+    "created_at": "2026-06-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0004",
@@ -43,9 +43,9 @@
     "transaction_count": 23,
     "total_spend": 14021.23,
     "average_transaction": 609.62,
-    "last_transaction": "2026-09-14T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T03:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-05-03T18:47:52.124157+00:00"
+    "created_at": "2026-05-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0005",
@@ -55,9 +55,9 @@
     "transaction_count": 26,
     "total_spend": 19848.44,
     "average_transaction": 763.4,
-    "last_transaction": "2026-09-16T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-17T17:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2025-10-27T18:47:52.124157+00:00"
+    "created_at": "2025-10-29T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0006",
@@ -67,9 +67,9 @@
     "transaction_count": 17,
     "total_spend": 19176.53,
     "average_transaction": 1128.03,
-    "last_transaction": "2026-09-12T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T23:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-03-13T18:47:52.124157+00:00"
+    "created_at": "2026-03-15T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0007",
@@ -79,9 +79,9 @@
     "transaction_count": 22,
     "total_spend": 22049.89,
     "average_transaction": 1002.27,
-    "last_transaction": "2026-09-16T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-18T01:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-04-29T18:47:52.124157+00:00"
+    "created_at": "2026-05-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0008",
@@ -91,9 +91,9 @@
     "transaction_count": 26,
     "total_spend": 14114.5,
     "average_transaction": 542.87,
-    "last_transaction": "2026-09-14T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T01:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-02-03T18:47:52.124157+00:00"
+    "created_at": "2026-02-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0009",
@@ -103,9 +103,9 @@
     "transaction_count": 22,
     "total_spend": 14124.23,
     "average_transaction": 642.01,
-    "last_transaction": "2026-09-13T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T00:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-02-27T18:47:52.124157+00:00"
+    "created_at": "2026-03-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0010",
@@ -115,9 +115,9 @@
     "transaction_count": 16,
     "total_spend": 22465.6,
     "average_transaction": 1404.1,
-    "last_transaction": "2026-09-13T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T00:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-05-17T18:47:52.124157+00:00"
+    "created_at": "2026-05-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0011",
@@ -127,9 +127,9 @@
     "transaction_count": 30,
     "total_spend": 17143.21,
     "average_transaction": 571.44,
-    "last_transaction": "2026-09-13T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T02:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-02-04T18:47:52.124157+00:00"
+    "created_at": "2026-02-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0012",
@@ -139,9 +139,9 @@
     "transaction_count": 23,
     "total_spend": 21711.18,
     "average_transaction": 943.96,
-    "last_transaction": "2026-09-13T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T19:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2025-11-27T18:47:52.124157+00:00"
+    "created_at": "2025-11-29T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0013",
@@ -151,9 +151,9 @@
     "transaction_count": 30,
     "total_spend": 13181.82,
     "average_transaction": 439.39,
-    "last_transaction": "2026-09-16T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-18T03:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-04-02T18:47:52.124157+00:00"
+    "created_at": "2026-04-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0014",
@@ -163,9 +163,9 @@
     "transaction_count": 17,
     "total_spend": 17001.98,
     "average_transaction": 1000.12,
-    "last_transaction": "2026-09-12T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T21:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2025-09-22T18:47:52.124157+00:00"
+    "created_at": "2025-09-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0015",
@@ -175,9 +175,9 @@
     "transaction_count": 23,
     "total_spend": 21991.78,
     "average_transaction": 956.16,
-    "last_transaction": "2026-09-14T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T03:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-01-20T18:47:52.124157+00:00"
+    "created_at": "2026-01-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0016",
@@ -187,9 +187,9 @@
     "transaction_count": 15,
     "total_spend": 24399.61,
     "average_transaction": 1626.64,
-    "last_transaction": "2026-09-14T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T20:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-03-20T18:47:52.124157+00:00"
+    "created_at": "2026-03-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0017",
@@ -199,9 +199,9 @@
     "transaction_count": 24,
     "total_spend": 22941.7,
     "average_transaction": 955.9,
-    "last_transaction": "2026-09-12T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T19:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-03-10T18:47:52.124157+00:00"
+    "created_at": "2026-03-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0018",
@@ -211,9 +211,9 @@
     "transaction_count": 15,
     "total_spend": 19786.28,
     "average_transaction": 1319.09,
-    "last_transaction": "2026-09-13T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T04:34:36.392548+00:00",
     "segment": "VIP",
-    "created_at": "2026-04-23T18:47:52.124157+00:00"
+    "created_at": "2026-04-25T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0019",
@@ -223,9 +223,9 @@
     "transaction_count": 8,
     "total_spend": 6445.23,
     "average_transaction": 805.65,
-    "last_transaction": "2026-09-14T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T03:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-14T18:47:52.124157+00:00"
+    "created_at": "2025-10-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0020",
@@ -235,9 +235,9 @@
     "transaction_count": 18,
     "total_spend": 7851.69,
     "average_transaction": 436.2,
-    "last_transaction": "2026-09-07T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T02:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-04T18:47:52.124157+00:00"
+    "created_at": "2026-02-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0021",
@@ -247,9 +247,9 @@
     "transaction_count": 16,
     "total_spend": 9531.59,
     "average_transaction": 595.72,
-    "last_transaction": "2026-09-12T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T17:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-11T18:47:52.124157+00:00"
+    "created_at": "2026-01-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0022",
@@ -259,9 +259,9 @@
     "transaction_count": 16,
     "total_spend": 7708.92,
     "average_transaction": 481.81,
-    "last_transaction": "2026-09-12T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T01:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-18T18:47:52.124157+00:00"
+    "created_at": "2026-05-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0023",
@@ -271,9 +271,9 @@
     "transaction_count": 16,
     "total_spend": 6380.69,
     "average_transaction": 398.79,
-    "last_transaction": "2026-09-12T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-14T18:47:52.124157+00:00"
+    "created_at": "2026-05-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0024",
@@ -283,9 +283,9 @@
     "transaction_count": 8,
     "total_spend": 10157.81,
     "average_transaction": 1269.73,
-    "last_transaction": "2026-09-14T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T20:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-18T18:47:52.124157+00:00"
+    "created_at": "2026-02-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0025",
@@ -295,9 +295,9 @@
     "transaction_count": 16,
     "total_spend": 5793.87,
     "average_transaction": 362.12,
-    "last_transaction": "2026-09-08T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T01:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-20T18:47:52.124157+00:00"
+    "created_at": "2025-10-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0026",
@@ -307,9 +307,9 @@
     "transaction_count": 9,
     "total_spend": 8953.9,
     "average_transaction": 994.88,
-    "last_transaction": "2026-09-10T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-21T18:47:52.124157+00:00"
+    "created_at": "2025-11-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0027",
@@ -319,9 +319,9 @@
     "transaction_count": 18,
     "total_spend": 5590.51,
     "average_transaction": 310.58,
-    "last_transaction": "2026-09-09T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T17:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-12-28T18:47:52.124157+00:00"
+    "created_at": "2025-12-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0028",
@@ -331,9 +331,9 @@
     "transaction_count": 11,
     "total_spend": 8217.71,
     "average_transaction": 747.06,
-    "last_transaction": "2026-09-13T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-18T18:47:52.124157+00:00"
+    "created_at": "2026-03-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0029",
@@ -343,9 +343,9 @@
     "transaction_count": 9,
     "total_spend": 7658.78,
     "average_transaction": 850.98,
-    "last_transaction": "2026-09-07T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T03:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-25T18:47:52.124157+00:00"
+    "created_at": "2026-05-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0030",
@@ -355,9 +355,9 @@
     "transaction_count": 11,
     "total_spend": 5997.87,
     "average_transaction": 545.26,
-    "last_transaction": "2026-09-08T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-02T18:47:52.124157+00:00"
+    "created_at": "2026-03-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0031",
@@ -367,9 +367,9 @@
     "transaction_count": 14,
     "total_spend": 5012.93,
     "average_transaction": 358.07,
-    "last_transaction": "2026-09-09T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T00:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-30T18:47:52.124157+00:00"
+    "created_at": "2025-11-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0032",
@@ -379,9 +379,9 @@
     "transaction_count": 18,
     "total_spend": 9310.45,
     "average_transaction": 517.25,
-    "last_transaction": "2026-09-13T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T01:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-19T18:47:52.124157+00:00"
+    "created_at": "2026-01-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0033",
@@ -391,9 +391,9 @@
     "transaction_count": 16,
     "total_spend": 5365.75,
     "average_transaction": 335.36,
-    "last_transaction": "2026-09-10T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-25T18:47:52.124157+00:00"
+    "created_at": "2026-05-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0034",
@@ -403,9 +403,9 @@
     "transaction_count": 16,
     "total_spend": 5480.67,
     "average_transaction": 342.54,
-    "last_transaction": "2026-09-13T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T03:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-16T18:47:52.124157+00:00"
+    "created_at": "2026-05-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0035",
@@ -415,9 +415,9 @@
     "transaction_count": 17,
     "total_spend": 6477.29,
     "average_transaction": 381.02,
-    "last_transaction": "2026-09-15T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T19:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-09T18:47:52.124157+00:00"
+    "created_at": "2026-05-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0036",
@@ -427,9 +427,9 @@
     "transaction_count": 11,
     "total_spend": 9018.36,
     "average_transaction": 819.85,
-    "last_transaction": "2026-09-10T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T01:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-04T18:47:52.124157+00:00"
+    "created_at": "2026-02-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0037",
@@ -439,9 +439,9 @@
     "transaction_count": 12,
     "total_spend": 7743.35,
     "average_transaction": 645.28,
-    "last_transaction": "2026-09-14T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-28T18:47:52.124157+00:00"
+    "created_at": "2025-10-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0038",
@@ -451,9 +451,9 @@
     "transaction_count": 16,
     "total_spend": 6278.93,
     "average_transaction": 392.43,
-    "last_transaction": "2026-09-11T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T02:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-12-23T18:47:52.124157+00:00"
+    "created_at": "2025-12-25T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0039",
@@ -463,9 +463,9 @@
     "transaction_count": 12,
     "total_spend": 5946.48,
     "average_transaction": 495.54,
-    "last_transaction": "2026-09-07T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T17:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-16T18:47:52.124157+00:00"
+    "created_at": "2026-01-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0040",
@@ -475,9 +475,9 @@
     "transaction_count": 16,
     "total_spend": 6796.27,
     "average_transaction": 424.77,
-    "last_transaction": "2026-09-14T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T02:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-04T18:47:52.124157+00:00"
+    "created_at": "2026-02-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0041",
@@ -487,9 +487,9 @@
     "transaction_count": 10,
     "total_spend": 6634.09,
     "average_transaction": 663.41,
-    "last_transaction": "2026-09-12T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T17:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-12-26T18:47:52.124157+00:00"
+    "created_at": "2025-12-28T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0042",
@@ -499,9 +499,9 @@
     "transaction_count": 15,
     "total_spend": 6506.73,
     "average_transaction": 433.78,
-    "last_transaction": "2026-09-15T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-17T03:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-15T18:47:52.124157+00:00"
+    "created_at": "2025-11-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0043",
@@ -511,9 +511,9 @@
     "transaction_count": 13,
     "total_spend": 9626.72,
     "average_transaction": 740.52,
-    "last_transaction": "2026-09-11T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T02:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-05T18:47:52.124157+00:00"
+    "created_at": "2025-11-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0044",
@@ -523,9 +523,9 @@
     "transaction_count": 8,
     "total_spend": 5671.24,
     "average_transaction": 708.9,
-    "last_transaction": "2026-09-13T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T20:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-06-01T18:47:52.124157+00:00"
+    "created_at": "2026-06-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0045",
@@ -535,9 +535,9 @@
     "transaction_count": 10,
     "total_spend": 5250.97,
     "average_transaction": 525.1,
-    "last_transaction": "2026-09-10T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-12-18T18:47:52.124157+00:00"
+    "created_at": "2025-12-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0046",
@@ -547,9 +547,9 @@
     "transaction_count": 9,
     "total_spend": 7122.07,
     "average_transaction": 791.34,
-    "last_transaction": "2026-09-07T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-04-01T18:47:52.124157+00:00"
+    "created_at": "2026-04-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0047",
@@ -559,9 +559,9 @@
     "transaction_count": 14,
     "total_spend": 5148.72,
     "average_transaction": 367.77,
-    "last_transaction": "2026-09-10T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-12T18:47:52.124157+00:00"
+    "created_at": "2026-02-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0048",
@@ -571,9 +571,9 @@
     "transaction_count": 14,
     "total_spend": 10233.0,
     "average_transaction": 730.93,
-    "last_transaction": "2026-09-08T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T01:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-09T18:47:52.124157+00:00"
+    "created_at": "2026-03-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0049",
@@ -583,9 +583,9 @@
     "transaction_count": 11,
     "total_spend": 6337.54,
     "average_transaction": 576.14,
-    "last_transaction": "2026-09-12T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-02T18:47:52.124157+00:00"
+    "created_at": "2026-01-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0050",
@@ -595,9 +595,9 @@
     "transaction_count": 13,
     "total_spend": 8848.89,
     "average_transaction": 680.68,
-    "last_transaction": "2026-09-09T07:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T18:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-09-18T18:47:52.124157+00:00"
+    "created_at": "2025-09-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0051",
@@ -607,9 +607,9 @@
     "transaction_count": 12,
     "total_spend": 6071.41,
     "average_transaction": 505.95,
-    "last_transaction": "2026-09-11T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-04-25T18:47:52.124157+00:00"
+    "created_at": "2026-04-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0052",
@@ -619,9 +619,9 @@
     "transaction_count": 14,
     "total_spend": 8637.25,
     "average_transaction": 616.95,
-    "last_transaction": "2026-09-07T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T03:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-12-04T18:47:52.124157+00:00"
+    "created_at": "2025-12-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0053",
@@ -631,9 +631,9 @@
     "transaction_count": 8,
     "total_spend": 9252.71,
     "average_transaction": 1156.59,
-    "last_transaction": "2026-09-15T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T20:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-09-17T18:47:52.124157+00:00"
+    "created_at": "2025-09-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0054",
@@ -643,9 +643,9 @@
     "transaction_count": 9,
     "total_spend": 10693.25,
     "average_transaction": 1188.14,
-    "last_transaction": "2026-09-10T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T19:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-10T18:47:52.124157+00:00"
+    "created_at": "2026-01-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0055",
@@ -655,9 +655,9 @@
     "transaction_count": 12,
     "total_spend": 9001.36,
     "average_transaction": 750.11,
-    "last_transaction": "2026-09-10T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-19T18:47:52.124157+00:00"
+    "created_at": "2026-01-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0056",
@@ -667,9 +667,9 @@
     "transaction_count": 14,
     "total_spend": 8989.58,
     "average_transaction": 642.11,
-    "last_transaction": "2026-09-09T07:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T18:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-22T18:47:52.124157+00:00"
+    "created_at": "2026-03-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0057",
@@ -679,9 +679,9 @@
     "transaction_count": 16,
     "total_spend": 10002.35,
     "average_transaction": 625.15,
-    "last_transaction": "2026-09-11T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T00:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-04T18:47:52.124157+00:00"
+    "created_at": "2026-03-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0058",
@@ -691,9 +691,9 @@
     "transaction_count": 15,
     "total_spend": 7652.96,
     "average_transaction": 510.2,
-    "last_transaction": "2026-09-12T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T20:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-20T18:47:52.124157+00:00"
+    "created_at": "2025-10-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0059",
@@ -703,9 +703,9 @@
     "transaction_count": 16,
     "total_spend": 8983.12,
     "average_transaction": 561.45,
-    "last_transaction": "2026-09-10T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T03:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-19T18:47:52.124157+00:00"
+    "created_at": "2026-02-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0060",
@@ -715,9 +715,9 @@
     "transaction_count": 10,
     "total_spend": 5146.55,
     "average_transaction": 514.65,
-    "last_transaction": "2026-09-12T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-13T18:47:52.124157+00:00"
+    "created_at": "2026-05-15T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0061",
@@ -727,9 +727,9 @@
     "transaction_count": 17,
     "total_spend": 6166.61,
     "average_transaction": 362.74,
-    "last_transaction": "2026-09-09T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-27T18:47:52.124157+00:00"
+    "created_at": "2025-11-29T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0062",
@@ -739,9 +739,9 @@
     "transaction_count": 8,
     "total_spend": 10355.96,
     "average_transaction": 1294.49,
-    "last_transaction": "2026-09-14T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-27T18:47:52.124157+00:00"
+    "created_at": "2026-03-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0063",
@@ -751,9 +751,9 @@
     "transaction_count": 16,
     "total_spend": 6495.19,
     "average_transaction": 405.95,
-    "last_transaction": "2026-09-14T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-04-12T18:47:52.124157+00:00"
+    "created_at": "2026-04-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0064",
@@ -763,9 +763,9 @@
     "transaction_count": 17,
     "total_spend": 9890.04,
     "average_transaction": 581.77,
-    "last_transaction": "2026-09-07T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-03T18:47:52.124157+00:00"
+    "created_at": "2025-11-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0065",
@@ -775,9 +775,9 @@
     "transaction_count": 12,
     "total_spend": 9510.66,
     "average_transaction": 792.55,
-    "last_transaction": "2026-09-11T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T20:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-14T18:47:52.124157+00:00"
+    "created_at": "2025-10-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0066",
@@ -787,9 +787,9 @@
     "transaction_count": 9,
     "total_spend": 9281.27,
     "average_transaction": 1031.25,
-    "last_transaction": "2026-09-12T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T00:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-12-30T18:47:52.124157+00:00"
+    "created_at": "2026-01-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0067",
@@ -799,9 +799,9 @@
     "transaction_count": 10,
     "total_spend": 6387.57,
     "average_transaction": 638.76,
-    "last_transaction": "2026-09-13T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T17:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-02T18:47:52.124157+00:00"
+    "created_at": "2026-03-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0068",
@@ -811,9 +811,9 @@
     "transaction_count": 13,
     "total_spend": 8255.67,
     "average_transaction": 635.05,
-    "last_transaction": "2026-09-09T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-06T18:47:52.124157+00:00"
+    "created_at": "2026-03-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0069",
@@ -823,9 +823,9 @@
     "transaction_count": 8,
     "total_spend": 10140.39,
     "average_transaction": 1267.55,
-    "last_transaction": "2026-09-09T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-06-16T18:47:52.124157+00:00"
+    "created_at": "2026-06-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0070",
@@ -835,9 +835,9 @@
     "transaction_count": 14,
     "total_spend": 8229.32,
     "average_transaction": 587.81,
-    "last_transaction": "2026-09-07T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T19:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-27T18:47:52.124157+00:00"
+    "created_at": "2026-03-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0071",
@@ -847,9 +847,9 @@
     "transaction_count": 14,
     "total_spend": 7913.85,
     "average_transaction": 565.27,
-    "last_transaction": "2026-09-09T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T23:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-24T18:47:52.124157+00:00"
+    "created_at": "2025-11-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0072",
@@ -859,9 +859,9 @@
     "transaction_count": 17,
     "total_spend": 8204.74,
     "average_transaction": 482.63,
-    "last_transaction": "2026-09-09T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T19:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-06-06T18:47:52.124157+00:00"
+    "created_at": "2026-06-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0073",
@@ -871,9 +871,9 @@
     "transaction_count": 15,
     "total_spend": 6090.37,
     "average_transaction": 406.02,
-    "last_transaction": "2026-09-11T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-03T18:47:52.124157+00:00"
+    "created_at": "2026-01-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0074",
@@ -883,9 +883,9 @@
     "transaction_count": 13,
     "total_spend": 9567.38,
     "average_transaction": 735.95,
-    "last_transaction": "2026-09-09T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T00:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-16T18:47:52.124157+00:00"
+    "created_at": "2025-11-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0075",
@@ -895,9 +895,9 @@
     "transaction_count": 8,
     "total_spend": 9494.15,
     "average_transaction": 1186.77,
-    "last_transaction": "2026-09-15T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T23:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-25T18:47:52.124157+00:00"
+    "created_at": "2026-02-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0076",
@@ -907,9 +907,9 @@
     "transaction_count": 11,
     "total_spend": 6196.16,
     "average_transaction": 563.29,
-    "last_transaction": "2026-09-15T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T19:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-04-02T18:47:52.124157+00:00"
+    "created_at": "2026-04-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0077",
@@ -919,9 +919,9 @@
     "transaction_count": 18,
     "total_spend": 5686.34,
     "average_transaction": 315.91,
-    "last_transaction": "2026-09-12T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-02-08T18:47:52.124157+00:00"
+    "created_at": "2026-02-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0078",
@@ -931,9 +931,9 @@
     "transaction_count": 17,
     "total_spend": 10782.41,
     "average_transaction": 634.26,
-    "last_transaction": "2026-09-14T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T02:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-01-11T18:47:52.124157+00:00"
+    "created_at": "2026-01-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0079",
@@ -943,9 +943,9 @@
     "transaction_count": 17,
     "total_spend": 9064.08,
     "average_transaction": 533.18,
-    "last_transaction": "2026-09-09T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T22:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-03-10T18:47:52.124157+00:00"
+    "created_at": "2026-03-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0080",
@@ -955,9 +955,9 @@
     "transaction_count": 12,
     "total_spend": 10101.76,
     "average_transaction": 841.81,
-    "last_transaction": "2026-09-14T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T19:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-05-29T18:47:52.124157+00:00"
+    "created_at": "2026-05-31T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0081",
@@ -967,9 +967,9 @@
     "transaction_count": 13,
     "total_spend": 5413.74,
     "average_transaction": 416.44,
-    "last_transaction": "2026-09-10T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-16T18:47:52.124157+00:00"
+    "created_at": "2025-11-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0082",
@@ -979,9 +979,9 @@
     "transaction_count": 13,
     "total_spend": 8813.51,
     "average_transaction": 677.96,
-    "last_transaction": "2026-09-08T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T17:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2026-04-02T18:47:52.124157+00:00"
+    "created_at": "2026-04-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0083",
@@ -991,9 +991,9 @@
     "transaction_count": 18,
     "total_spend": 6620.49,
     "average_transaction": 367.81,
-    "last_transaction": "2026-09-07T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T21:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-24T18:47:52.124157+00:00"
+    "created_at": "2025-10-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0084",
@@ -1003,9 +1003,9 @@
     "transaction_count": 11,
     "total_spend": 9984.39,
     "average_transaction": 907.67,
-    "last_transaction": "2026-09-14T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T00:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-11-01T18:47:52.124157+00:00"
+    "created_at": "2025-11-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0085",
@@ -1015,9 +1015,9 @@
     "transaction_count": 17,
     "total_spend": 9009.13,
     "average_transaction": 529.95,
-    "last_transaction": "2026-09-10T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T04:34:36.392548+00:00",
     "segment": "Loyal",
-    "created_at": "2025-10-09T18:47:52.124157+00:00"
+    "created_at": "2025-10-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0086",
@@ -1027,9 +1027,9 @@
     "transaction_count": 1,
     "total_spend": 725.79,
     "average_transaction": 725.79,
-    "last_transaction": "2026-09-12T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T23:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-01-27T18:47:52.124157+00:00"
+    "created_at": "2026-01-29T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0087",
@@ -1039,9 +1039,9 @@
     "transaction_count": 1,
     "total_spend": 402.74,
     "average_transaction": 402.74,
-    "last_transaction": "2026-09-05T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-06T22:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-10-12T18:47:52.124157+00:00"
+    "created_at": "2025-10-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0088",
@@ -1051,9 +1051,9 @@
     "transaction_count": 2,
     "total_spend": 837.81,
     "average_transaction": 418.9,
-    "last_transaction": "2026-09-16T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-18T03:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-01-20T18:47:52.124157+00:00"
+    "created_at": "2026-01-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0089",
@@ -1063,9 +1063,9 @@
     "transaction_count": 2,
     "total_spend": 1096.75,
     "average_transaction": 548.38,
-    "last_transaction": "2026-09-11T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-09-21T18:47:52.124157+00:00"
+    "created_at": "2025-09-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0090",
@@ -1075,9 +1075,9 @@
     "transaction_count": 2,
     "total_spend": 722.17,
     "average_transaction": 361.08,
-    "last_transaction": "2026-09-09T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T00:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-01-14T18:47:52.124157+00:00"
+    "created_at": "2026-01-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0091",
@@ -1087,9 +1087,9 @@
     "transaction_count": 1,
     "total_spend": 678.66,
     "average_transaction": 678.66,
-    "last_transaction": "2026-09-05T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-06T20:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-03-17T18:47:52.124157+00:00"
+    "created_at": "2026-03-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0092",
@@ -1099,9 +1099,9 @@
     "transaction_count": 2,
     "total_spend": 1169.5,
     "average_transaction": 584.75,
-    "last_transaction": "2026-09-04T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-05T20:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-01-26T18:47:52.124157+00:00"
+    "created_at": "2026-01-28T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0093",
@@ -1111,9 +1111,9 @@
     "transaction_count": 1,
     "total_spend": 733.06,
     "average_transaction": 733.06,
-    "last_transaction": "2026-09-12T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T04:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-09-19T18:47:52.124157+00:00"
+    "created_at": "2025-09-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0094",
@@ -1123,9 +1123,9 @@
     "transaction_count": 1,
     "total_spend": 964.03,
     "average_transaction": 964.03,
-    "last_transaction": "2026-09-05T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-07T02:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-10-11T18:47:52.124157+00:00"
+    "created_at": "2025-10-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0095",
@@ -1135,9 +1135,9 @@
     "transaction_count": 2,
     "total_spend": 863.28,
     "average_transaction": 431.64,
-    "last_transaction": "2026-09-09T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T23:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-03-17T18:47:52.124157+00:00"
+    "created_at": "2026-03-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0096",
@@ -1147,9 +1147,9 @@
     "transaction_count": 1,
     "total_spend": 1286.54,
     "average_transaction": 1286.54,
-    "last_transaction": "2026-09-10T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-05-13T18:47:52.124157+00:00"
+    "created_at": "2026-05-15T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0097",
@@ -1159,9 +1159,9 @@
     "transaction_count": 1,
     "total_spend": 1273.37,
     "average_transaction": 1273.37,
-    "last_transaction": "2026-09-12T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T03:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-02-12T18:47:52.124157+00:00"
+    "created_at": "2026-02-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0098",
@@ -1171,9 +1171,9 @@
     "transaction_count": 1,
     "total_spend": 1230.83,
     "average_transaction": 1230.83,
-    "last_transaction": "2026-09-10T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-11-05T18:47:52.124157+00:00"
+    "created_at": "2025-11-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0099",
@@ -1183,9 +1183,9 @@
     "transaction_count": 1,
     "total_spend": 1031.56,
     "average_transaction": 1031.56,
-    "last_transaction": "2026-09-05T16:47:52.124157+00:00",
+    "last_transaction": "2026-09-07T03:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-03-05T18:47:52.124157+00:00"
+    "created_at": "2026-03-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0100",
@@ -1195,9 +1195,9 @@
     "transaction_count": 1,
     "total_spend": 488.47,
     "average_transaction": 488.47,
-    "last_transaction": "2026-09-14T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T20:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-05-12T18:47:52.124157+00:00"
+    "created_at": "2026-05-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0101",
@@ -1207,9 +1207,9 @@
     "transaction_count": 2,
     "total_spend": 1127.25,
     "average_transaction": 563.62,
-    "last_transaction": "2026-09-09T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T00:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-06-03T18:47:52.124157+00:00"
+    "created_at": "2026-06-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0102",
@@ -1219,9 +1219,9 @@
     "transaction_count": 2,
     "total_spend": 385.42,
     "average_transaction": 192.71,
-    "last_transaction": "2026-09-13T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T00:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-03-10T18:47:52.124157+00:00"
+    "created_at": "2026-03-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0103",
@@ -1231,9 +1231,9 @@
     "transaction_count": 1,
     "total_spend": 1077.16,
     "average_transaction": 1077.16,
-    "last_transaction": "2026-09-12T15:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T02:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-05-14T18:47:52.124157+00:00"
+    "created_at": "2026-05-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0104",
@@ -1243,9 +1243,9 @@
     "transaction_count": 2,
     "total_spend": 826.98,
     "average_transaction": 413.49,
-    "last_transaction": "2026-09-09T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T17:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-01-15T18:47:52.124157+00:00"
+    "created_at": "2026-01-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0105",
@@ -1255,9 +1255,9 @@
     "transaction_count": 2,
     "total_spend": 825.31,
     "average_transaction": 412.65,
-    "last_transaction": "2026-09-07T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T04:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-11-10T18:47:52.124157+00:00"
+    "created_at": "2025-11-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0106",
@@ -1267,9 +1267,9 @@
     "transaction_count": 1,
     "total_spend": 574.71,
     "average_transaction": 574.71,
-    "last_transaction": "2026-09-06T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-07T19:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-06-09T18:47:52.124157+00:00"
+    "created_at": "2026-06-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0107",
@@ -1279,9 +1279,9 @@
     "transaction_count": 2,
     "total_spend": 922.76,
     "average_transaction": 461.38,
-    "last_transaction": "2026-09-09T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T00:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-03-19T18:47:52.124157+00:00"
+    "created_at": "2026-03-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0108",
@@ -1291,9 +1291,9 @@
     "transaction_count": 2,
     "total_spend": 717.55,
     "average_transaction": 358.77,
-    "last_transaction": "2026-09-11T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T23:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-27T18:47:52.124157+00:00"
+    "created_at": "2026-04-29T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0109",
@@ -1303,9 +1303,9 @@
     "transaction_count": 2,
     "total_spend": 645.86,
     "average_transaction": 322.93,
-    "last_transaction": "2026-09-10T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T20:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-06-01T18:47:52.124157+00:00"
+    "created_at": "2026-06-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0110",
@@ -1315,9 +1315,9 @@
     "transaction_count": 2,
     "total_spend": 687.93,
     "average_transaction": 343.96,
-    "last_transaction": "2026-09-04T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-05T22:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-09-29T18:47:52.124157+00:00"
+    "created_at": "2025-10-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0111",
@@ -1327,9 +1327,9 @@
     "transaction_count": 1,
     "total_spend": 525.1,
     "average_transaction": 525.1,
-    "last_transaction": "2026-09-11T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-12T19:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-10-07T18:47:52.124157+00:00"
+    "created_at": "2025-10-09T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0112",
@@ -1339,9 +1339,9 @@
     "transaction_count": 2,
     "total_spend": 959.06,
     "average_transaction": 479.53,
-    "last_transaction": "2026-09-12T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-10-14T18:47:52.124157+00:00"
+    "created_at": "2025-10-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0113",
@@ -1351,9 +1351,9 @@
     "transaction_count": 1,
     "total_spend": 1151.74,
     "average_transaction": 1151.74,
-    "last_transaction": "2026-09-12T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T20:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-06-12T18:47:52.124157+00:00"
+    "created_at": "2026-06-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0114",
@@ -1363,9 +1363,9 @@
     "transaction_count": 1,
     "total_spend": 1490.71,
     "average_transaction": 1490.71,
-    "last_transaction": "2026-09-15T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-20T18:47:52.124157+00:00"
+    "created_at": "2026-04-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0115",
@@ -1375,9 +1375,9 @@
     "transaction_count": 2,
     "total_spend": 798.59,
     "average_transaction": 399.3,
-    "last_transaction": "2026-09-09T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-02-15T18:47:52.124157+00:00"
+    "created_at": "2026-02-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0116",
@@ -1387,9 +1387,9 @@
     "transaction_count": 1,
     "total_spend": 1406.24,
     "average_transaction": 1406.24,
-    "last_transaction": "2026-09-08T06:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T17:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-11T18:47:52.124157+00:00"
+    "created_at": "2026-04-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0117",
@@ -1399,9 +1399,9 @@
     "transaction_count": 2,
     "total_spend": 1421.1,
     "average_transaction": 710.55,
-    "last_transaction": "2026-09-08T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T00:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-06-18T18:47:52.124157+00:00"
+    "created_at": "2026-06-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0118",
@@ -1411,9 +1411,9 @@
     "transaction_count": 2,
     "total_spend": 1338.31,
     "average_transaction": 669.15,
-    "last_transaction": "2026-09-09T09:47:52.124157+00:00",
+    "last_transaction": "2026-09-10T20:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-10-15T18:47:52.124157+00:00"
+    "created_at": "2025-10-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0119",
@@ -1423,9 +1423,9 @@
     "transaction_count": 2,
     "total_spend": 846.41,
     "average_transaction": 423.2,
-    "last_transaction": "2026-09-11T14:47:52.124157+00:00",
+    "last_transaction": "2026-09-13T01:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-02-17T18:47:52.124157+00:00"
+    "created_at": "2026-02-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0120",
@@ -1435,9 +1435,9 @@
     "transaction_count": 2,
     "total_spend": 352.38,
     "average_transaction": 176.19,
-    "last_transaction": "2026-09-05T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-06T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-12-06T18:47:52.124157+00:00"
+    "created_at": "2025-12-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0121",
@@ -1447,9 +1447,9 @@
     "transaction_count": 1,
     "total_spend": 451.5,
     "average_transaction": 451.5,
-    "last_transaction": "2026-09-07T12:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T23:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-29T18:47:52.124157+00:00"
+    "created_at": "2026-05-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0122",
@@ -1459,9 +1459,9 @@
     "transaction_count": 2,
     "total_spend": 318.42,
     "average_transaction": 159.21,
-    "last_transaction": "2026-09-14T11:47:52.124157+00:00",
+    "last_transaction": "2026-09-15T22:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-01T18:47:52.124157+00:00"
+    "created_at": "2026-04-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0123",
@@ -1471,9 +1471,9 @@
     "transaction_count": 2,
     "total_spend": 1047.91,
     "average_transaction": 523.96,
-    "last_transaction": "2026-09-10T07:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T18:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-05-09T18:47:52.124157+00:00"
+    "created_at": "2026-05-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0124",
@@ -1483,9 +1483,9 @@
     "transaction_count": 2,
     "total_spend": 1346.86,
     "average_transaction": 673.43,
-    "last_transaction": "2026-09-16T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-17T19:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-05-15T18:47:52.124157+00:00"
+    "created_at": "2026-05-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0125",
@@ -1495,9 +1495,9 @@
     "transaction_count": 1,
     "total_spend": 820.77,
     "average_transaction": 820.77,
-    "last_transaction": "2026-09-15T07:47:52.124157+00:00",
+    "last_transaction": "2026-09-16T18:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-29T18:47:52.124157+00:00"
+    "created_at": "2026-05-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0126",
@@ -1507,9 +1507,9 @@
     "transaction_count": 1,
     "total_spend": 355.19,
     "average_transaction": 355.19,
-    "last_transaction": "2026-09-04T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-06T04:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-01-20T18:47:52.124157+00:00"
+    "created_at": "2026-01-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0127",
@@ -1519,9 +1519,9 @@
     "transaction_count": 1,
     "total_spend": 593.04,
     "average_transaction": 593.04,
-    "last_transaction": "2026-09-10T08:47:52.124157+00:00",
+    "last_transaction": "2026-09-11T19:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-03-19T18:47:52.124157+00:00"
+    "created_at": "2026-03-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0128",
@@ -1531,9 +1531,9 @@
     "transaction_count": 2,
     "total_spend": 1043.65,
     "average_transaction": 521.83,
-    "last_transaction": "2026-09-13T10:47:52.124157+00:00",
+    "last_transaction": "2026-09-14T21:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2026-04-07T18:47:52.124157+00:00"
+    "created_at": "2026-04-09T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0129",
@@ -1543,9 +1543,9 @@
     "transaction_count": 2,
     "total_spend": 851.48,
     "average_transaction": 425.74,
-    "last_transaction": "2026-09-06T17:47:52.124157+00:00",
+    "last_transaction": "2026-09-08T04:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-10-24T18:47:52.124157+00:00"
+    "created_at": "2025-10-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0130",
@@ -1555,9 +1555,9 @@
     "transaction_count": 2,
     "total_spend": 1434.28,
     "average_transaction": 717.14,
-    "last_transaction": "2026-09-07T13:47:52.124157+00:00",
+    "last_transaction": "2026-09-09T00:34:36.392548+00:00",
     "segment": "New",
-    "created_at": "2025-11-14T18:47:52.124157+00:00"
+    "created_at": "2025-11-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0131",
@@ -1567,9 +1567,9 @@
     "transaction_count": 9,
     "total_spend": 7997.18,
     "average_transaction": 888.58,
-    "last_transaction": "2026-08-08T16:47:52.124157+00:00",
+    "last_transaction": "2026-08-10T03:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-02-18T18:47:52.124157+00:00"
+    "created_at": "2026-02-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0132",
@@ -1579,9 +1579,9 @@
     "transaction_count": 10,
     "total_spend": 7967.11,
     "average_transaction": 796.71,
-    "last_transaction": "2026-08-14T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-16T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-11-29T18:47:52.124157+00:00"
+    "created_at": "2025-12-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0133",
@@ -1591,9 +1591,9 @@
     "transaction_count": 6,
     "total_spend": 7597.78,
     "average_transaction": 1266.3,
-    "last_transaction": "2026-08-08T13:47:52.124157+00:00",
+    "last_transaction": "2026-08-10T00:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-02-22T18:47:52.124157+00:00"
+    "created_at": "2026-02-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0134",
@@ -1603,9 +1603,9 @@
     "transaction_count": 9,
     "total_spend": 6294.01,
     "average_transaction": 699.33,
-    "last_transaction": "2026-08-19T07:47:52.124157+00:00",
+    "last_transaction": "2026-08-20T18:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-01T18:47:52.124157+00:00"
+    "created_at": "2026-05-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0135",
@@ -1615,9 +1615,9 @@
     "transaction_count": 6,
     "total_spend": 6108.08,
     "average_transaction": 1018.01,
-    "last_transaction": "2026-08-19T16:47:52.124157+00:00",
+    "last_transaction": "2026-08-21T03:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-01-19T18:47:52.124157+00:00"
+    "created_at": "2026-01-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0136",
@@ -1627,9 +1627,9 @@
     "transaction_count": 9,
     "total_spend": 4094.72,
     "average_transaction": 454.97,
-    "last_transaction": "2026-08-06T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-07T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-09-21T18:47:52.124157+00:00"
+    "created_at": "2025-09-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0137",
@@ -1639,9 +1639,9 @@
     "transaction_count": 10,
     "total_spend": 7613.22,
     "average_transaction": 761.32,
-    "last_transaction": "2026-08-08T13:47:52.124157+00:00",
+    "last_transaction": "2026-08-10T00:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-12-28T18:47:52.124157+00:00"
+    "created_at": "2025-12-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0138",
@@ -1651,9 +1651,9 @@
     "transaction_count": 8,
     "total_spend": 6893.68,
     "average_transaction": 861.71,
-    "last_transaction": "2026-08-16T07:47:52.124157+00:00",
+    "last_transaction": "2026-08-17T18:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-11-28T18:47:52.124157+00:00"
+    "created_at": "2025-11-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0139",
@@ -1663,9 +1663,9 @@
     "transaction_count": 12,
     "total_spend": 3562.63,
     "average_transaction": 296.89,
-    "last_transaction": "2026-08-06T16:47:52.124157+00:00",
+    "last_transaction": "2026-08-08T03:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-10-30T18:47:52.124157+00:00"
+    "created_at": "2025-11-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0140",
@@ -1675,9 +1675,9 @@
     "transaction_count": 12,
     "total_spend": 7200.88,
     "average_transaction": 600.07,
-    "last_transaction": "2026-08-12T16:47:52.124157+00:00",
+    "last_transaction": "2026-08-14T03:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-02-20T18:47:52.124157+00:00"
+    "created_at": "2026-02-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0141",
@@ -1687,9 +1687,9 @@
     "transaction_count": 14,
     "total_spend": 4976.03,
     "average_transaction": 355.43,
-    "last_transaction": "2026-08-04T14:47:52.124157+00:00",
+    "last_transaction": "2026-08-06T01:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-18T18:47:52.124157+00:00"
+    "created_at": "2026-05-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0142",
@@ -1699,9 +1699,9 @@
     "transaction_count": 12,
     "total_spend": 4025.04,
     "average_transaction": 335.42,
-    "last_transaction": "2026-08-22T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-24T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-01-15T18:47:52.124157+00:00"
+    "created_at": "2026-01-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0143",
@@ -1711,9 +1711,9 @@
     "transaction_count": 9,
     "total_spend": 7492.67,
     "average_transaction": 832.52,
-    "last_transaction": "2026-08-19T11:47:52.124157+00:00",
+    "last_transaction": "2026-08-20T22:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-10-30T18:47:52.124157+00:00"
+    "created_at": "2025-11-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0144",
@@ -1723,9 +1723,9 @@
     "transaction_count": 8,
     "total_spend": 7484.36,
     "average_transaction": 935.54,
-    "last_transaction": "2026-08-03T16:47:52.124157+00:00",
+    "last_transaction": "2026-08-05T03:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-10-12T18:47:52.124157+00:00"
+    "created_at": "2025-10-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0145",
@@ -1735,9 +1735,9 @@
     "transaction_count": 11,
     "total_spend": 4477.71,
     "average_transaction": 407.06,
-    "last_transaction": "2026-08-09T14:47:52.124157+00:00",
+    "last_transaction": "2026-08-11T01:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-12-16T18:47:52.124157+00:00"
+    "created_at": "2025-12-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0146",
@@ -1747,9 +1747,9 @@
     "transaction_count": 11,
     "total_spend": 3772.48,
     "average_transaction": 342.95,
-    "last_transaction": "2026-08-15T14:47:52.124157+00:00",
+    "last_transaction": "2026-08-17T01:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-04-18T18:47:52.124157+00:00"
+    "created_at": "2026-04-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0147",
@@ -1759,9 +1759,9 @@
     "transaction_count": 9,
     "total_spend": 6387.67,
     "average_transaction": 709.74,
-    "last_transaction": "2026-08-04T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-06T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-25T18:47:52.124157+00:00"
+    "created_at": "2026-05-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0148",
@@ -1771,9 +1771,9 @@
     "transaction_count": 9,
     "total_spend": 3808.75,
     "average_transaction": 423.19,
-    "last_transaction": "2026-08-06T14:47:52.124157+00:00",
+    "last_transaction": "2026-08-08T01:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-03-01T18:47:52.124157+00:00"
+    "created_at": "2026-03-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0149",
@@ -1783,9 +1783,9 @@
     "transaction_count": 6,
     "total_spend": 4747.74,
     "average_transaction": 791.29,
-    "last_transaction": "2026-08-19T15:47:52.124157+00:00",
+    "last_transaction": "2026-08-21T02:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-02-11T18:47:52.124157+00:00"
+    "created_at": "2026-02-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0150",
@@ -1795,9 +1795,9 @@
     "transaction_count": 6,
     "total_spend": 4093.11,
     "average_transaction": 682.19,
-    "last_transaction": "2026-08-12T14:47:52.124157+00:00",
+    "last_transaction": "2026-08-14T01:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-01-05T18:47:52.124157+00:00"
+    "created_at": "2026-01-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0151",
@@ -1807,9 +1807,9 @@
     "transaction_count": 6,
     "total_spend": 4070.41,
     "average_transaction": 678.4,
-    "last_transaction": "2026-08-10T09:47:52.124157+00:00",
+    "last_transaction": "2026-08-11T20:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-04-22T18:47:52.124157+00:00"
+    "created_at": "2026-04-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0152",
@@ -1819,9 +1819,9 @@
     "transaction_count": 11,
     "total_spend": 5809.57,
     "average_transaction": 528.14,
-    "last_transaction": "2026-08-20T10:47:52.124157+00:00",
+    "last_transaction": "2026-08-21T21:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-10-05T18:47:52.124157+00:00"
+    "created_at": "2025-10-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0153",
@@ -1831,9 +1831,9 @@
     "transaction_count": 14,
     "total_spend": 4857.34,
     "average_transaction": 346.95,
-    "last_transaction": "2026-08-03T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-05T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-19T18:47:52.124157+00:00"
+    "created_at": "2026-05-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0154",
@@ -1843,9 +1843,9 @@
     "transaction_count": 7,
     "total_spend": 5706.21,
     "average_transaction": 815.17,
-    "last_transaction": "2026-08-09T16:47:52.124157+00:00",
+    "last_transaction": "2026-08-11T03:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-09T18:47:52.124157+00:00"
+    "created_at": "2026-05-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0155",
@@ -1855,9 +1855,9 @@
     "transaction_count": 8,
     "total_spend": 4737.57,
     "average_transaction": 592.2,
-    "last_transaction": "2026-08-03T08:47:52.124157+00:00",
+    "last_transaction": "2026-08-04T19:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-01-04T18:47:52.124157+00:00"
+    "created_at": "2026-01-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0156",
@@ -1867,9 +1867,9 @@
     "transaction_count": 14,
     "total_spend": 6224.42,
     "average_transaction": 444.6,
-    "last_transaction": "2026-08-20T06:47:52.124157+00:00",
+    "last_transaction": "2026-08-21T17:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-04-22T18:47:52.124157+00:00"
+    "created_at": "2026-04-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0157",
@@ -1879,9 +1879,9 @@
     "transaction_count": 13,
     "total_spend": 7496.41,
     "average_transaction": 576.65,
-    "last_transaction": "2026-08-10T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-11T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-10-30T18:47:52.124157+00:00"
+    "created_at": "2025-11-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0158",
@@ -1891,9 +1891,9 @@
     "transaction_count": 11,
     "total_spend": 5420.44,
     "average_transaction": 492.77,
-    "last_transaction": "2026-08-15T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-16T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-04-02T18:47:52.124157+00:00"
+    "created_at": "2026-04-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0159",
@@ -1903,9 +1903,9 @@
     "transaction_count": 7,
     "total_spend": 3919.54,
     "average_transaction": 559.93,
-    "last_transaction": "2026-08-20T06:47:52.124157+00:00",
+    "last_transaction": "2026-08-21T17:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-12-11T18:47:52.124157+00:00"
+    "created_at": "2025-12-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0160",
@@ -1915,9 +1915,9 @@
     "transaction_count": 14,
     "total_spend": 6027.58,
     "average_transaction": 430.54,
-    "last_transaction": "2026-08-20T11:47:52.124157+00:00",
+    "last_transaction": "2026-08-21T22:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-12-20T18:47:52.124157+00:00"
+    "created_at": "2025-12-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0161",
@@ -1927,9 +1927,9 @@
     "transaction_count": 10,
     "total_spend": 5082.41,
     "average_transaction": 508.24,
-    "last_transaction": "2026-08-05T09:47:52.124157+00:00",
+    "last_transaction": "2026-08-06T20:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-03-03T18:47:52.124157+00:00"
+    "created_at": "2026-03-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0162",
@@ -1939,9 +1939,9 @@
     "transaction_count": 7,
     "total_spend": 5075.51,
     "average_transaction": 725.07,
-    "last_transaction": "2026-08-06T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-07T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-04-22T18:47:52.124157+00:00"
+    "created_at": "2026-04-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0163",
@@ -1951,9 +1951,9 @@
     "transaction_count": 14,
     "total_spend": 7885.46,
     "average_transaction": 563.25,
-    "last_transaction": "2026-08-04T08:47:52.124157+00:00",
+    "last_transaction": "2026-08-05T19:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-06-06T18:47:52.124157+00:00"
+    "created_at": "2026-06-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0164",
@@ -1963,9 +1963,9 @@
     "transaction_count": 10,
     "total_spend": 6662.14,
     "average_transaction": 666.21,
-    "last_transaction": "2026-08-14T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-15T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-12-22T18:47:52.124157+00:00"
+    "created_at": "2025-12-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0165",
@@ -1975,9 +1975,9 @@
     "transaction_count": 12,
     "total_spend": 3813.13,
     "average_transaction": 317.76,
-    "last_transaction": "2026-08-03T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-05T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-04T18:47:52.124157+00:00"
+    "created_at": "2026-05-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0166",
@@ -1987,9 +1987,9 @@
     "transaction_count": 12,
     "total_spend": 5541.41,
     "average_transaction": 461.78,
-    "last_transaction": "2026-08-18T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-19T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-01-11T18:47:52.124157+00:00"
+    "created_at": "2026-01-13T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0167",
@@ -1999,9 +1999,9 @@
     "transaction_count": 8,
     "total_spend": 4208.34,
     "average_transaction": 526.04,
-    "last_transaction": "2026-08-04T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-06T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-05-09T18:47:52.124157+00:00"
+    "created_at": "2026-05-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0168",
@@ -2011,9 +2011,9 @@
     "transaction_count": 12,
     "total_spend": 5685.48,
     "average_transaction": 473.79,
-    "last_transaction": "2026-08-09T11:47:52.124157+00:00",
+    "last_transaction": "2026-08-10T22:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-01-31T18:47:52.124157+00:00"
+    "created_at": "2026-02-02T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0169",
@@ -2023,9 +2023,9 @@
     "transaction_count": 12,
     "total_spend": 3999.0,
     "average_transaction": 333.25,
-    "last_transaction": "2026-08-05T10:47:52.124157+00:00",
+    "last_transaction": "2026-08-06T21:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-09-23T18:47:52.124157+00:00"
+    "created_at": "2025-09-25T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0170",
@@ -2035,9 +2035,9 @@
     "transaction_count": 12,
     "total_spend": 7930.01,
     "average_transaction": 660.83,
-    "last_transaction": "2026-08-22T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-24T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2026-03-07T18:47:52.124157+00:00"
+    "created_at": "2026-03-09T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0171",
@@ -2047,9 +2047,9 @@
     "transaction_count": 10,
     "total_spend": 4802.51,
     "average_transaction": 480.25,
-    "last_transaction": "2026-08-20T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-22T04:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-10-08T18:47:52.124157+00:00"
+    "created_at": "2025-10-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0172",
@@ -2059,9 +2059,9 @@
     "transaction_count": 12,
     "total_spend": 5896.62,
     "average_transaction": 491.38,
-    "last_transaction": "2026-08-16T09:47:52.124157+00:00",
+    "last_transaction": "2026-08-17T20:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-12-20T18:47:52.124157+00:00"
+    "created_at": "2025-12-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0173",
@@ -2071,9 +2071,9 @@
     "transaction_count": 12,
     "total_spend": 3584.34,
     "average_transaction": 298.69,
-    "last_transaction": "2026-08-21T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-22T23:34:36.392548+00:00",
     "segment": "At-Risk",
-    "created_at": "2025-11-12T18:47:52.124157+00:00"
+    "created_at": "2025-11-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0174",
@@ -2083,9 +2083,9 @@
     "transaction_count": 10,
     "total_spend": 3158.06,
     "average_transaction": 315.81,
-    "last_transaction": "2026-07-08T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-10T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-04T18:47:52.124157+00:00"
+    "created_at": "2026-01-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0175",
@@ -2095,9 +2095,9 @@
     "transaction_count": 5,
     "total_spend": 3746.85,
     "average_transaction": 749.37,
-    "last_transaction": "2026-07-27T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-29T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-08T18:47:52.124157+00:00"
+    "created_at": "2025-11-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0176",
@@ -2107,9 +2107,9 @@
     "transaction_count": 8,
     "total_spend": 4983.22,
     "average_transaction": 622.9,
-    "last_transaction": "2026-07-19T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-20T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-25T18:47:52.124157+00:00"
+    "created_at": "2026-03-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0177",
@@ -2119,9 +2119,9 @@
     "transaction_count": 12,
     "total_spend": 2775.61,
     "average_transaction": 231.3,
-    "last_transaction": "2026-07-11T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-12T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-05T18:47:52.124157+00:00"
+    "created_at": "2026-04-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0178",
@@ -2131,9 +2131,9 @@
     "transaction_count": 8,
     "total_spend": 2789.09,
     "average_transaction": 348.64,
-    "last_transaction": "2026-06-25T15:47:52.124157+00:00",
+    "last_transaction": "2026-06-27T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-12T18:47:52.124157+00:00"
+    "created_at": "2026-05-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0179",
@@ -2143,9 +2143,9 @@
     "transaction_count": 11,
     "total_spend": 4724.53,
     "average_transaction": 429.5,
-    "last_transaction": "2026-06-27T07:47:52.124157+00:00",
+    "last_transaction": "2026-06-28T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-05T18:47:52.124157+00:00"
+    "created_at": "2026-01-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0180",
@@ -2155,9 +2155,9 @@
     "transaction_count": 5,
     "total_spend": 3875.68,
     "average_transaction": 775.14,
-    "last_transaction": "2026-06-23T13:47:52.124157+00:00",
+    "last_transaction": "2026-06-25T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-30T18:47:52.124157+00:00"
+    "created_at": "2026-02-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0181",
@@ -2167,9 +2167,9 @@
     "transaction_count": 5,
     "total_spend": 3241.63,
     "average_transaction": 648.33,
-    "last_transaction": "2026-07-05T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-07T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-21T18:47:52.124157+00:00"
+    "created_at": "2026-05-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0182",
@@ -2179,9 +2179,9 @@
     "transaction_count": 5,
     "total_spend": 4460.03,
     "average_transaction": 892.01,
-    "last_transaction": "2026-07-01T11:47:52.124157+00:00",
+    "last_transaction": "2026-07-02T22:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-26T18:47:52.124157+00:00"
+    "created_at": "2025-10-28T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0183",
@@ -2191,9 +2191,9 @@
     "transaction_count": 7,
     "total_spend": 3286.11,
     "average_transaction": 469.44,
-    "last_transaction": "2026-07-03T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-04T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-03T18:47:52.124157+00:00"
+    "created_at": "2026-04-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0184",
@@ -2203,9 +2203,9 @@
     "transaction_count": 9,
     "total_spend": 5929.54,
     "average_transaction": 658.84,
-    "last_transaction": "2026-07-28T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-29T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-23T18:47:52.124157+00:00"
+    "created_at": "2026-03-25T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0185",
@@ -2215,9 +2215,9 @@
     "transaction_count": 11,
     "total_spend": 4096.27,
     "average_transaction": 372.39,
-    "last_transaction": "2026-06-24T15:47:52.124157+00:00",
+    "last_transaction": "2026-06-26T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-15T18:47:52.124157+00:00"
+    "created_at": "2025-12-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0186",
@@ -2227,9 +2227,9 @@
     "transaction_count": 10,
     "total_spend": 5097.86,
     "average_transaction": 509.79,
-    "last_transaction": "2026-06-20T08:47:52.124157+00:00",
+    "last_transaction": "2026-06-21T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-24T18:47:52.124157+00:00"
+    "created_at": "2026-05-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0187",
@@ -2239,9 +2239,9 @@
     "transaction_count": 5,
     "total_spend": 4231.85,
     "average_transaction": 846.37,
-    "last_transaction": "2026-07-09T13:47:52.124157+00:00",
+    "last_transaction": "2026-07-11T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-10T18:47:52.124157+00:00"
+    "created_at": "2026-02-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0188",
@@ -2251,9 +2251,9 @@
     "transaction_count": 6,
     "total_spend": 5666.99,
     "average_transaction": 944.5,
-    "last_transaction": "2026-07-14T07:47:52.124157+00:00",
+    "last_transaction": "2026-07-15T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-01T18:47:52.124157+00:00"
+    "created_at": "2025-12-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0189",
@@ -2263,9 +2263,9 @@
     "transaction_count": 12,
     "total_spend": 3506.72,
     "average_transaction": 292.23,
-    "last_transaction": "2026-07-12T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-14T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-23T18:47:52.124157+00:00"
+    "created_at": "2025-09-25T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0190",
@@ -2275,9 +2275,9 @@
     "transaction_count": 9,
     "total_spend": 2072.92,
     "average_transaction": 230.32,
-    "last_transaction": "2026-07-14T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-16T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-02T18:47:52.124157+00:00"
+    "created_at": "2026-03-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0191",
@@ -2287,9 +2287,9 @@
     "transaction_count": 7,
     "total_spend": 5999.91,
     "average_transaction": 857.13,
-    "last_transaction": "2026-07-24T16:47:52.124157+00:00",
+    "last_transaction": "2026-07-26T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-19T18:47:52.124157+00:00"
+    "created_at": "2026-01-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0192",
@@ -2299,9 +2299,9 @@
     "transaction_count": 9,
     "total_spend": 5505.57,
     "average_transaction": 611.73,
-    "last_transaction": "2026-06-24T15:47:52.124157+00:00",
+    "last_transaction": "2026-06-26T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-09T18:47:52.124157+00:00"
+    "created_at": "2025-12-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0193",
@@ -2311,9 +2311,9 @@
     "transaction_count": 6,
     "total_spend": 4884.73,
     "average_transaction": 814.12,
-    "last_transaction": "2026-07-31T11:47:52.124157+00:00",
+    "last_transaction": "2026-08-01T22:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-15T18:47:52.124157+00:00"
+    "created_at": "2025-12-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0194",
@@ -2323,9 +2323,9 @@
     "transaction_count": 8,
     "total_spend": 5009.56,
     "average_transaction": 626.2,
-    "last_transaction": "2026-07-05T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-07T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-19T18:47:52.124157+00:00"
+    "created_at": "2025-09-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0195",
@@ -2335,9 +2335,9 @@
     "transaction_count": 7,
     "total_spend": 3471.36,
     "average_transaction": 495.91,
-    "last_transaction": "2026-06-27T10:47:52.124157+00:00",
+    "last_transaction": "2026-06-28T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-26T18:47:52.124157+00:00"
+    "created_at": "2025-10-28T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0196",
@@ -2347,9 +2347,9 @@
     "transaction_count": 12,
     "total_spend": 3674.64,
     "average_transaction": 306.22,
-    "last_transaction": "2026-07-23T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-25T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-10T18:47:52.124157+00:00"
+    "created_at": "2026-04-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0197",
@@ -2359,9 +2359,9 @@
     "transaction_count": 11,
     "total_spend": 5496.47,
     "average_transaction": 499.68,
-    "last_transaction": "2026-06-28T16:47:52.124157+00:00",
+    "last_transaction": "2026-06-30T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-28T18:47:52.124157+00:00"
+    "created_at": "2025-09-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0198",
@@ -2371,9 +2371,9 @@
     "transaction_count": 6,
     "total_spend": 3091.17,
     "average_transaction": 515.2,
-    "last_transaction": "2026-07-01T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-03T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-08T18:47:52.124157+00:00"
+    "created_at": "2025-11-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0199",
@@ -2383,9 +2383,9 @@
     "transaction_count": 9,
     "total_spend": 5721.89,
     "average_transaction": 635.77,
-    "last_transaction": "2026-07-07T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-09T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-29T18:47:52.124157+00:00"
+    "created_at": "2025-12-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0200",
@@ -2395,9 +2395,9 @@
     "transaction_count": 10,
     "total_spend": 5978.1,
     "average_transaction": 597.81,
-    "last_transaction": "2026-07-10T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-12T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-05T18:47:52.124157+00:00"
+    "created_at": "2026-06-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0201",
@@ -2407,9 +2407,9 @@
     "transaction_count": 9,
     "total_spend": 5165.52,
     "average_transaction": 573.95,
-    "last_transaction": "2026-07-25T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-27T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-24T18:47:52.124157+00:00"
+    "created_at": "2026-01-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0202",
@@ -2419,9 +2419,9 @@
     "transaction_count": 11,
     "total_spend": 4461.39,
     "average_transaction": 405.58,
-    "last_transaction": "2026-07-28T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-30T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-08T18:47:52.124157+00:00"
+    "created_at": "2026-02-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0203",
@@ -2431,9 +2431,9 @@
     "transaction_count": 12,
     "total_spend": 3693.02,
     "average_transaction": 307.75,
-    "last_transaction": "2026-07-15T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-17T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-16T18:47:52.124157+00:00"
+    "created_at": "2026-01-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0204",
@@ -2443,9 +2443,9 @@
     "transaction_count": 10,
     "total_spend": 4555.81,
     "average_transaction": 455.58,
-    "last_transaction": "2026-06-24T10:47:52.124157+00:00",
+    "last_transaction": "2026-06-25T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-18T18:47:52.124157+00:00"
+    "created_at": "2026-05-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0205",
@@ -2455,9 +2455,9 @@
     "transaction_count": 12,
     "total_spend": 2065.74,
     "average_transaction": 172.14,
-    "last_transaction": "2026-07-01T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-02T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-16T18:47:52.124157+00:00"
+    "created_at": "2026-02-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0206",
@@ -2467,9 +2467,9 @@
     "transaction_count": 4,
     "total_spend": 4459.24,
     "average_transaction": 1114.81,
-    "last_transaction": "2026-07-18T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-19T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-18T18:47:52.124157+00:00"
+    "created_at": "2025-11-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0207",
@@ -2479,9 +2479,9 @@
     "transaction_count": 9,
     "total_spend": 2270.72,
     "average_transaction": 252.3,
-    "last_transaction": "2026-06-30T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-01T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-03T18:47:52.124157+00:00"
+    "created_at": "2025-10-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0208",
@@ -2491,9 +2491,9 @@
     "transaction_count": 11,
     "total_spend": 2174.14,
     "average_transaction": 197.65,
-    "last_transaction": "2026-07-09T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-10T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-10T18:47:52.124157+00:00"
+    "created_at": "2026-02-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0209",
@@ -2503,9 +2503,9 @@
     "transaction_count": 9,
     "total_spend": 2964.5,
     "average_transaction": 329.39,
-    "last_transaction": "2026-06-21T07:47:52.124157+00:00",
+    "last_transaction": "2026-06-22T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-27T18:47:52.124157+00:00"
+    "created_at": "2026-04-29T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0210",
@@ -2515,9 +2515,9 @@
     "transaction_count": 9,
     "total_spend": 4184.05,
     "average_transaction": 464.89,
-    "last_transaction": "2026-06-22T15:47:52.124157+00:00",
+    "last_transaction": "2026-06-24T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-25T18:47:52.124157+00:00"
+    "created_at": "2025-10-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0211",
@@ -2527,9 +2527,9 @@
     "transaction_count": 5,
     "total_spend": 4864.18,
     "average_transaction": 972.84,
-    "last_transaction": "2026-07-04T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-06T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-20T18:47:52.124157+00:00"
+    "created_at": "2026-01-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0212",
@@ -2539,9 +2539,9 @@
     "transaction_count": 4,
     "total_spend": 3262.38,
     "average_transaction": 815.6,
-    "last_transaction": "2026-07-14T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-15T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-28T18:47:52.124157+00:00"
+    "created_at": "2025-11-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0213",
@@ -2551,9 +2551,9 @@
     "transaction_count": 4,
     "total_spend": 5013.16,
     "average_transaction": 1253.29,
-    "last_transaction": "2026-07-21T13:47:52.124157+00:00",
+    "last_transaction": "2026-07-23T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-19T18:47:52.124157+00:00"
+    "created_at": "2025-12-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0214",
@@ -2563,9 +2563,9 @@
     "transaction_count": 5,
     "total_spend": 5197.37,
     "average_transaction": 1039.47,
-    "last_transaction": "2026-07-06T11:47:52.124157+00:00",
+    "last_transaction": "2026-07-07T22:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-06T18:47:52.124157+00:00"
+    "created_at": "2025-11-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0215",
@@ -2575,9 +2575,9 @@
     "transaction_count": 11,
     "total_spend": 4768.27,
     "average_transaction": 433.48,
-    "last_transaction": "2026-07-10T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-11T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-03T18:47:52.124157+00:00"
+    "created_at": "2026-02-05T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0216",
@@ -2587,9 +2587,9 @@
     "transaction_count": 10,
     "total_spend": 4409.81,
     "average_transaction": 440.98,
-    "last_transaction": "2026-07-22T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-23T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-20T18:47:52.124157+00:00"
+    "created_at": "2026-01-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0217",
@@ -2599,9 +2599,9 @@
     "transaction_count": 9,
     "total_spend": 4643.68,
     "average_transaction": 515.96,
-    "last_transaction": "2026-07-14T10:47:52.124157+00:00",
+    "last_transaction": "2026-07-15T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-13T18:47:52.124157+00:00"
+    "created_at": "2025-11-15T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0218",
@@ -2611,9 +2611,9 @@
     "transaction_count": 11,
     "total_spend": 2169.42,
     "average_transaction": 197.22,
-    "last_transaction": "2026-07-11T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-12T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-09T18:47:52.124157+00:00"
+    "created_at": "2025-11-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0219",
@@ -2623,9 +2623,9 @@
     "transaction_count": 10,
     "total_spend": 3453.24,
     "average_transaction": 345.32,
-    "last_transaction": "2026-06-20T15:47:52.124157+00:00",
+    "last_transaction": "2026-06-22T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-04T18:47:52.124157+00:00"
+    "created_at": "2026-06-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0220",
@@ -2635,9 +2635,9 @@
     "transaction_count": 6,
     "total_spend": 2268.93,
     "average_transaction": 378.15,
-    "last_transaction": "2026-06-22T12:47:52.124157+00:00",
+    "last_transaction": "2026-06-23T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-16T18:47:52.124157+00:00"
+    "created_at": "2025-12-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0221",
@@ -2647,9 +2647,9 @@
     "transaction_count": 6,
     "total_spend": 4716.25,
     "average_transaction": 786.04,
-    "last_transaction": "2026-07-10T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-11T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-04T18:47:52.124157+00:00"
+    "created_at": "2025-11-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0222",
@@ -2659,9 +2659,9 @@
     "transaction_count": 9,
     "total_spend": 3592.14,
     "average_transaction": 399.13,
-    "last_transaction": "2026-06-22T13:47:52.124157+00:00",
+    "last_transaction": "2026-06-24T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-12T18:47:52.124157+00:00"
+    "created_at": "2026-02-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0223",
@@ -2671,9 +2671,9 @@
     "transaction_count": 11,
     "total_spend": 4070.98,
     "average_transaction": 370.09,
-    "last_transaction": "2026-06-28T16:47:52.124157+00:00",
+    "last_transaction": "2026-06-30T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-05T18:47:52.124157+00:00"
+    "created_at": "2026-02-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0224",
@@ -2683,9 +2683,9 @@
     "transaction_count": 8,
     "total_spend": 4775.92,
     "average_transaction": 596.99,
-    "last_transaction": "2026-07-02T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-04T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-18T18:47:52.124157+00:00"
+    "created_at": "2026-04-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0225",
@@ -2695,9 +2695,9 @@
     "transaction_count": 6,
     "total_spend": 5594.72,
     "average_transaction": 932.45,
-    "last_transaction": "2026-07-05T16:47:52.124157+00:00",
+    "last_transaction": "2026-07-07T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-07T18:47:52.124157+00:00"
+    "created_at": "2026-01-09T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0226",
@@ -2707,9 +2707,9 @@
     "transaction_count": 12,
     "total_spend": 3161.45,
     "average_transaction": 263.45,
-    "last_transaction": "2026-07-14T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-16T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-22T18:47:52.124157+00:00"
+    "created_at": "2026-03-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0227",
@@ -2719,9 +2719,9 @@
     "transaction_count": 7,
     "total_spend": 5168.26,
     "average_transaction": 738.32,
-    "last_transaction": "2026-07-18T10:47:52.124157+00:00",
+    "last_transaction": "2026-07-19T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-06T18:47:52.124157+00:00"
+    "created_at": "2026-06-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0228",
@@ -2731,9 +2731,9 @@
     "transaction_count": 12,
     "total_spend": 2519.08,
     "average_transaction": 209.92,
-    "last_transaction": "2026-07-28T16:47:52.124157+00:00",
+    "last_transaction": "2026-07-30T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-12T18:47:52.124157+00:00"
+    "created_at": "2026-01-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0229",
@@ -2743,9 +2743,9 @@
     "transaction_count": 10,
     "total_spend": 5076.66,
     "average_transaction": 507.67,
-    "last_transaction": "2026-06-27T16:47:52.124157+00:00",
+    "last_transaction": "2026-06-29T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-16T18:47:52.124157+00:00"
+    "created_at": "2026-04-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0230",
@@ -2755,9 +2755,9 @@
     "transaction_count": 11,
     "total_spend": 4720.44,
     "average_transaction": 429.13,
-    "last_transaction": "2026-07-11T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-13T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-18T18:47:52.124157+00:00"
+    "created_at": "2026-03-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0231",
@@ -2767,9 +2767,9 @@
     "transaction_count": 4,
     "total_spend": 5325.56,
     "average_transaction": 1331.39,
-    "last_transaction": "2026-06-30T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-02T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-15T18:47:52.124157+00:00"
+    "created_at": "2026-01-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0232",
@@ -2779,9 +2779,9 @@
     "transaction_count": 7,
     "total_spend": 3384.09,
     "average_transaction": 483.44,
-    "last_transaction": "2026-06-30T13:47:52.124157+00:00",
+    "last_transaction": "2026-07-02T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-10T18:47:52.124157+00:00"
+    "created_at": "2026-05-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0233",
@@ -2791,9 +2791,9 @@
     "transaction_count": 12,
     "total_spend": 3097.8,
     "average_transaction": 258.15,
-    "last_transaction": "2026-06-23T13:47:52.124157+00:00",
+    "last_transaction": "2026-06-25T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-19T18:47:52.124157+00:00"
+    "created_at": "2025-09-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0234",
@@ -2803,9 +2803,9 @@
     "transaction_count": 6,
     "total_spend": 2684.8,
     "average_transaction": 447.47,
-    "last_transaction": "2026-06-24T06:47:52.124157+00:00",
+    "last_transaction": "2026-06-25T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-29T18:47:52.124157+00:00"
+    "created_at": "2025-12-31T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0235",
@@ -2815,9 +2815,9 @@
     "transaction_count": 5,
     "total_spend": 2181.85,
     "average_transaction": 436.37,
-    "last_transaction": "2026-06-22T08:47:52.124157+00:00",
+    "last_transaction": "2026-06-23T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-04T18:47:52.124157+00:00"
+    "created_at": "2026-02-06T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0236",
@@ -2827,9 +2827,9 @@
     "transaction_count": 4,
     "total_spend": 3992.15,
     "average_transaction": 998.04,
-    "last_transaction": "2026-06-23T09:47:52.124157+00:00",
+    "last_transaction": "2026-06-24T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-22T18:47:52.124157+00:00"
+    "created_at": "2026-01-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0237",
@@ -2839,9 +2839,9 @@
     "transaction_count": 10,
     "total_spend": 3189.74,
     "average_transaction": 318.97,
-    "last_transaction": "2026-07-29T06:47:52.124157+00:00",
+    "last_transaction": "2026-07-30T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-20T18:47:52.124157+00:00"
+    "created_at": "2026-05-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0238",
@@ -2851,9 +2851,9 @@
     "transaction_count": 11,
     "total_spend": 3857.77,
     "average_transaction": 350.71,
-    "last_transaction": "2026-07-12T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-13T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-07T18:47:52.124157+00:00"
+    "created_at": "2026-04-09T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0239",
@@ -2863,9 +2863,9 @@
     "transaction_count": 10,
     "total_spend": 2523.06,
     "average_transaction": 252.31,
-    "last_transaction": "2026-07-10T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-11T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-26T18:47:52.124157+00:00"
+    "created_at": "2026-04-28T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0240",
@@ -2875,9 +2875,9 @@
     "transaction_count": 5,
     "total_spend": 3069.89,
     "average_transaction": 613.98,
-    "last_transaction": "2026-07-18T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-20T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-01T18:47:52.124157+00:00"
+    "created_at": "2026-05-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0241",
@@ -2887,9 +2887,9 @@
     "transaction_count": 10,
     "total_spend": 2993.08,
     "average_transaction": 299.31,
-    "last_transaction": "2026-07-23T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-24T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-10T18:47:52.124157+00:00"
+    "created_at": "2026-01-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0242",
@@ -2899,9 +2899,9 @@
     "transaction_count": 12,
     "total_spend": 3867.26,
     "average_transaction": 322.27,
-    "last_transaction": "2026-07-14T10:47:52.124157+00:00",
+    "last_transaction": "2026-07-15T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-08T18:47:52.124157+00:00"
+    "created_at": "2026-06-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0243",
@@ -2911,9 +2911,9 @@
     "transaction_count": 11,
     "total_spend": 5866.75,
     "average_transaction": 533.34,
-    "last_transaction": "2026-07-20T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-21T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-21T18:47:52.124157+00:00"
+    "created_at": "2025-12-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0244",
@@ -2923,9 +2923,9 @@
     "transaction_count": 11,
     "total_spend": 4390.08,
     "average_transaction": 399.1,
-    "last_transaction": "2026-06-22T07:47:52.124157+00:00",
+    "last_transaction": "2026-06-23T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-22T18:47:52.124157+00:00"
+    "created_at": "2025-10-24T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0245",
@@ -2935,9 +2935,9 @@
     "transaction_count": 10,
     "total_spend": 2535.74,
     "average_transaction": 253.57,
-    "last_transaction": "2026-07-17T06:47:52.124157+00:00",
+    "last_transaction": "2026-07-18T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-14T18:47:52.124157+00:00"
+    "created_at": "2025-12-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0246",
@@ -2947,9 +2947,9 @@
     "transaction_count": 10,
     "total_spend": 2204.63,
     "average_transaction": 220.46,
-    "last_transaction": "2026-06-28T14:47:52.124157+00:00",
+    "last_transaction": "2026-06-30T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-16T18:47:52.124157+00:00"
+    "created_at": "2025-12-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0247",
@@ -2959,9 +2959,9 @@
     "transaction_count": 10,
     "total_spend": 4017.02,
     "average_transaction": 401.7,
-    "last_transaction": "2026-06-28T13:47:52.124157+00:00",
+    "last_transaction": "2026-06-30T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-20T18:47:52.124157+00:00"
+    "created_at": "2026-04-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0248",
@@ -2971,9 +2971,9 @@
     "transaction_count": 9,
     "total_spend": 5179.59,
     "average_transaction": 575.51,
-    "last_transaction": "2026-07-12T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-13T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-14T18:47:52.124157+00:00"
+    "created_at": "2025-12-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0249",
@@ -2983,9 +2983,9 @@
     "transaction_count": 12,
     "total_spend": 3605.55,
     "average_transaction": 300.46,
-    "last_transaction": "2026-07-31T17:47:52.124157+00:00",
+    "last_transaction": "2026-08-02T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-31T18:47:52.124157+00:00"
+    "created_at": "2026-06-02T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0250",
@@ -2995,9 +2995,9 @@
     "transaction_count": 12,
     "total_spend": 3827.95,
     "average_transaction": 319.0,
-    "last_transaction": "2026-06-25T09:47:52.124157+00:00",
+    "last_transaction": "2026-06-26T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-09T18:47:52.124157+00:00"
+    "created_at": "2026-04-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0251",
@@ -3007,9 +3007,9 @@
     "transaction_count": 10,
     "total_spend": 5962.46,
     "average_transaction": 596.25,
-    "last_transaction": "2026-07-14T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-15T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-29T18:47:52.124157+00:00"
+    "created_at": "2025-12-31T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0252",
@@ -3019,9 +3019,9 @@
     "transaction_count": 8,
     "total_spend": 3899.57,
     "average_transaction": 487.45,
-    "last_transaction": "2026-08-01T12:47:52.124157+00:00",
+    "last_transaction": "2026-08-02T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-01T18:47:52.124157+00:00"
+    "created_at": "2026-01-03T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0253",
@@ -3031,9 +3031,9 @@
     "transaction_count": 8,
     "total_spend": 5187.02,
     "average_transaction": 648.38,
-    "last_transaction": "2026-06-19T07:47:52.124157+00:00",
+    "last_transaction": "2026-06-20T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-06T18:47:52.124157+00:00"
+    "created_at": "2026-06-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0254",
@@ -3043,9 +3043,9 @@
     "transaction_count": 7,
     "total_spend": 4885.6,
     "average_transaction": 697.94,
-    "last_transaction": "2026-06-26T10:47:52.124157+00:00",
+    "last_transaction": "2026-06-27T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-24T18:47:52.124157+00:00"
+    "created_at": "2026-03-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0255",
@@ -3055,9 +3055,9 @@
     "transaction_count": 7,
     "total_spend": 2126.28,
     "average_transaction": 303.75,
-    "last_transaction": "2026-06-19T16:47:52.124157+00:00",
+    "last_transaction": "2026-06-21T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-14T18:47:52.124157+00:00"
+    "created_at": "2026-03-16T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0256",
@@ -3067,9 +3067,9 @@
     "transaction_count": 10,
     "total_spend": 2605.73,
     "average_transaction": 260.57,
-    "last_transaction": "2026-06-19T14:47:52.124157+00:00",
+    "last_transaction": "2026-06-21T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-21T18:47:52.124157+00:00"
+    "created_at": "2025-11-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0257",
@@ -3079,9 +3079,9 @@
     "transaction_count": 6,
     "total_spend": 4074.73,
     "average_transaction": 679.12,
-    "last_transaction": "2026-06-28T12:47:52.124157+00:00",
+    "last_transaction": "2026-06-29T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-18T18:47:52.124157+00:00"
+    "created_at": "2025-10-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0258",
@@ -3091,9 +3091,9 @@
     "transaction_count": 6,
     "total_spend": 3838.65,
     "average_transaction": 639.77,
-    "last_transaction": "2026-06-29T12:47:52.124157+00:00",
+    "last_transaction": "2026-06-30T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-20T18:47:52.124157+00:00"
+    "created_at": "2025-12-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0259",
@@ -3103,9 +3103,9 @@
     "transaction_count": 7,
     "total_spend": 3116.03,
     "average_transaction": 445.15,
-    "last_transaction": "2026-07-14T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-16T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-18T18:47:52.124157+00:00"
+    "created_at": "2026-01-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0260",
@@ -3115,9 +3115,9 @@
     "transaction_count": 9,
     "total_spend": 3919.21,
     "average_transaction": 435.47,
-    "last_transaction": "2026-06-28T06:47:52.124157+00:00",
+    "last_transaction": "2026-06-29T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-30T18:47:52.124157+00:00"
+    "created_at": "2026-02-01T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0261",
@@ -3127,9 +3127,9 @@
     "transaction_count": 12,
     "total_spend": 3518.78,
     "average_transaction": 293.23,
-    "last_transaction": "2026-07-08T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-09T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-06T18:47:52.124157+00:00"
+    "created_at": "2026-04-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0262",
@@ -3139,9 +3139,9 @@
     "transaction_count": 5,
     "total_spend": 3385.45,
     "average_transaction": 677.09,
-    "last_transaction": "2026-07-05T07:47:52.124157+00:00",
+    "last_transaction": "2026-07-06T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-08T18:47:52.124157+00:00"
+    "created_at": "2026-02-10T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0263",
@@ -3151,9 +3151,9 @@
     "transaction_count": 12,
     "total_spend": 3084.53,
     "average_transaction": 257.04,
-    "last_transaction": "2026-06-28T06:47:52.124157+00:00",
+    "last_transaction": "2026-06-29T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-31T18:47:52.124157+00:00"
+    "created_at": "2026-02-02T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0264",
@@ -3163,9 +3163,9 @@
     "transaction_count": 7,
     "total_spend": 2969.83,
     "average_transaction": 424.26,
-    "last_transaction": "2026-06-21T09:47:52.124157+00:00",
+    "last_transaction": "2026-06-22T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-24T18:47:52.124157+00:00"
+    "created_at": "2026-02-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0265",
@@ -3175,9 +3175,9 @@
     "transaction_count": 10,
     "total_spend": 3321.17,
     "average_transaction": 332.12,
-    "last_transaction": "2026-07-03T16:47:52.124157+00:00",
+    "last_transaction": "2026-07-05T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-10T18:47:52.124157+00:00"
+    "created_at": "2026-04-12T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0266",
@@ -3187,9 +3187,9 @@
     "transaction_count": 11,
     "total_spend": 3909.79,
     "average_transaction": 355.44,
-    "last_transaction": "2026-07-21T13:47:52.124157+00:00",
+    "last_transaction": "2026-07-23T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-06T18:47:52.124157+00:00"
+    "created_at": "2026-01-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0267",
@@ -3199,9 +3199,9 @@
     "transaction_count": 7,
     "total_spend": 4140.61,
     "average_transaction": 591.52,
-    "last_transaction": "2026-07-31T15:47:52.124157+00:00",
+    "last_transaction": "2026-08-02T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-18T18:47:52.124157+00:00"
+    "created_at": "2025-11-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0268",
@@ -3211,9 +3211,9 @@
     "transaction_count": 11,
     "total_spend": 2745.25,
     "average_transaction": 249.57,
-    "last_transaction": "2026-07-15T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-17T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-15T18:47:52.124157+00:00"
+    "created_at": "2026-06-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0269",
@@ -3223,9 +3223,9 @@
     "transaction_count": 8,
     "total_spend": 3817.4,
     "average_transaction": 477.18,
-    "last_transaction": "2026-06-22T09:47:52.124157+00:00",
+    "last_transaction": "2026-06-23T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-24T18:47:52.124157+00:00"
+    "created_at": "2025-09-26T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0270",
@@ -3235,9 +3235,9 @@
     "transaction_count": 11,
     "total_spend": 3091.35,
     "average_transaction": 281.03,
-    "last_transaction": "2026-07-26T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-27T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-28T18:47:52.124157+00:00"
+    "created_at": "2026-03-30T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0271",
@@ -3247,9 +3247,9 @@
     "transaction_count": 4,
     "total_spend": 4946.47,
     "average_transaction": 1236.62,
-    "last_transaction": "2026-07-15T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-16T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-03-13T18:47:52.124157+00:00"
+    "created_at": "2026-03-15T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0272",
@@ -3259,9 +3259,9 @@
     "transaction_count": 12,
     "total_spend": 3311.71,
     "average_transaction": 275.98,
-    "last_transaction": "2026-07-08T07:47:52.124157+00:00",
+    "last_transaction": "2026-07-09T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-02T18:47:52.124157+00:00"
+    "created_at": "2026-05-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0273",
@@ -3271,9 +3271,9 @@
     "transaction_count": 9,
     "total_spend": 5743.3,
     "average_transaction": 638.14,
-    "last_transaction": "2026-08-02T13:47:52.124157+00:00",
+    "last_transaction": "2026-08-04T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-05T18:47:52.124157+00:00"
+    "created_at": "2025-12-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0274",
@@ -3283,9 +3283,9 @@
     "transaction_count": 9,
     "total_spend": 3207.78,
     "average_transaction": 356.42,
-    "last_transaction": "2026-06-27T17:47:52.124157+00:00",
+    "last_transaction": "2026-06-29T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-06T18:47:52.124157+00:00"
+    "created_at": "2026-02-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0275",
@@ -3295,9 +3295,9 @@
     "transaction_count": 5,
     "total_spend": 3861.58,
     "average_transaction": 772.32,
-    "last_transaction": "2026-07-23T11:47:52.124157+00:00",
+    "last_transaction": "2026-07-24T22:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-05T18:47:52.124157+00:00"
+    "created_at": "2025-10-07T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0276",
@@ -3307,9 +3307,9 @@
     "transaction_count": 8,
     "total_spend": 3470.18,
     "average_transaction": 433.77,
-    "last_transaction": "2026-07-19T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-21T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-12T18:47:52.124157+00:00"
+    "created_at": "2026-04-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0277",
@@ -3319,9 +3319,9 @@
     "transaction_count": 9,
     "total_spend": 3663.38,
     "average_transaction": 407.04,
-    "last_transaction": "2026-06-28T10:47:52.124157+00:00",
+    "last_transaction": "2026-06-29T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-17T18:47:52.124157+00:00"
+    "created_at": "2025-09-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0278",
@@ -3331,9 +3331,9 @@
     "transaction_count": 5,
     "total_spend": 4102.03,
     "average_transaction": 820.41,
-    "last_transaction": "2026-06-30T06:47:52.124157+00:00",
+    "last_transaction": "2026-07-01T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-16T18:47:52.124157+00:00"
+    "created_at": "2025-12-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0279",
@@ -3343,9 +3343,9 @@
     "transaction_count": 12,
     "total_spend": 5611.55,
     "average_transaction": 467.63,
-    "last_transaction": "2026-07-21T08:47:52.124157+00:00",
+    "last_transaction": "2026-07-22T19:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-18T18:47:52.124157+00:00"
+    "created_at": "2025-09-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0280",
@@ -3355,9 +3355,9 @@
     "transaction_count": 12,
     "total_spend": 3767.36,
     "average_transaction": 313.95,
-    "last_transaction": "2026-06-20T14:47:52.124157+00:00",
+    "last_transaction": "2026-06-22T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-10-12T18:47:52.124157+00:00"
+    "created_at": "2025-10-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0281",
@@ -3367,9 +3367,9 @@
     "transaction_count": 11,
     "total_spend": 2527.78,
     "average_transaction": 229.8,
-    "last_transaction": "2026-07-07T10:47:52.124157+00:00",
+    "last_transaction": "2026-07-08T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-21T18:47:52.124157+00:00"
+    "created_at": "2026-05-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0282",
@@ -3379,9 +3379,9 @@
     "transaction_count": 4,
     "total_spend": 3583.79,
     "average_transaction": 895.95,
-    "last_transaction": "2026-08-02T06:47:52.124157+00:00",
+    "last_transaction": "2026-08-03T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-28T18:47:52.124157+00:00"
+    "created_at": "2026-03-02T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0283",
@@ -3391,9 +3391,9 @@
     "transaction_count": 9,
     "total_spend": 4801.54,
     "average_transaction": 533.5,
-    "last_transaction": "2026-06-29T17:47:52.124157+00:00",
+    "last_transaction": "2026-07-01T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-15T18:47:52.124157+00:00"
+    "created_at": "2026-05-17T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0284",
@@ -3403,9 +3403,9 @@
     "transaction_count": 10,
     "total_spend": 2719.93,
     "average_transaction": 271.99,
-    "last_transaction": "2026-07-25T07:47:52.124157+00:00",
+    "last_transaction": "2026-07-26T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-11-16T18:47:52.124157+00:00"
+    "created_at": "2025-11-18T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0285",
@@ -3415,9 +3415,9 @@
     "transaction_count": 10,
     "total_spend": 3502.58,
     "average_transaction": 350.26,
-    "last_transaction": "2026-06-20T07:47:52.124157+00:00",
+    "last_transaction": "2026-06-21T18:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-12T18:47:52.124157+00:00"
+    "created_at": "2026-04-14T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0286",
@@ -3427,9 +3427,9 @@
     "transaction_count": 12,
     "total_spend": 3572.23,
     "average_transaction": 297.69,
-    "last_transaction": "2026-07-25T06:47:52.124157+00:00",
+    "last_transaction": "2026-07-26T17:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-25T18:47:52.124157+00:00"
+    "created_at": "2026-02-27T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0287",
@@ -3439,9 +3439,9 @@
     "transaction_count": 11,
     "total_spend": 4694.0,
     "average_transaction": 426.73,
-    "last_transaction": "2026-06-29T11:47:52.124157+00:00",
+    "last_transaction": "2026-06-30T22:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-20T18:47:52.124157+00:00"
+    "created_at": "2025-09-22T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0288",
@@ -3451,9 +3451,9 @@
     "transaction_count": 11,
     "total_spend": 3384.64,
     "average_transaction": 307.69,
-    "last_transaction": "2026-07-16T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-18T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-04-23T18:47:52.124157+00:00"
+    "created_at": "2026-04-25T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0289",
@@ -3463,9 +3463,9 @@
     "transaction_count": 4,
     "total_spend": 2962.67,
     "average_transaction": 740.67,
-    "last_transaction": "2026-07-29T16:47:52.124157+00:00",
+    "last_transaction": "2026-07-31T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-02T18:47:52.124157+00:00"
+    "created_at": "2026-06-04T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0290",
@@ -3475,9 +3475,9 @@
     "transaction_count": 4,
     "total_spend": 3609.06,
     "average_transaction": 902.26,
-    "last_transaction": "2026-07-19T09:47:52.124157+00:00",
+    "last_transaction": "2026-07-20T20:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-28T18:47:52.124157+00:00"
+    "created_at": "2026-03-02T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0291",
@@ -3487,9 +3487,9 @@
     "transaction_count": 8,
     "total_spend": 2936.65,
     "average_transaction": 367.08,
-    "last_transaction": "2026-06-27T12:47:52.124157+00:00",
+    "last_transaction": "2026-06-28T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-01-06T18:47:52.124157+00:00"
+    "created_at": "2026-01-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0292",
@@ -3499,9 +3499,9 @@
     "transaction_count": 12,
     "total_spend": 2884.17,
     "average_transaction": 240.35,
-    "last_transaction": "2026-07-14T13:47:52.124157+00:00",
+    "last_transaction": "2026-07-16T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-19T18:47:52.124157+00:00"
+    "created_at": "2026-05-21T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0293",
@@ -3511,9 +3511,9 @@
     "transaction_count": 10,
     "total_spend": 4223.4,
     "average_transaction": 422.34,
-    "last_transaction": "2026-07-30T12:47:52.124157+00:00",
+    "last_transaction": "2026-07-31T23:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-12-06T18:47:52.124157+00:00"
+    "created_at": "2025-12-08T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0294",
@@ -3523,9 +3523,9 @@
     "transaction_count": 10,
     "total_spend": 2596.87,
     "average_transaction": 259.69,
-    "last_transaction": "2026-07-09T15:47:52.124157+00:00",
+    "last_transaction": "2026-07-11T02:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-17T18:47:52.124157+00:00"
+    "created_at": "2025-09-19T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0295",
@@ -3535,9 +3535,9 @@
     "transaction_count": 8,
     "total_spend": 5430.16,
     "average_transaction": 678.77,
-    "last_transaction": "2026-07-24T10:47:52.124157+00:00",
+    "last_transaction": "2026-07-25T21:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-21T18:47:52.124157+00:00"
+    "created_at": "2026-05-23T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0296",
@@ -3547,9 +3547,9 @@
     "transaction_count": 12,
     "total_spend": 4119.97,
     "average_transaction": 343.33,
-    "last_transaction": "2026-07-09T14:47:52.124157+00:00",
+    "last_transaction": "2026-07-11T01:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-02-09T18:47:52.124157+00:00"
+    "created_at": "2026-02-11T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0297",
@@ -3559,9 +3559,9 @@
     "transaction_count": 5,
     "total_spend": 5688.9,
     "average_transaction": 1137.78,
-    "last_transaction": "2026-07-10T16:47:52.124157+00:00",
+    "last_transaction": "2026-07-12T03:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2025-09-18T18:47:52.124157+00:00"
+    "created_at": "2025-09-20T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0298",
@@ -3571,9 +3571,9 @@
     "transaction_count": 10,
     "total_spend": 4694.69,
     "average_transaction": 469.47,
-    "last_transaction": "2026-06-25T17:47:52.124157+00:00",
+    "last_transaction": "2026-06-27T04:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-05-13T18:47:52.124157+00:00"
+    "created_at": "2026-05-15T05:34:36.392548+00:00"
   },
   {
     "customer_id": "cust-001-0299",
@@ -3583,8 +3583,8 @@
     "transaction_count": 7,
     "total_spend": 5477.9,
     "average_transaction": 782.56,
-    "last_transaction": "2026-07-12T13:47:52.124157+00:00",
+    "last_transaction": "2026-07-14T00:34:36.392548+00:00",
     "segment": "Inactive",
-    "created_at": "2026-06-12T18:47:52.124157+00:00"
+    "created_at": "2026-06-14T05:34:36.392548+00:00"
   }
 ]

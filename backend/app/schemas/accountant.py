@@ -178,3 +178,23 @@ class AccountantSummaryResponse(BaseModel):
     disclaimer: str = Field(default=ACCOUNTING_DISCLAIMER)
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class CashFlowResponse(BaseModel):
+    """Deterministic cash flow analysis response for Module 8 and AI Copilot."""
+    merchant_id: str
+    period: str
+    total_cash_inflows: float
+    total_cash_outflows: float
+    net_cash_flow: float
+    upi_settlements: float
+    cash_receipts: float
+    card_settlements: float
+    pending_receivables: float
+    pending_payables: float
+    overdue_payables: float
+    operating_cash_status: str  # positive | healthy | tight | negative
+    disclaimer: str = Field(default=ACCOUNTING_DISCLAIMER)
+
+    model_config = ConfigDict(from_attributes=True)
+

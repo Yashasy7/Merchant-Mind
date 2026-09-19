@@ -1158,6 +1158,113 @@ def test_at_risk_customer_inquiry_routes_to_customer_intelligence(client: TestCl
     assert "at-risk" in data["message"].lower()
 
 
+def test_multi_turn_conversational_flow(client: TestClient, agent_test_merchant: Merchant):
+    """
+    Verify complete 5-turn conversational AI interaction:
+    Turn 1: 'How are my sales?'
+    Turn 2: 'Why are they falling?' (resolves pronoun 'they' to sales)
+    Turn 3: 'What should I do?' (resolves to growth recommendations)
+    Turn 4: 'Can you create a campaign for that?' (resolves 'that' to decline recovery, drafts in PENDING_APPROVAL)
+    Turn 5: 'Approve it.' (resolves 'it' to campaign_id, updates to APPROVED)
+    """
+    from app.ai.agent import get_conversation_context
+    conv_id = "test-multiturn-conv-001"
+    m_id = agent_test_merchant.merchant_id
+
+    # --- TURN 1 ---
+    res1 = client.post("/api/v1/agent/chat", json={
+        "message": "How are my sales?",
+        "merchant_id": m_id,
+        "conversation_id": conv_id,
+    })
+    assert res1.status_code == status.HTTP_200_OK
+    d1 = res1.json()
+    assert d1["intent"]["intent"] == "analyze_sales"
+    assert "₹" in d1["message"]
+    assert d1["conversation_id"] == conv_id
+
+    # Verify context created with message history
+    ctx1 = get_conversation_context(conv_id, merchant_id=m_id)
+    assert len(ctx1.get("messages", [])) == 2
+    assert ctx1["messages"][0]["role"] == "user"
+    assert ctx1["messages"][0]["content"] == "How are my sales?"
+    assert ctx1["messages"][1]["role"] == "assistant"
+    assert "₹" in ctx1["messages"][1]["content"]
+
+    # --- TURN 2 ---
+    res2 = client.post("/api/v1/agent/chat", json={
+        "message": "Why are they falling?",
+        "merchant_id": m_id,
+        "conversation_id": conv_id,
+    })
+    assert res2.status_code == status.HTTP_200_OK
+    d2 = res2.json()
+    assert d2["intent"]["intent"] == "analyze_sales"
+    assert d2["approval_required"] is False
+    assert "decline" in d2["message"].lower() or "evening" in d2["message"].lower()
+
+    # Verify context appended
+    ctx2 = get_conversation_context(conv_id, merchant_id=m_id)
+    assert len(ctx2.get("messages", [])) == 4
+    assert ctx2["messages"][2]["content"] == "Why are they falling?"
+
+    # --- TURN 3 ---
+    res3 = client.post("/api/v1/agent/chat", json={
+        "message": "What should I do?",
+        "merchant_id": m_id,
+        "conversation_id": conv_id,
+    })
+    assert res3.status_code == status.HTTP_200_OK
+    d3 = res3.json()
+    assert d3["intent"]["intent"] == "get_growth_recommendations"
+    assert d3["approval_required"] is False
+    assert any(a["tool_name"] == "get_growth_recommendations" for a in d3["actions_taken"])
+
+    # --- TURN 4 ---
+    res4 = client.post("/api/v1/agent/chat", json={
+        "message": "Can you create a campaign for that?",
+        "merchant_id": m_id,
+        "conversation_id": conv_id,
+    })
+    assert res4.status_code == status.HTTP_200_OK
+    d4 = res4.json()
+    assert d4["approval_required"] is True
+    assert d4["campaign"] is not None
+    assert d4["status"] == "PENDING_APPROVAL"
+    created_camp_id = d4["campaign_id"]
+    assert created_camp_id is not None
+
+    # --- TURN 5 ---
+    res5 = client.post("/api/v1/agent/chat", json={
+        "message": "Approve it.",
+        "merchant_id": m_id,
+        "conversation_id": conv_id,
+    })
+    assert res5.status_code == status.HTTP_200_OK
+    d5 = res5.json()
+    assert d5["status"] == "APPROVED"
+    assert d5["approval_required"] is False
+    assert "approved" in d5["message"].lower()
+
+
+def test_merchant_and_session_isolation(client: TestClient, db_session: Session):
+    """Verify strict tenant and session isolation between merchants and distinct sessions."""
+    from app.ai.agent import get_conversation_context, update_conversation_context
+
+    # Merchant A conversation
+    update_conversation_context("shared-session-id", {"secret": "merchant-A-data"}, merchant_id="merchant-A")
+    # Merchant B retrieves same session ID
+    ctx_b = get_conversation_context("shared-session-id", merchant_id="merchant-B")
+    assert ctx_b == {}, "Merchant B should not see Merchant A's conversation cache"
+
+    # Same merchant, two different sessions
+    update_conversation_context("session-1", {"topic": "sales"}, merchant_id="merchant-A")
+    update_conversation_context("session-2", {"topic": "accounting"}, merchant_id="merchant-A")
+    assert get_conversation_context("session-1", merchant_id="merchant-A")["topic"] == "sales"
+    assert get_conversation_context("session-2", merchant_id="merchant-A")["topic"] == "accounting"
+
+
+
 
 
 

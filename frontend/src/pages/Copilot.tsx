@@ -70,6 +70,7 @@ export default function Copilot() {
   }, [initialPrompt]);
 
   const handleResetChat = () => {
+    setConversationId(`conv-${Date.now()}`);
     setMessages([
       {
         role: 'assistant',

@@ -28,8 +28,8 @@ from app.core.logging import logger
 # Constants
 # ---------------------------------------------------------------------------
 
-_REMEMBER_TIMEOUT_SECONDS = 6.0
-_RECALL_TIMEOUT_SECONDS = 6.0
+_REMEMBER_TIMEOUT_SECONDS = 2.0
+_RECALL_TIMEOUT_SECONDS = 2.0
 _DATASET_PREFIX = "merchantmind_merchant_"
 
 

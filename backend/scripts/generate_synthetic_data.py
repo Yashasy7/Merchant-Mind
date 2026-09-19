@@ -45,7 +45,16 @@ def set_seed(seed: int = 42) -> None:
 
 
 def generate_merchant_data(merchant_id: str = "demo-merchant-001") -> Dict[str, Any]:
-    """Generate profile for the primary demo merchant."""
+    """Generate profile for the primary or secondary demo merchant."""
+    if merchant_id in ("demo-merchant-002", "sharma-sweets-jaipur"):
+        return {
+            "merchant_id": merchant_id,
+            "business_name": "Sharma Sweets & Bakers",
+            "business_type": "Bakery & Food Retail",
+            "location": "MI Road, Jaipur, Rajasthan",
+            "business_age": 24,
+            "created_at": (datetime.now(timezone.utc) - timedelta(days=24 * 30)).isoformat()
+        }
     return {
         "merchant_id": merchant_id,
         "business_name": "Sharma General Store",
@@ -54,6 +63,7 @@ def generate_merchant_data(merchant_id: str = "demo-merchant-001") -> Dict[str, 
         "business_age": 36,
         "created_at": (datetime.now(timezone.utc) - timedelta(days=36 * 30)).isoformat()
     }
+
 
 
 def generate_customers_data(
@@ -185,7 +195,13 @@ def generate_transactions_data(
                 amount = round(random.uniform(1200.0, 3200.0), 2)
 
             cust_id = random.choice(customer_ids) if random.random() < 0.85 else None
-            status = "success" if random.random() > 0.02 else "failed"
+            roll_status = random.random()
+            if roll_status > 0.035:
+                status = "success"
+            elif roll_status > 0.015:
+                status = "failed"
+            else:
+                status = "refunded"
 
             transactions.append({
                 "transaction_id": f"tx-{merchant_id[-3:]}-{tx_counter:06d}",
@@ -205,7 +221,10 @@ def generate_expenses_data(
     merchant_id: str,
     now: Optional[datetime] = None
 ) -> List[Dict[str, Any]]:
-    """Generate 3 months of operational expenses with an electricity spike anomaly."""
+    """
+    Generate 3 months of realistic operational expenses across 11 standard merchant categories
+    with an electricity spike anomaly (+15% in current month).
+    """
     if now is None:
         now = datetime.now(timezone.utc)
 
@@ -215,7 +234,7 @@ def generate_expenses_data(
     for month_back in range(2, -1, -1):
         month_date = now - timedelta(days=month_back * 30)
 
-        # Inventory batches (weekly)
+        # 1. Inventory / Raw Materials (weekly restocking)
         for week in range(4):
             exp_date = (month_date - timedelta(days=21 - week * 7)).date()
             expenses.append({
@@ -224,12 +243,12 @@ def generate_expenses_data(
                 "date": exp_date.isoformat(),
                 "category": "Inventory",
                 "amount": float(round(random.uniform(28000.0, 32000.0), 2)),
-                "vendor": "Metro Cash & Carry / Bangalore FMCG Dist.",
-                "notes": f"Weekly FMCG restocking batch {week + 1}"
+                "vendor": "Metro Cash & Carry / Wholesale FMCG Supply",
+                "notes": f"Weekly inventory restocking batch {week + 1}"
             })
             exp_counter += 1
 
-        # Rent (monthly on 1st)
+        # 2. Rent (monthly on 1st)
         rent_date = date(month_date.year, month_date.month, 1)
         expenses.append({
             "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
@@ -242,7 +261,7 @@ def generate_expenses_data(
         })
         exp_counter += 1
 
-        # Staff salaries (monthly on 5th)
+        # 3. Staff Salaries (monthly on 5th)
         salary_date = date(month_date.year, month_date.month, 5)
         expenses.append({
             "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
@@ -255,7 +274,7 @@ def generate_expenses_data(
         })
         exp_counter += 1
 
-        # Electricity bill (spike in current month: +15%)
+        # 4. Utilities (electricity bill with +15% anomaly in current month)
         elec_date = date(month_date.year, month_date.month, 12)
         elec_amount = 17850.00 if month_back == 0 else 15500.00
         expenses.append({
@@ -264,21 +283,99 @@ def generate_expenses_data(
             "date": elec_date.isoformat(),
             "category": "Utilities",
             "amount": elec_amount,
-            "vendor": "BESCOM (Bangalore Electricity)",
+            "vendor": "Electricity Board (BESCOM / JVVNL)",
             "notes": "Store refrigeration & air conditioning electricity bill"
         })
         exp_counter += 1
 
-        # Miscellaneous / Packaging
-        misc_date = date(month_date.year, month_date.month, 18)
+        # 5. Delivery & Logistics
+        delivery_date = date(month_date.year, month_date.month, 14)
+        expenses.append({
+            "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
+            "merchant_id": merchant_id,
+            "date": delivery_date.isoformat(),
+            "category": "Delivery",
+            "amount": float(round(random.uniform(5500.0, 7500.0), 2)),
+            "vendor": "Dunzo / Porter Local Dispatch",
+            "notes": "Monthly customer hyperlocal order deliveries"
+        })
+        exp_counter += 1
+
+        # 6. Packaging & Supplies
+        pkg_date = date(month_date.year, month_date.month, 18)
+        expenses.append({
+            "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
+            "merchant_id": merchant_id,
+            "date": pkg_date.isoformat(),
+            "category": "Packaging",
+            "amount": float(round(random.uniform(4000.0, 6000.0), 2)),
+            "vendor": "Krishna Packaging Supplies",
+            "notes": "Carry bags, cake/sweet boxes, thermal billing rolls"
+        })
+        exp_counter += 1
+
+        # 7. Marketing & Promotion
+        mktg_date = date(month_date.year, month_date.month, 20)
+        expenses.append({
+            "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
+            "merchant_id": merchant_id,
+            "date": mktg_date.isoformat(),
+            "category": "Marketing",
+            "amount": float(round(random.uniform(3500.0, 5000.0), 2)),
+            "vendor": "Local Print & Digital Media",
+            "notes": "Storefront banner printing, festive pamphlets"
+        })
+        exp_counter += 1
+
+        # 8. Software & POS Systems
+        sw_date = date(month_date.year, month_date.month, 22)
+        expenses.append({
+            "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
+            "merchant_id": merchant_id,
+            "date": sw_date.isoformat(),
+            "category": "Software",
+            "amount": 1499.00,
+            "vendor": "Paytm Merchant POS Suite",
+            "notes": "Monthly cloud billing & inventory software license"
+        })
+        exp_counter += 1
+
+        # 9. Maintenance & Repairs
+        maint_date = date(month_date.year, month_date.month, 25)
+        expenses.append({
+            "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
+            "merchant_id": merchant_id,
+            "date": maint_date.isoformat(),
+            "category": "Maintenance",
+            "amount": float(round(random.uniform(2500.0, 4000.0), 2)),
+            "vendor": "Cooling Tech Service & Soundbox Tech",
+            "notes": "Deep chiller & oven bi-monthly inspection"
+        })
+        exp_counter += 1
+
+        # 10. Bank & Payment Gateway Fees
+        bank_date = date(month_date.year, month_date.month, 28)
+        expenses.append({
+            "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
+            "merchant_id": merchant_id,
+            "date": bank_date.isoformat(),
+            "category": "Bank & Payment Fees",
+            "amount": float(round(random.uniform(1200.0, 2000.0), 2)),
+            "vendor": "Paytm Payments Bank / Acquiring Gateway",
+            "notes": "Card processing MDR and monthly Soundbox rental fee"
+        })
+        exp_counter += 1
+
+        # 11. Miscellaneous
+        misc_date = date(month_date.year, month_date.month, 29)
         expenses.append({
             "expense_id": f"exp-{merchant_id[-3:]}-{exp_counter:04d}",
             "merchant_id": merchant_id,
             "date": misc_date.isoformat(),
-            "category": "Packaging & Misc",
-            "amount": float(round(random.uniform(4000.0, 6000.0), 2)),
-            "vendor": "Krishna Packaging Supplies",
-            "notes": "Carry bags, thermal billing rolls, sanitization"
+            "category": "Miscellaneous",
+            "amount": float(round(random.uniform(2000.0, 3500.0), 2)),
+            "vendor": "City Cleaning & Sanitation Supplies",
+            "notes": "Store hygiene, pest control, daily consumables"
         })
         exp_counter += 1
 
@@ -289,7 +386,7 @@ def generate_invoices_data(
     merchant_id: str,
     now: Optional[datetime] = None
 ) -> List[Dict[str, Any]]:
-    """Generate vendor supplier invoices."""
+    """Generate vendor supplier invoices with paid, pending, overdue, and cancelled statuses."""
     if now is None:
         now = datetime.now(timezone.utc)
 
@@ -297,16 +394,18 @@ def generate_invoices_data(
     inv_counter = 1
 
     vendors = [
-        ("Metro Cash & Carry", 32500.00, "paid"),
-        ("Hindustan Unilever Dist.", 18400.00, "paid"),
-        ("ITC Agri-Business Hub", 14200.00, "paid"),
-        ("Amul Dairy Supply", 9800.00, "pending"),
-        ("Britannia Direct Wholesale", 7600.00, "pending"),
-        ("Tata Consumer Products", 12300.00, "paid"),
+        ("Metro Cash & Carry", 32500.00, "paid", 30),
+        ("Hindustan Unilever Dist.", 18400.00, "paid", 24),
+        ("ITC Agri-Business Hub", 14200.00, "paid", 18),
+        ("Amul Dairy Supply", 9800.00, "pending", 5),
+        ("Britannia Direct Wholesale", 7600.00, "pending", 8),
+        ("Tata Consumer Products", 12300.00, "paid", 15),
+        ("Rajasthan Dairy & Agro Federation", 11500.00, "overdue", 40),
+        ("Heritage Spices & Packaging Hub", 4200.00, "cancelled", 12),
     ]
 
-    for vendor, amount, status in vendors:
-        inv_date = (now - timedelta(days=random.randint(5, 45))).date()
+    for vendor, amount, status, days_ago in vendors:
+        inv_date = (now - timedelta(days=days_ago)).date()
         due_date = inv_date + timedelta(days=15)
         invoices.append({
             "invoice_id": f"inv-{merchant_id[-3:]}-{inv_counter:04d}",
@@ -320,6 +419,7 @@ def generate_invoices_data(
         inv_counter += 1
 
     return invoices
+
 
 
 def generate_campaigns_data(merchant_id: str) -> List[Dict[str, Any]]:
@@ -563,26 +663,38 @@ def main():
     print("MANDATORY NOTICE: ALL DATA IS SYNTHETIC (DEMO PURPOSES ONLY)")
     print("=" * 70)
 
-    dataset = generate_full_synthetic_dataset()
-    meta = dataset["metadata"]["counts"]
-    print(f"Generated:")
-    print(f"  - Merchants:    {meta['merchants']}")
-    print(f"  - Customers:    {meta['customers']}")
-    print(f"  - Transactions: {meta['transactions']}")
-    print(f"  - Expenses:     {meta['expenses']}")
-    print(f"  - Invoices:     {meta['invoices']}")
-    print(f"  - Campaigns:    {meta['campaigns']}")
+    # 1. Generate Primary Merchant (Sharma General Store, Bengaluru)
+    dataset_001 = generate_full_synthetic_dataset("demo-merchant-001", seed=42)
+    meta_001 = dataset_001["metadata"]["counts"]
+    print(f"Generated Merchant 1 ({dataset_001['merchant']['business_name']}):")
+    print(f"  - Customers:    {meta_001['customers']}")
+    print(f"  - Transactions: {meta_001['transactions']}")
+    print(f"  - Expenses:     {meta_001['expenses']}")
+    print(f"  - Invoices:     {meta_001['invoices']}")
+    print(f"  - Campaigns:    {meta_001['campaigns']}")
 
-    # Save to JSON fallback
-    save_dataset_to_json(dataset)
+    # 2. Generate Secondary Merchant (Sharma Sweets & Bakers, Jaipur)
+    dataset_002 = generate_full_synthetic_dataset("demo-merchant-002", seed=43)
+    meta_002 = dataset_002["metadata"]["counts"]
+    print(f"\nGenerated Merchant 2 ({dataset_002['merchant']['business_name']}):")
+    print(f"  - Customers:    {meta_002['customers']}")
+    print(f"  - Transactions: {meta_002['transactions']}")
+    print(f"  - Expenses:     {meta_002['expenses']}")
+    print(f"  - Invoices:     {meta_002['invoices']}")
+    print(f"  - Campaigns:    {meta_002['campaigns']}")
 
-    # If --db flag provided, attempt database seeding
+    # Save primary dataset to JSON fallback
+    save_dataset_to_json(dataset_001)
+
+    # If --db flag provided, seed database for both merchants
     if "--db" in sys.argv or "--seed-db" in sys.argv:
         print("\nAttempting database seeding...")
-        seed_database_from_dataset(dataset)
+        seed_database_from_dataset(dataset_001)
+        seed_database_from_dataset(dataset_002)
 
     print("=" * 70)
 
 
 if __name__ == "__main__":
     main()
+

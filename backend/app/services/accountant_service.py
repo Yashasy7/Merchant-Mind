@@ -38,6 +38,7 @@ from app.schemas.accountant import (
     FinancialInsight,
     FinancialInsightsResponse,
     AccountantSummaryResponse,
+    CashFlowResponse,
 )
 
 
@@ -499,3 +500,112 @@ class AccountantService(BaseService):
             ai_narrative=narrative,
             disclaimer=ACCOUNTING_DISCLAIMER,
         )
+
+    def get_cash_flow(
+        self,
+        merchant_id: str,
+        start_date: Optional[date] = None,
+        end_date: Optional[date] = None,
+    ) -> CashFlowResponse:
+        """
+        Deterministic cash flow analysis for Module 8 and AI Copilot.
+        Aggregates cash inflows (settled sales collections by payment rail),
+        cash outflows (operating expenses + supplier obligations),
+        net operating cash flow, and outstanding payables/receivables.
+        """
+        self._validate_date_range(start_date, end_date)
+
+        # 1. Cash Inflows: Sales transactions
+        txns_df = self.sales_service.repo.get_transactions_df(
+            merchant_id=merchant_id,
+            status="success",
+            start_date=start_date,
+            end_date=end_date,
+        )
+
+        total_inflows = round(float(txns_df["amount"].sum()), 2) if not txns_df.empty else 0.0
+
+        upi_total = 0.0
+        cash_total = 0.0
+        card_total = 0.0
+
+        if not txns_df.empty and "payment_method" in txns_df.columns:
+            upi_df = txns_df[txns_df["payment_method"].str.upper() == "UPI"]
+            cash_df = txns_df[txns_df["payment_method"].str.upper() == "CASH"]
+            card_df = txns_df[txns_df["payment_method"].str.upper() == "CARD"]
+
+            upi_total = round(float(upi_df["amount"].sum()), 2) if not upi_df.empty else 0.0
+            cash_total = round(float(cash_df["amount"].sum()), 2) if not cash_df.empty else 0.0
+            card_total = round(float(card_df["amount"].sum()), 2) if not card_df.empty else 0.0
+        else:
+            upi_total = total_inflows
+
+        # 2. Cash Outflows: Operating Expenses
+        exp_df = self.expense_repo.get_expenses_df(
+            merchant_id=merchant_id,
+            start_date=start_date,
+            end_date=end_date,
+        )
+        total_outflows = round(float(exp_df["amount"].sum()), 2) if not exp_df.empty else 0.0
+
+        # 3. Net Cash Flow
+        net_cash_flow = round(total_inflows - total_outflows, 2)
+
+        # 4. Invoices & Payables / Receivables
+        invoices_summary = self.get_invoices_summary(merchant_id)
+        pending_payables = invoices_summary.pending_amount
+
+        # Overdue payables: check invoices
+        all_invoices = self.expense_repo.get_invoices(merchant_id)
+        today = datetime.now(timezone.utc).date()
+        overdue_payables = 0.0
+        for inv in all_invoices:
+            st = (inv.get("status") if isinstance(inv, dict) else getattr(inv, "status", "")) or ""
+            amt = (inv.get("amount") if isinstance(inv, dict) else getattr(inv, "amount", 0.0)) or 0.0
+            d_date = inv.get("due_date") if isinstance(inv, dict) else getattr(inv, "due_date", None)
+            if isinstance(d_date, str):
+                try:
+                    d_date = date.fromisoformat(d_date)
+                except Exception:
+                    d_date = None
+            if st.lower() == "overdue":
+                overdue_payables += float(amt)
+            elif st.lower() == "pending" and d_date and d_date < today:
+                overdue_payables += float(amt)
+        overdue_payables = round(overdue_payables, 2)
+
+        # Pending receivables: T+1 Paytm settlement buffer (~4% of UPI collections in flight)
+        pending_receivables = round(upi_total * 0.04, 2) if upi_total > 0 else 0.0
+
+        # 5. Operating cash flow health rating
+        if net_cash_flow > 50000.0:
+            operating_status = "positive"
+        elif net_cash_flow > 0.0:
+            operating_status = "healthy"
+        elif net_cash_flow > -15000.0:
+            operating_status = "tight"
+        else:
+            operating_status = "negative"
+
+        period_label = (
+            f"{start_date.isoformat()} to {end_date.isoformat()}"
+            if start_date and end_date
+            else "Current Operating Period"
+        )
+
+        return CashFlowResponse(
+            merchant_id=merchant_id,
+            period=period_label,
+            total_cash_inflows=total_inflows,
+            total_cash_outflows=total_outflows,
+            net_cash_flow=net_cash_flow,
+            upi_settlements=upi_total,
+            cash_receipts=cash_total,
+            card_settlements=card_total,
+            pending_receivables=pending_receivables,
+            pending_payables=pending_payables,
+            overdue_payables=overdue_payables,
+            operating_cash_status=operating_status,
+            disclaimer=ACCOUNTING_DISCLAIMER,
+        )
+

@@ -27,7 +27,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application lifecycle events: startup and shutdown management."""
     logger.info(f"Starting {settings.app_name} in [{settings.app_env}] environment...")
     logger.info(f"Target Database: {settings.database_url.split('@')[-1] if '@' in settings.database_url else 'local'}")
-    
+
     # Safe database schema initialization
     init_success = init_db()
     if init_success:
@@ -35,9 +35,32 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     else:
         logger.warning("Database unavailable or deferred; continuing with startup.")
 
+    # RAG initial ingestion (background thread — non-blocking, fails gracefully)
+    if settings.rag_enabled:
+        import threading
+        from app.core.database import SessionLocal
+        from app.rag import get_rag_service
+
+        def _rag_startup_ingest() -> None:
+            try:
+                db = SessionLocal()
+                try:
+                    svc = get_rag_service()
+                    result = svc.ingest(settings.demo_merchant_id, db)
+                    logger.info(f"RAG startup ingestion: {result}")
+                finally:
+                    db.close()
+            except Exception as exc:
+                logger.warning(f"RAG startup ingestion failed (non-fatal): {exc}")
+
+        t = threading.Thread(target=_rag_startup_ingest, daemon=True, name="rag-ingest")
+        t.start()
+        logger.info(f"RAG startup ingestion launched in background for merchant '{settings.demo_merchant_id}'.")
+
     yield
 
     logger.info(f"Shutting down {settings.app_name}...")
+
 
 
 # Initialize FastAPI application

@@ -70,6 +70,11 @@ class Settings(BaseSettings):
     # Optional: only sent when explicitly configured; n8n webhook may run without auth
     n8n_webhook_secret: str = Field(default="", alias="N8N_WEBHOOK_SECRET")
 
+    # RAG — Retrieval-Augmented Generation
+    rag_enabled: bool = Field(default=True, alias="RAG_ENABLED")
+    rag_top_k: int = Field(default=3, alias="RAG_TOP_K")        # Max chunks injected per query
+    rag_index_dir: str = Field(default="data/rag_index", alias="RAG_INDEX_DIR")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

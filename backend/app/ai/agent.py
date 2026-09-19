@@ -23,6 +23,7 @@ from app.ai.llm_client import get_llm_client, BaseLLMClient
 from app.ai.cognee_client import get_cognee_client
 from app.schemas.campaign import CampaignResponse, CampaignResultResponse
 from app.schemas.what_if import SimulationScenario
+from app.rag import get_rag_service
 
 
 # Simple in-memory bounded cache for short conversation continuity (max 200 sessions)
@@ -224,6 +225,22 @@ class MarketingCampaignAgent:
         except Exception as _cog_err:  # noqa: BLE001
             logger.warning(f"Cognee recall failed (non-fatal): {_cog_err}")
 
+        # 1c. RAG retrieval — semantic context from indexed merchant documents (best-effort)
+        try:
+            rag_svc = get_rag_service()
+            rag_context = rag_svc.retrieve(
+                merchant_id=self.merchant_id,
+                query=request.message,
+                intent=intent.intent,
+            )
+            if rag_context:
+                session_context["rag_context"] = rag_context
+                logger.info(
+                    f"RAG: Injected {len(rag_context)} chars of retrieved context "
+                    f"for merchant '{self.merchant_id}' (intent='{intent.intent}')."
+                )
+        except Exception as _rag_err:  # noqa: BLE001
+            logger.warning(f"RAG retrieve failed (non-fatal): {_rag_err}")
 
 
         insights: List[str] = []

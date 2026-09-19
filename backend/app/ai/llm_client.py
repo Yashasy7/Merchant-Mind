@@ -1229,6 +1229,11 @@ class GeminiLLMClient(BaseLLMClient):
             if context and context.get("cognee_memory"):
                 cognee_memory = f"\nRelevant Merchant Long-Term Knowledge (Cognee Memory):\n{context.get('cognee_memory')}\n"
 
+            # RAG context: retrieved semantic context from indexed merchant documents
+            rag_context_block = ""
+            if context and context.get("rag_context"):
+                rag_context_block = f"\n{context.get('rag_context')}\n"
+
             context_summary = {
                 "intent": intent.model_dump(),
                 "tool_results_count": len(tool_results),
@@ -1237,10 +1242,12 @@ class GeminiLLMClient(BaseLLMClient):
             prompt_content = (
                 f"Recent Conversation History:\n{history_text}\n"
                 f"{cognee_memory}"
+                f"{rag_context_block}"
                 f"Current Merchant Message: '{message}'\n"
                 f"Intent: {intent.intent}\n"
-                f"Backend Authoritative Data (Tool Outputs):\n{json.dumps(context_summary, default=str)}"
+                f"Backend Authoritative Data (Tool Outputs — USE THESE FOR ALL NUMBERS):\n{json.dumps(context_summary, default=str)}"
             )
+
             payload = {
                 "contents": [
                     {

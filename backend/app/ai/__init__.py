@@ -6,7 +6,7 @@ and deterministic human-in-the-loop campaign workflows.
 
 from app.ai.agent import MarketingCampaignAgent
 from app.ai.tools import ToolRegistry, ALLOWED_TOOLS
-from app.ai.llm_client import BaseLLMClient, get_llm_client, DeterministicFallbackClient, OpenAILLMClient
+from app.ai.llm_client import BaseLLMClient, get_llm_client, DeterministicFallbackClient, GeminiLLMClient, OpenAILLMClient
 from app.ai.schemas import (
     MerchantIntent,
     AgentChatRequest,
@@ -23,6 +23,7 @@ __all__ = [
     "BaseLLMClient",
     "get_llm_client",
     "DeterministicFallbackClient",
+    "GeminiLLMClient",
     "OpenAILLMClient",
     "MerchantIntent",
     "AgentChatRequest",

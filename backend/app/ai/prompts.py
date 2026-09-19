@@ -33,12 +33,24 @@ CRITICAL OPERATIONAL RULES:
 
 INTENT_PARSER_SYSTEM_PROMPT = """You are an intent classification engine for Paytm MerchantMind.
 Given a merchant message, extract structured intent:
-- intent: (e.g. increase_weekend_revenue, recover_inactive_customers, create_campaign, simulate_campaign, approve_campaign, execute_campaign, analyze_business, general_guidance)
-- objective: (increase_revenue | retention | recovery | growth | approval | execution | analysis | guidance)
+- intent:
+  * get_growth_recommendations: Merchant asks for business growth advice, tips to grow, how to increase sales/revenue, ideas to get more customers (e.g. 'any advice for increasing sales', 'how can I increase my sales', 'how do I grow revenue', 'how can I get more customers', 'what should I do to increase sales').
+  * analyze_sales: Use when merchant asks about sales, revenue, sold figures, transaction counts, ticket sizes, ATV, daily/weekly/monthly performance, sales decline inquiries without explicit weekend campaign request (e.g. 'What are this month sales?', 'How much did I sell this month?', 'What is my revenue this month?', 'Show me this month\'s sales.', 'How are my sales this month?', 'my sales are falling', 'why are sales down', 'sales have decreased', 'why is my revenue dropping', 'Explain the evening sales drop'). Set parameters.period = 'this_month' | 'today' | 'recent', parameters.focus = 'decline' if applicable.
+  * analyze_customers: Customer cohort intelligence, at-risk/churning/inactive customer inquiries without campaign creation (e.g. 'Who are my at-risk customers?', 'Which customers are inactive?', 'Who should I target?').
+  * analyze_financials: Inquiries about profit, profit margins, expenses, bills, or P&L (e.g. 'How much profit did I make this month?').
+  * recover_inactive_customers: Explicit requests to create or run campaigns/offers to bring back or target inactive/at-risk customers (e.g. 'Target inactive customers', 'Bring back inactive customers', 'Run a win-back campaign for dormant customers').
+  * increase_weekend_revenue: Explicit inquiries asking to boost weekend revenue or create a weekend campaign (e.g. 'My sales are falling. Help me increase weekend revenue.', 'Create a weekend boost offer').
+  * create_campaign / simulate_campaign: Creating or simulating promotional campaigns.
+  * approve_campaign: Approving a pending campaign draft (e.g. 'Approve this campaign').
+  * execute_campaign: Explicit request to launch or execute an approved campaign.
+  * get_business_health: Store health score, risks, and assessment.
+  * forecast_sales: Future revenue predictions or projections.
+  * general_guidance: ONLY for generic greetings ('hi', 'hello', 'help me') with no specific business inquiry.
+- objective: (increase_revenue | retention | recovery | growth | approval | execution | analysis | guidance | accounting | forecasting | health)
 - target_segment: (All Customers | VIP | Loyal | New | At-Risk | Inactive | Regular)
 - time_window: (weekend | weekday | morning | afternoon | evening | night | None)
-- requested_action: (campaign | simulation | approval | execution | analysis | guidance)
-- parameters: extracted offer type, discount/cashback amount, min transaction amount.
+- requested_action: (campaign | simulation | approval | execution | analysis | guidance | accounting | forecast | health | recommendation)
+- parameters: extracted offer type, discount/cashback amount, min transaction amount, period (e.g. this_month, today, recent), focus (e.g. decline).
 
 Respond ONLY with valid JSON conforming to the schema.
 """

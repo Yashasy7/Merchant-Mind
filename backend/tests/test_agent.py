@@ -41,7 +41,7 @@ from app.models.campaign import Campaign
 from app.schemas.campaign import CampaignStatus
 from app.ai.tools import ToolRegistry, ALLOWED_TOOLS
 from app.ai.schemas import AgentChatRequest, AgentChatResponse, MerchantIntent
-from app.ai.llm_client import DeterministicFallbackClient, OpenAILLMClient
+from app.ai.llm_client import DeterministicFallbackClient, GeminiLLMClient, OpenAILLMClient
 
 
 @pytest.fixture
@@ -403,8 +403,8 @@ def test_invalid_tool_call_rejection(db_session: Session, agent_test_merchant: M
 
 def test_llm_failure_fallback(client: TestClient, agent_test_merchant: Merchant):
     """Verify agent continues functioning deterministically when external LLM raises an error."""
-    with patch.object(OpenAILLMClient, "parse_intent", side_effect=Exception("OpenAI connection timeout")):
-        with patch.object(OpenAILLMClient, "generate_response", side_effect=Exception("OpenAI connection timeout")):
+    with patch.object(GeminiLLMClient, "parse_intent", side_effect=Exception("Gemini connection timeout")):
+        with patch.object(GeminiLLMClient, "generate_response", side_effect=Exception("Gemini connection timeout")):
             payload = {
                 "message": "My sales have dropped. Help me increase weekend revenue.",
                 "merchant_id": agent_test_merchant.merchant_id,
@@ -453,7 +453,7 @@ def test_simulation_failure_handling(client: TestClient, agent_test_merchant: Me
 
 def test_malformed_llm_response_handling(client: TestClient, agent_test_merchant: Merchant):
     """Verify agent recovers when LLM returns invalid malformed non-JSON string."""
-    with patch.object(OpenAILLMClient, "parse_intent", side_effect=ValueError("Malformed non-JSON LLM response")):
+    with patch.object(GeminiLLMClient, "parse_intent", side_effect=ValueError("Malformed non-JSON LLM response")):
         payload = {
             "message": "Bring back inactive customers",
             "merchant_id": agent_test_merchant.merchant_id,
@@ -903,4 +903,261 @@ def test_cross_merchant_execution_regression(
     other_camp_db = db_session.get(Campaign, other_camp_id)
     assert other_camp_db.status == CampaignStatus.APPROVED.value
     assert other_camp_db.executed_at is None
+
+
+def test_monthly_sales_query_intent_detection():
+    """Verify natural language sales and revenue queries correctly detect analyze_sales intent."""
+    client = DeterministicFallbackClient()
+
+    queries = [
+        "what are this month sales",
+        "How much revenue did I make this month?",
+        "Show me my sales for this month",
+        "How much did I sell this month?",
+        "What is my revenue this month?",
+        "Show me this month's sales.",
+        "monthly sales",
+    ]
+
+    for q in queries:
+        intent = client.parse_intent(q)
+        assert intent.intent == "analyze_sales", f"Failed for query: '{q}', got '{intent.intent}'"
+        assert intent.parameters.get("period") == "this_month"
+
+
+def test_monthly_sales_query_agent_chat(client: TestClient, agent_test_merchant: Merchant):
+    """Verify 'what are this month sales' executes analyze_sales tool and returns grounded metrics."""
+    res = client.post(
+        "/api/v1/agent/chat",
+        json={
+            "message": "what are this month sales",
+            "merchant_id": agent_test_merchant.merchant_id,
+        }
+    )
+    assert res.status_code == status.HTTP_200_OK
+    data = res.json()
+
+    assert data["intent"]["intent"] == "analyze_sales"
+    assert any(a["tool_name"] == "analyze_sales" for a in data["actions_taken"])
+    assert "₹" in data["message"]
+    assert "I am your Paytm MerchantMind AI Marketing Partner. You can ask me" not in data["message"]
+    assert len(data["insights"]) > 0
+
+
+def test_deterministic_fallback_sales_response():
+    """Verify deterministic fallback generates grounded response for analyze_sales from context."""
+    client = DeterministicFallbackClient()
+    intent = MerchantIntent(
+        intent="analyze_sales",
+        objective="analysis",
+        target_segment="All Customers",
+        requested_action="analysis",
+        parameters={"period": "this_month"}
+    )
+    context = {
+        "sales_summary": {
+            "total_revenue": 337321.95,
+            "total_transactions": 594,
+            "average_transaction_value": 580.59,
+            "success_rate": 97.8
+        },
+        "period_label": "this month (September 2026)"
+    }
+    resp = client.generate_response("what are this month sales", intent, [], context)
+    assert "337,321.95" in resp
+    assert "594" in resp
+    assert "580.59" in resp
+    assert "97.8%" in resp
+
+
+def test_malformed_and_unsupported_query_handling(client: TestClient, agent_test_merchant: Merchant):
+    """Verify obscure, empty, or unsupported queries produce safe fallback without 500 error."""
+    res = client.post(
+        "/api/v1/agent/chat",
+        json={
+            "message": "??? !!! random text with no keywords xyz12345",
+            "merchant_id": agent_test_merchant.merchant_id,
+        }
+    )
+    assert res.status_code == status.HTTP_200_OK
+    data = res.json()
+    assert data["intent"]["intent"] == "general_guidance"
+    assert "Paytm MerchantMind" in data["message"]
+
+
+def test_gemini_intent_parsing_success(monkeypatch):
+    """Verify GeminiLLMClient correctly calls Gemini REST API and parses JSON candidate."""
+    from app.core.config import get_settings
+    settings = get_settings()
+    monkeypatch.setattr(settings, "llm_provider", "gemini")
+    monkeypatch.setattr(settings, "llm_api_key", "test-gemini-key-123456789")
+    monkeypatch.setattr(settings, "llm_model", "gemini-1.5-flash")
+
+    gemini_client = GeminiLLMClient()
+    mock_gemini_response = {
+        "candidates": [
+            {
+                "content": {
+                    "parts": [
+                        {
+                            "text": '```json\n{"intent": "increase_weekend_revenue", "objective": "growth", "target_segment": "All Customers", "time_window": "weekend", "requested_action": "recommendation", "parameters": {}}\n```'
+                        }
+                    ],
+                    "role": "model"
+                },
+                "finishReason": "STOP"
+            }
+        ]
+    }
+
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.json.return_value = mock_gemini_response
+
+    with patch("httpx.Client.post", return_value=mock_resp):
+        intent = gemini_client.parse_intent("How do I increase weekend sales?")
+        assert intent.intent == "increase_weekend_revenue"
+        assert intent.objective == "growth"
+
+
+def test_gemini_generate_response_success(monkeypatch):
+    """Verify GeminiLLMClient correctly returns dynamic candidate text from Gemini."""
+    from app.core.config import get_settings
+    settings = get_settings()
+    monkeypatch.setattr(settings, "llm_provider", "gemini")
+    monkeypatch.setattr(settings, "llm_api_key", "test-gemini-key-123456789")
+    monkeypatch.setattr(settings, "llm_model", "gemini-1.5-flash")
+
+    gemini_client = GeminiLLMClient()
+    mock_gemini_response = {
+        "candidates": [
+            {
+                "content": {
+                    "parts": [
+                        {
+                            "text": "Based on your store data, weekend sales can be boosted with an evening cashback offer."
+                        }
+                    ],
+                    "role": "model"
+                },
+                "finishReason": "STOP"
+            }
+        ]
+    }
+
+    mock_resp = MagicMock()
+    mock_resp.status_code = 200
+    mock_resp.json.return_value = mock_gemini_response
+
+    intent = MerchantIntent(
+        intent="increase_weekend_revenue",
+        objective="growth",
+        target_segment="All Customers",
+        requested_action="recommendation",
+        parameters={}
+    )
+
+    with patch("httpx.Client.post", return_value=mock_resp):
+        reply = gemini_client.generate_response("How do I boost weekend sales?", intent, [])
+        assert "weekend sales can be boosted" in reply
+
+
+def test_gemini_http_error_falls_back_gracefully(monkeypatch):
+    """Verify GeminiLLMClient falls back to deterministic engine when Gemini returns HTTP 429 or 500."""
+    from app.core.config import get_settings
+    settings = get_settings()
+    monkeypatch.setattr(settings, "llm_provider", "gemini")
+    monkeypatch.setattr(settings, "llm_api_key", "test-gemini-key-123456789")
+
+    gemini_client = GeminiLLMClient()
+    mock_resp = MagicMock()
+    mock_resp.status_code = 429
+
+    with patch("httpx.Client.post", return_value=mock_resp):
+        intent = gemini_client.parse_intent("My sales have dropped. Help me increase weekend revenue.")
+        assert intent.intent == "increase_weekend_revenue"
+
+
+def test_intent_normalization_overrides_general_guidance_for_sales(client: TestClient, agent_test_merchant: Merchant):
+    """Verify that if LLM returns general_guidance for sales queries, normalization corrects it to analyze_sales."""
+    guidance_intent = MerchantIntent(
+        intent="general_guidance",
+        objective="guidance",
+        target_segment="All Customers",
+        requested_action="guidance",
+        parameters={}
+    )
+    with patch.object(GeminiLLMClient, "parse_intent", return_value=guidance_intent):
+        res = client.post(
+            "/api/v1/agent/chat",
+            json={
+                "message": "what are this month sales",
+                "merchant_id": agent_test_merchant.merchant_id,
+            }
+        )
+        assert res.status_code == status.HTTP_200_OK
+        data = res.json()
+        assert data["intent"]["intent"] == "analyze_sales"
+        assert any(a["tool_name"] == "analyze_sales" for a in data["actions_taken"])
+        assert "₹" in data["message"]
+        assert "successful transactions" in data["message"]
+
+
+def test_growth_advice_intent_routing_and_grounding(client: TestClient, agent_test_merchant: Merchant):
+    """Verify 'any advice for increasing sales' maps to growth recommendations, calls tools, and returns actionable advice."""
+    res = client.post(
+        "/api/v1/agent/chat",
+        json={
+            "message": "any advice for increasing sales",
+            "merchant_id": agent_test_merchant.merchant_id,
+        }
+    )
+    assert res.status_code == status.HTTP_200_OK
+    data = res.json()
+    assert data["intent"]["intent"] == "get_growth_recommendations"
+    assert data["intent"]["objective"] == "growth"
+    assert any(a["tool_name"] == "get_growth_recommendations" for a in data["actions_taken"])
+    assert "I am your Paytm MerchantMind AI Marketing Partner. You can ask me to analyze sales" not in data["message"]
+    assert len(data["insights"]) > 0
+    assert data["approval_required"] is False
+
+
+def test_sales_decline_query_routes_to_analysis_without_drafting_campaign(client: TestClient, agent_test_merchant: Merchant):
+    """Verify 'my sales are falling' analyzes decline without creating an unapproved campaign."""
+    res = client.post(
+        "/api/v1/agent/chat",
+        json={
+            "message": "my sales are falling",
+            "merchant_id": agent_test_merchant.merchant_id,
+        }
+    )
+    assert res.status_code == status.HTTP_200_OK
+    data = res.json()
+    assert data["intent"]["intent"] == "analyze_sales"
+    assert data["approval_required"] is False
+    assert data["campaign"] is None
+    assert any(a["tool_name"] == "analyze_sales" for a in data["actions_taken"])
+    assert "decline" in data["message"].lower() or "sales" in data["message"].lower()
+
+
+def test_at_risk_customer_inquiry_routes_to_customer_intelligence(client: TestClient, agent_test_merchant: Merchant):
+    """Verify 'who are my at-risk customers' retrieves customer data without forcing a campaign draft."""
+    res = client.post(
+        "/api/v1/agent/chat",
+        json={
+            "message": "who are my at-risk customers",
+            "merchant_id": agent_test_merchant.merchant_id,
+        }
+    )
+    assert res.status_code == status.HTTP_200_OK
+    data = res.json()
+    assert data["intent"]["intent"] == "analyze_customers"
+    assert data["approval_required"] is False
+    assert any(a["tool_name"] == "analyze_customers" for a in data["actions_taken"])
+    assert any(a["tool_name"] == "get_target_customers" for a in data["actions_taken"])
+    assert "at-risk" in data["message"].lower()
+
+
+
+
 

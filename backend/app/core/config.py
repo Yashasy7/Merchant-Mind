@@ -55,8 +55,8 @@ class Settings(BaseSettings):
     data_mode: str = Field(default="postgres", alias="DATA_MODE")
 
     # AI / LLM settings
-    llm_provider: str = Field(default="openai", alias="LLM_PROVIDER")
-    llm_model: str = Field(default="gpt-4o-mini", alias="LLM_MODEL")
+    llm_provider: str = Field(default="gemini", alias="LLM_PROVIDER")
+    llm_model: str = Field(default="gemini-1.5-flash", alias="LLM_MODEL")
     llm_api_key: str = Field(default="", alias="LLM_API_KEY")
 
     # Cognee Cloud — AI Memory Layer

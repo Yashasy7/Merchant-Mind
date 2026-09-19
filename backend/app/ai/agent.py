@@ -5,6 +5,7 @@ Module 5 (Simulator), and Module 6 (Campaigns & Approvals).
 Strictly enforces human-in-the-loop lifecycle and deterministic financial boundaries.
 """
 
+from datetime import date, datetime, timezone
 from typing import Dict, Any, Optional, List, Tuple
 from collections import OrderedDict
 from sqlalchemy.orm import Session
@@ -107,6 +108,30 @@ class MarketingCampaignAgent:
         )
         return res
 
+    def _normalize_intent(
+        self,
+        message: str,
+        intent: MerchantIntent,
+        session_context: Optional[Dict[str, Any]] = None
+    ) -> MerchantIntent:
+        """
+        Validate and normalize extracted intent.
+        Prevents general_guidance or vague classification when merchant message
+        contains specific analytical questions (sales, revenue, profit, churn, etc.).
+        """
+        # If intent is general_guidance, analyze_business, or empty, check deterministic rules
+        if intent.intent in ("general_guidance", "analyze_business", "", None):
+            from app.ai.llm_client import DeterministicFallbackClient
+            fallback_intent = DeterministicFallbackClient().parse_intent(message, session_context)
+            if fallback_intent.intent != "general_guidance":
+                logger.info(
+                    f"Intent normalized from '{intent.intent}' to '{fallback_intent.intent}' "
+                    f"via deterministic normalization safety net."
+                )
+                return fallback_intent
+
+        return intent
+
     def chat(self, request: AgentChatRequest) -> AgentChatResponse:
         """
         Main entry point for agent orchestration.
@@ -128,6 +153,9 @@ class MarketingCampaignAgent:
             logger.warning(f"LLM parse_intent failed ({e}). Using deterministic fallback parser.")
             from app.ai.llm_client import DeterministicFallbackClient
             intent = DeterministicFallbackClient().parse_intent(request.message, session_context)
+
+        # 1a. Intent normalization safety net
+        intent = self._normalize_intent(request.message, intent, session_context)
 
         logger.info(f"Interpreted intent for merchant '{self.merchant_id}': {intent.intent} ({intent.requested_action})")
 
@@ -180,9 +208,18 @@ class MarketingCampaignAgent:
                     rec_id = recommendation_dict.get("recommendation_id")
 
             # Step C: Simulate campaign (Module 5)
-            cb_amount = float(intent.parameters.get("cashback_amount") or 50.0)
+            is_vip = (intent.target_segment == "VIP")
+            cb_amount = float(intent.parameters.get("cashback_amount") or (75.0 if is_vip else 50.0))
             disc_pct = float(intent.parameters.get("discount_percent") or 0.0)
+            min_amt = float(intent.parameters.get("minimum_transaction_amount") or (450.0 if is_vip else 200.0))
             offer_type = "fixed_cashback" if cb_amount > 0 else "percentage_discount"
+            scenario_name = "VIP Weekend Basket Expansion" if is_vip else "Weekend Revenue Booster"
+            camp_name = "VIP Weekend Basket Expansion Campaign" if is_vip else "Weekend Revenue Booster Campaign"
+            camp_desc = (
+                "Targeted weekend promotional offer for VIP customers to test basket size expansion (target ₹450+ orders)."
+                if is_vip else
+                "Targeted weekend promotional offer to drive higher basket sizes and recover weekend footfall."
+            )
 
             sim_res = self._invoke_tool(
                 "simulate_campaign",
@@ -192,8 +229,8 @@ class MarketingCampaignAgent:
                     "discount_percent": disc_pct if offer_type == "percentage_discount" else None,
                     "target_segment": intent.target_segment or "All Customers",
                     "target_days": "weekend",
-                    "minimum_transaction_amount": float(intent.parameters.get("minimum_transaction_amount") or 200.0),
-                    "scenario_name": "Weekend Revenue Booster"
+                    "minimum_transaction_amount": min_amt,
+                    "scenario_name": scenario_name
                 }
             )
             sim_id = None
@@ -205,13 +242,13 @@ class MarketingCampaignAgent:
             camp_res = self._invoke_tool(
                 "create_campaign",
                 {
-                    "name": "Weekend Revenue Booster Campaign",
-                    "description": "Targeted weekend promotional offer to drive higher basket sizes and recover weekend footfall.",
+                    "name": camp_name,
+                    "description": camp_desc,
                     "target_segment": intent.target_segment or "All Customers",
                     "offer_type": offer_type,
                     "cashback_amount": cb_amount if offer_type == "fixed_cashback" else None,
                     "discount_percent": disc_pct if offer_type == "percentage_discount" else None,
-                    "minimum_transaction_amount": float(intent.parameters.get("minimum_transaction_amount") or 200.0),
+                    "minimum_transaction_amount": min_amt,
                     "target_days": "weekend",
                     "source_recommendation_id": rec_id,
                     "source_simulation_id": sim_id,
@@ -387,7 +424,94 @@ class MarketingCampaignAgent:
                     insights.append(f"Execution failed: {exec_res.get('message')}")
                     response_text = f"Campaign execution failed: {exec_res.get('message')}"
 
-        elif intent.intent == "analyze_business":
+        elif intent.intent == "analyze_sales":
+            period = intent.parameters.get("period")
+            start_date_str: Optional[str] = None
+            end_date_str: Optional[str] = None
+            period_days = int(intent.parameters.get("period_days") or 14)
+            period_label = "recent period"
+
+            msg_lower = request.message.lower()
+            if period == "this_month" or "this month" in msg_lower or "month" in msg_lower:
+                all_df = self.tools.sales_service.repo.get_transactions_df(merchant_id=self.merchant_id, status="success")
+                if not all_df.empty:
+                    ref_date = all_df["date"].max()
+                else:
+                    ref_date = datetime.now(timezone.utc).date()
+
+                m_start = date(ref_date.year, ref_date.month, 1)
+                m_end = ref_date
+                start_date_str = m_start.isoformat()
+                end_date_str = m_end.isoformat()
+                period_days = max((m_end - m_start).days + 1, 1)
+                period_label = f"this month ({m_start.strftime('%B %Y')})"
+            elif "today" in msg_lower:
+                all_df = self.tools.sales_service.repo.get_transactions_df(merchant_id=self.merchant_id, status="success")
+                ref_date = all_df["date"].max() if not all_df.empty else datetime.now(timezone.utc).date()
+                start_date_str = ref_date.isoformat()
+                end_date_str = ref_date.isoformat()
+                period_days = 1
+                period_label = "today"
+            elif "evening" in msg_lower or "decline" in msg_lower or "falling" in msg_lower or (intent.parameters and intent.parameters.get("focus") == "decline"):
+                period_days = 14
+                period_label = "the last 14 days (Sales Decline Analysis)"
+            else:
+                period_days = 14
+                period_label = "the last 14 days"
+
+            sales_args: Dict[str, Any] = {"period_days": period_days}
+            if start_date_str and end_date_str:
+                sales_args["start_date"] = start_date_str
+                sales_args["end_date"] = end_date_str
+
+            sales_res = self._invoke_tool("analyze_sales", sales_args)
+            if sales_res.get("status") == "success":
+                data = sales_res.get("data", {})
+                summary = data.get("summary", {})
+                comp = data.get("comparison", {})
+                rev = summary.get("total_revenue", 0.0)
+                txns = summary.get("total_transactions", 0)
+                atv = summary.get("average_transaction_value", 0.0)
+                sr = summary.get("success_rate", 100.0)
+
+                session_context["sales_summary"] = summary
+                session_context["period_label"] = period_label
+
+                insights.append(
+                    f"For {period_label}, your store generated ₹{rev:,.2f} in total revenue "
+                    f"across {txns:,} successful transactions with an average ticket size of ₹{atv:,.2f} "
+                    f"({sr:.1f}% payment success rate)."
+                )
+
+                rev_chg = comp.get("revenue_change_pct")
+                if rev_chg is not None:
+                    direction = "up" if rev_chg >= 0 else "down"
+                    insights.append(f"Revenue is {direction} {abs(rev_chg):0.2f}% compared to the prior equivalent period.")
+
+                for ins in data.get("insights", []):
+                    if isinstance(ins, dict) and ins.get("explanation"):
+                        insights.append(ins.get("explanation"))
+
+            # If sales decline inquiry, also fetch growth recommendations
+            if (intent.parameters and intent.parameters.get("focus") == "decline") or "falling" in msg_lower or "decline" in msg_lower or "drop" in msg_lower:
+                rec_res = self._invoke_tool("get_growth_recommendations", {"limit": 3})
+                if rec_res.get("status") == "success":
+                    recommendation_dict = rec_res["data"].get("top_recommendation")
+                    session_context["growth_recommendations"] = rec_res["data"].get("recommendations", [])
+
+        elif intent.intent == "analyze_customers":
+            target_seg = intent.target_segment if intent.target_segment in ["Inactive", "At-Risk"] else ("At-Risk" if "at-risk" in request.message.lower() or "at risk" in request.message.lower() else "Inactive")
+            cust_res = self._invoke_tool("analyze_customers", {})
+            if cust_res.get("status") == "success":
+                session_context["customer_summary"] = cust_res["data"].get("summary")
+                insights.extend(cust_res["data"].get("insights", []))
+
+            target_res = self._invoke_tool("get_target_customers", {"segment": target_seg, "limit": 10})
+            if target_res.get("status") == "success":
+                cnt = target_res["data"].get("total_count", 0)
+                insights.append(f"Identified {cnt} {target_seg} customers available for reactivation.")
+
+        elif intent.intent in ("get_growth_recommendations", "analyze_business"):
             sales_res = self._invoke_tool("analyze_sales", {"period_days": 14})
             cust_res = self._invoke_tool("analyze_customers", {})
             rec_res = self._invoke_tool("get_growth_recommendations", {"limit": 3})
@@ -397,7 +521,11 @@ class MarketingCampaignAgent:
             if cust_res.get("status") == "success":
                 insights.extend(cust_res["data"].get("insights", []))
             if rec_res.get("status") == "success":
+                recs = rec_res["data"].get("recommendations", [])
                 recommendation_dict = rec_res["data"].get("top_recommendation")
+                session_context["growth_recommendations"] = recs
+                for r in recs[:3]:
+                    insights.append(f"{r.get('title')} [{r.get('priority', 'medium').upper()}]: {r.get('suggested_action')}")
 
         elif intent.intent == "analyze_financials":
             fin_res = self._invoke_tool("analyze_financials", {})
@@ -478,6 +606,7 @@ class MarketingCampaignAgent:
                 "recover_inactive_customers",
                 "create_campaign",
                 "analyze_business",
+                "analyze_sales",
             ) and self.actions_taken:
                 memory_parts.append(
                     f"Intent processed: {intent.intent} "

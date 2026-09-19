@@ -65,3 +65,16 @@ def client(db_session: Session) -> Generator[TestClient, None, None]:
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
+
+
+@pytest.fixture(autouse=True)
+def mock_test_network(request, monkeypatch):
+    """Ensure agent tests run offline with deterministic engine and zero network latency."""
+    if "test_cognee_client" not in request.node.nodeid:
+        from app.core.config import get_settings
+        settings = get_settings()
+        monkeypatch.setattr(settings, "llm_api_key", "")
+        from app.ai.cognee_client import CogneeClient
+        monkeypatch.setattr(CogneeClient, "recall", lambda self, *args, **kwargs: [])
+        monkeypatch.setattr(CogneeClient, "remember", lambda self, *args, **kwargs: True)
+

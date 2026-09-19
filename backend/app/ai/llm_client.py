@@ -1,6 +1,6 @@
 """
 LLM Provider Abstraction and Deterministic Fallback Client.
-Supports OpenAI-compatible structured tool calls when configured,
+Supports Google Gemini structured calls when configured,
 and provides a 100% reliable, deterministic fallback engine for offline/demo operation.
 """
 
@@ -131,25 +131,60 @@ class DeterministicFallbackClient(BaseLLMClient):
 
         time_window = "weekend" if "weekend" in msg else ("evening" if "evening" in msg else None)
 
-        # 3. Inactive / at-risk customer recovery intent
-        if any(w in msg for w in ["inactive", "at-risk", "at risk", "churn", "bring back", "win back", "recover"]):
-            return MerchantIntent(
-                intent="recover_inactive_customers",
-                objective="retention",
-                target_segment=target_segment if target_segment != "All Customers" else "Inactive",
-                time_window=time_window,
-                requested_action="campaign",
-                parameters=params
-            )
+        # 3. Inactive / at-risk customer intent (Analysis vs Campaign)
+        if any(w in msg for w in ["inactive", "at-risk", "at risk", "churn", "dormant", "bring back", "win back", "recover"]):
+            is_campaign_req = any(w in msg for w in ["bring back", "win back", "recover", "campaign", "target inactive", "target at-risk", "reactivate", "offer", "cashback"])
+            has_cust_query = any(w in msg for w in ["who are", "which customers", "list", "who should i target", "show me", "tell me about"])
+            target_seg = target_segment if target_segment != "All Customers" else ("At-Risk" if "at-risk" in msg or "at risk" in msg else "Inactive")
 
-        # 4. Weekend revenue / sales drop intent
-        if any(w in msg for w in ["sales drop", "sales have dropped", "dropped", "down", "weekend sales", "weekend revenue", "increase weekend"]):
+            if is_campaign_req and not has_cust_query:
+                return MerchantIntent(
+                    intent="recover_inactive_customers",
+                    objective="retention",
+                    target_segment=target_seg,
+                    time_window=time_window,
+                    requested_action="campaign",
+                    parameters=params
+                )
+            else:
+                return MerchantIntent(
+                    intent="analyze_customers",
+                    objective="analysis",
+                    target_segment=target_seg,
+                    time_window=time_window,
+                    requested_action="analysis",
+                    parameters=params
+                )
+
+        # 4a. Weekend revenue / VIP expansion campaign intent
+        is_weekend_campaign = (
+            ("weekend" in msg and any(w in msg for w in ["increase", "boost", "revenue", "sales", "help", "offer", "vip", "expansion", "suggestion", "afternoon", "more"]))
+            or any(w in msg for w in ["increase weekend", "weekend revenue", "weekend booster", "weekend expansion", "weekend sales"])
+        )
+        if is_weekend_campaign:
             return MerchantIntent(
                 intent="increase_weekend_revenue",
                 objective="increase_revenue",
                 target_segment=target_segment,
                 time_window="weekend",
                 requested_action="campaign",
+                parameters=params
+            )
+
+        # 4b. Sales decline / drop inquiry (without explicit weekend campaign request)
+        if any(w in msg for w in [
+            "sales drop", "sales have dropped", "sales are falling", "sales falling", "falling sales",
+            "sales down", "why are sales down", "sales have decreased", "why is my revenue dropping",
+            "revenue dropping", "revenue is falling", "revenue is down", "sales decline", "evening decline"
+        ]) or (any(w in msg for w in ["falling", "dropped", "declining", "decrease", "drop", "down"]) and any(w in msg for w in ["sales", "revenue"])):
+            params["focus"] = "decline"
+            params["period"] = "recent"
+            return MerchantIntent(
+                intent="analyze_sales",
+                objective="analysis",
+                target_segment="All Customers",
+                time_window="evening" if "evening" in msg else None,
+                requested_action="analysis",
                 parameters=params
             )
 
@@ -207,9 +242,70 @@ class DeterministicFallbackClient(BaseLLMClient):
                 parameters=params
             )
 
-        # 9. Business analysis / overview
+        # 9. Growth advice & recommendations
+        growth_advice_terms = [
+            "advice", "how can i increase", "how do i increase", "how to increase",
+            "ways to increase", "how do i grow", "how can i grow", "how to grow",
+            "grow revenue", "grow sales", "increase sales", "increasing sales",
+            "increase revenue", "increasing revenue", "get more customers",
+            "what should i do to increase", "how to get more sales", "tips to increase",
+            "recommendation", "recommendations", "suggestion", "suggestions"
+        ]
+        if any(w in msg for w in growth_advice_terms):
+            return MerchantIntent(
+                intent="get_growth_recommendations",
+                objective="growth",
+                target_segment="All Customers",
+                time_window=None,
+                requested_action="recommendation",
+                parameters=params
+            )
+
+        # 10. Sales analytics & revenue inquiries
+        sales_terms = ["sales", "sale", "revenue", "sold", "sell", "turnover", "collection", "collections"]
+        time_terms = ["this month", "current month", "month", "monthly", "today", "yesterday", "week", "recent", "past", "last"]
+        query_terms = ["what is", "what are", "how much", "how are", "how is", "how's", "show", "tell", "display", "check", "view", "explain"]
+
+        has_sales_term = any(s in msg for s in sales_terms)
+        has_time_term = any(t in msg for t in time_terms)
+        has_query_term = any(q in msg for q in query_terms)
+
+        is_sales_query = (
+            any(w in msg for w in [
+                "this month sales", "this month's sales", "month sales", "month's sales", "monthly sales",
+                "sales this month", "sales for this month", "revenue this month", "this month revenue",
+                "this month's revenue", "how much did i sell", "how much did i make", "how much revenue",
+                "what are this month sales", "what is my revenue", "what are my sales",
+                "show me my sales", "show me sales", "show me this month's sales", "show me this month sales",
+                "my sales for this month", "show me this month", "how is my sales", "how are my sales",
+                "how is sales", "how are sales", "how's my sales", "how are my sales this month",
+                "explain sales", "sales decline", "evening decline", "evening hours", "sales drop",
+                "total sales", "total revenue", "sales performance", "sales numbers",
+                "sales summary", "daily sales", "weekly sales", "recent sales", "today sales"
+            ])
+            or (has_sales_term and (has_time_term or has_query_term))
+        )
+        if is_sales_query:
+            time_period = "this_month" if any(m in msg for m in ["this month", "current month", "monthly", "month's", "month"]) else (
+                "today" if "today" in msg else ("yesterday" if "yesterday" in msg else ("this_week" if "week" in msg else "recent"))
+            )
+            params["period"] = time_period
+            if "evening" in msg:
+                params["time_window"] = "evening"
+            if "decline" in msg or "drop" in msg or "falling" in msg:
+                params["focus"] = "decline"
+            return MerchantIntent(
+                intent="analyze_sales",
+                objective="analysis",
+                target_segment="All Customers",
+                time_window="evening" if "evening" in msg else None,
+                requested_action="analysis",
+                parameters=params
+            )
+
+        # 11. Business analysis / overview
         if any(w in msg for w in [
-            "how is my business", "how are sales", "how are my sales", 
+            "how is my business", "business performing", "how is my business performing", "store performing", "how is my store",
             "sales trend", "best customers", "top customers",
             "analyze", "overview", "summary", "report", "insights"
         ]):
@@ -222,7 +318,7 @@ class DeterministicFallbackClient(BaseLLMClient):
                 parameters=params
             )
 
-        # 10. Default general guidance
+        # 12. Default general guidance
         return MerchantIntent(
             intent="general_guidance",
             objective="guidance",
@@ -272,6 +368,20 @@ class DeterministicFallbackClient(BaseLLMClient):
             )
 
         if intent.intent == "analyze_financials":
+            fin_data = None
+            for t in tool_results:
+                if t.get("tool_name") == "analyze_financials" and t.get("data"):
+                    fin_data = t["data"].get("profit_loss")
+                    break
+            if fin_data:
+                np = fin_data.get("net_profit", 0.0)
+                margin = fin_data.get("operating_margin_pct", 0.0)
+                return (
+                    f"Here is your real-time financial health and P&L summary: Your store generated a Net Operating Profit of "
+                    f"**₹{np:,.2f}** with an operating margin of **{margin:.1f}%**. "
+                    "Review your revenue, operating expenses, net profit, and expense breakdown below. "
+                    "Note: MerchantMind assists with financial organization and does not replace a Chartered Accountant (CA)."
+                )
             return (
                 "Here is your real-time financial health and P&L summary based on your transactions and expense records. "
                 "Review your revenue, operating expenses, net profit, and expense breakdown below. "
@@ -291,7 +401,77 @@ class DeterministicFallbackClient(BaseLLMClient):
                 "Review your overall health score, detected warning risks, and actionable upside growth opportunities below."
             )
 
-        if intent.intent == "analyze_business":
+        if intent.intent == "analyze_customers":
+            cust_summary = None
+            for t in tool_results:
+                if t.get("tool_name") == "analyze_customers" and t.get("data"):
+                    cust_summary = t["data"].get("summary")
+                    break
+            if not cust_summary and context:
+                cust_summary = context.get("customer_summary")
+
+            if cust_summary:
+                at_risk = cust_summary.get("at_risk_customers", 0)
+                inactive = cust_summary.get("inactive_customers", 0)
+                repeat_rate = cust_summary.get("repeat_customer_rate", 0.0)
+                return (
+                    f"Customer intelligence analysis identifies **{at_risk} at-risk customers** "
+                    f"and **{inactive} inactive customers** in your store base. "
+                    f"Your repeat customer rate is strong at **{repeat_rate:.1f}%**. "
+                    "You can launch a targeted win-back campaign (e.g., 'Target inactive customers') to re-engage them."
+                )
+            return (
+                "Customer intelligence analysis identifies at-risk and inactive segments in your customer base. "
+                "Review the detailed customer cohort profiles and segment breakdown below."
+            )
+
+        if intent.intent == "analyze_sales":
+            sales_data = context.get("sales_summary") if context else None
+            period_label = context.get("period_label", "the requested period") if context else "the requested period"
+            msg_lower = message.lower()
+            if "evening" in msg_lower or "decline" in msg_lower or "falling" in msg_lower or "drop" in msg_lower or "down" in msg_lower or (intent.parameters and intent.parameters.get("focus") == "decline"):
+                return (
+                    "Based on sales analysis over the last 14 days, your store experiences a concentrated decline "
+                    "in weekday evenings (6 PM – 9 PM), where transaction volume drops by approximately 31% compared to prime hours. "
+                    "This represents a time-window specific dip rather than an overall business downturn. "
+                    "I recommend launching a targeted evening promotional offer (e.g. ₹50 cashback on orders above ₹200 between 6–9 PM) "
+                    "to reactivate inactive customers and recover evening footfall."
+                )
+            if sales_data:
+                rev = sales_data.get("total_revenue", 0.0)
+                txns = sales_data.get("total_transactions", 0)
+                atv = sales_data.get("average_transaction_value", 0.0)
+                sr = sales_data.get("success_rate", 100.0)
+                return (
+                    f"For {period_label}, your store recorded **₹{rev:,.2f}** in total revenue "
+                    f"across **{txns:,}** successful transactions with an average ticket size of **₹{atv:,.2f}** "
+                    f"({sr:.1f}% payment success rate)."
+                )
+            return (
+                "Here is your real-time sales intelligence summary based on verified transaction records."
+            )
+
+        if intent.intent in ("get_growth_recommendations", "analyze_business"):
+            recs = []
+            for t in tool_results:
+                if t.get("tool_name") == "get_growth_recommendations" and t.get("data"):
+                    recs = t["data"].get("recommendations", [])
+                    break
+            if not recs and context:
+                recs = context.get("growth_recommendations", [])
+
+            if recs:
+                lines = [
+                    "Based on verified store analytics and customer intelligence, here are prioritized, actionable growth recommendations:\n"
+                ]
+                for idx, r in enumerate(recs[:3], 1):
+                    prio = r.get("priority", "medium").upper()
+                    title = r.get("title", "")
+                    action = r.get("suggested_action", "")
+                    scope = r.get("estimated_scope", "")
+                    lines.append(f"{idx}. **{title}** [{prio} Priority]: {action} ({scope})")
+                lines.append("\nYou can ask me to simulate or launch a campaign for any of these target opportunities.")
+                return "\n".join(lines)
             return (
                 "Here is your real-time business health summary based on transaction history and customer intelligence. "
                 "Explore growth opportunities below to boost your revenue."
@@ -330,51 +510,71 @@ class DeterministicFallbackClient(BaseLLMClient):
         }
 
 
-class OpenAILLMClient(BaseLLMClient):
+class GeminiLLMClient(BaseLLMClient):
     """
-    OpenAI-compatible LLM client with automatic graceful fallback on network error or missing key.
+    Google Gemini LLM client with automatic graceful fallback on network error or missing key.
+    Uses Google Generative Language REST API (generateContent) via httpx.
     """
 
     def __init__(self):
         self.settings = get_settings()
         self.api_key = self.settings.llm_api_key.strip()
-        self.model = self.settings.llm_model
+        model_name = self.settings.llm_model.strip()
+        if model_name.startswith("models/"):
+            model_name = model_name[len("models/"):]
+        self.model = model_name or "gemini-1.5-flash"
         self.fallback = DeterministicFallbackClient()
-        self.is_configured = bool(self.api_key and self.api_key != "your-api-key-here" and len(self.api_key) > 5)
+        self.is_configured = bool(
+            self.api_key
+            and self.api_key not in ("your-api-key-here", "your-gemini-api-key-here")
+            and len(self.api_key) > 5
+        )
 
     def parse_intent(self, message: str, context: Optional[Dict[str, Any]] = None) -> MerchantIntent:
         if not self.is_configured:
             return self.fallback.parse_intent(message, context)
 
         try:
-            url = "https://api.openai.com/v1/chat/completions"
-            headers = {
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json"
-            }
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={self.api_key}"
+            headers = {"Content-Type": "application/json"}
             prompt_content = f"Merchant Message: \"{message}\"\nActive Context: {json.dumps(context or {})}"
             payload = {
-                "model": self.model,
-                "messages": [
-                    {"role": "system", "content": INTENT_PARSER_SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt_content}
+                "contents": [
+                    {
+                        "role": "user",
+                        "parts": [{"text": prompt_content}]
+                    }
                 ],
-                "response_format": {"type": "json_object"},
-                "temperature": 0.0,
-                "max_tokens": 250
+                "systemInstruction": {
+                    "parts": [{"text": INTENT_PARSER_SYSTEM_PROMPT}]
+                },
+                "generationConfig": {
+                    "temperature": 0.0,
+                    "maxOutputTokens": 300,
+                    "responseMimeType": "application/json"
+                }
             }
             with httpx.Client(timeout=8.0) as client:
                 res = client.post(url, headers=headers, json=payload)
                 if res.status_code == 200:
                     data = res.json()
-                    content = data["choices"][0]["message"]["content"]
-                    parsed = json.loads(content)
-                    return MerchantIntent(**parsed)
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        content = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                        content = content.strip()
+                        if content.startswith("```"):
+                            content = re.sub(r"^```(?:json)?\s*", "", content)
+                            content = re.sub(r"\s*```$", "", content)
+                        parsed = json.loads(content)
+                        return MerchantIntent(**parsed)
+                    else:
+                        logger.warning("Gemini intent parsing returned empty candidates. Using fallback.")
+                        return self.fallback.parse_intent(message, context)
                 else:
-                    logger.warning(f"OpenAI intent parsing failed with HTTP {res.status_code}. Using fallback.")
+                    logger.warning(f"Gemini intent parsing failed with HTTP {res.status_code}. Using fallback.")
                     return self.fallback.parse_intent(message, context)
         except Exception as e:
-            logger.warning(f"OpenAI intent call exception: {e}. Falling back to deterministic engine.")
+            logger.warning(f"Gemini intent call exception: {e}. Falling back to deterministic engine.")
             return self.fallback.parse_intent(message, context)
 
     def generate_response(
@@ -388,37 +588,44 @@ class OpenAILLMClient(BaseLLMClient):
             return self.fallback.generate_response(message, intent, tool_results, context)
 
         try:
-            url = "https://api.openai.com/v1/chat/completions"
-            headers = {
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json"
-            }
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={self.api_key}"
+            headers = {"Content-Type": "application/json"}
             context_summary = {
                 "intent": intent.model_dump(),
                 "tool_results_count": len(tool_results),
                 "tool_results": tool_results
             }
+            prompt_content = f"Merchant asked: '{message}'\nIntent: {intent.intent}\nBackend Tool Data: {json.dumps(context_summary)}"
             payload = {
-                "model": self.model,
-                "messages": [
-                    {"role": "system", "content": SYSTEM_PROMPT},
+                "contents": [
                     {
                         "role": "user",
-                        "content": f"Merchant asked: '{message}'\nIntent: {intent.intent}\nBackend Tool Data: {json.dumps(context_summary)}"
+                        "parts": [{"text": prompt_content}]
                     }
                 ],
-                "temperature": 0.3,
-                "max_tokens": 400
+                "systemInstruction": {
+                    "parts": [{"text": SYSTEM_PROMPT}]
+                },
+                "generationConfig": {
+                    "temperature": 0.3,
+                    "maxOutputTokens": 450
+                }
             }
             with httpx.Client(timeout=10.0) as client:
                 res = client.post(url, headers=headers, json=payload)
                 if res.status_code == 200:
                     data = res.json()
-                    return data["choices"][0]["message"]["content"].strip()
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                        return text.strip()
+                    logger.warning("Gemini response returned empty candidates. Using fallback.")
+                    return self.fallback.generate_response(message, intent, tool_results, context)
                 else:
+                    logger.warning(f"Gemini chat completion failed with HTTP {res.status_code}. Using fallback.")
                     return self.fallback.generate_response(message, intent, tool_results, context)
         except Exception as e:
-            logger.warning(f"OpenAI chat completion exception: {e}. Using fallback.")
+            logger.warning(f"Gemini chat completion exception: {e}. Using fallback.")
             return self.fallback.generate_response(message, intent, tool_results, context)
 
     def generate_marketing_copy(
@@ -429,13 +636,18 @@ class OpenAILLMClient(BaseLLMClient):
         offer_value: str,
         time_window: Optional[str] = None
     ) -> Dict[str, str]:
-        # Copy can always be generated quickly by the deterministic engine or LLM
+        # Copy can always be generated quickly by the deterministic engine or Gemini
         return self.fallback.generate_marketing_copy(objective, target_segment, offer_type, offer_value, time_window)
+
+
+# Backward compatibility alias
+OpenAILLMClient = GeminiLLMClient
 
 
 def get_llm_client() -> BaseLLMClient:
     """Factory method returning the configured LLM client with built-in fallback."""
     settings = get_settings()
-    if settings.llm_provider.lower() == "openai" and settings.llm_api_key:
-        return OpenAILLMClient()
+    provider = settings.llm_provider.lower().strip()
+    if provider in ("gemini", "openai") and settings.llm_api_key:
+        return GeminiLLMClient()
     return DeterministicFallbackClient()

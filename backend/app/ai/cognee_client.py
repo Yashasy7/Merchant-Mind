@@ -28,8 +28,8 @@ from app.core.logging import logger
 # Constants
 # ---------------------------------------------------------------------------
 
-_REMEMBER_TIMEOUT_SECONDS = 10.0
-_RECALL_TIMEOUT_SECONDS = 8.0
+_REMEMBER_TIMEOUT_SECONDS = 6.0
+_RECALL_TIMEOUT_SECONDS = 6.0
 _DATASET_PREFIX = "merchantmind_merchant_"
 
 
@@ -125,14 +125,12 @@ class CogneeClient:
 
         try:
             with httpx.Client(timeout=_REMEMBER_TIMEOUT_SECONDS) as client:
-                # Cognee /remember accepts multipart/form-data
+                # Cognee Cloud /remember requires data as an uploaded file and datasetName
                 response = client.post(
                     url,
                     headers=self._build_headers(),
-                    data={
-                        "data": content.strip(),
-                        "datasetName": dataset,
-                    },
+                    files={"data": ("memory.txt", content.strip().encode("utf-8"), "text/plain")},
+                    data={"datasetName": dataset, "run_in_background": "true"},
                 )
 
             if response.status_code in (200, 201, 202):
@@ -185,9 +183,17 @@ class CogneeClient:
         dataset = _merchant_dataset(merchant_id)
         url = f"{self._base_url}/api/v1/recall"
 
+        # Cognee Cloud OpenAPI specification:
+        # - datasets: list of strings (e.g. [dataset]) scopes search to merchant's dataset
+        # - searchType: "SUMMARIES" returns extracted knowledge facts fast
+        # - onlyContext: True returns retrieval context directly without secondary LLM synthesis
+        # - topK: 5
         payload: Dict[str, Any] = {
-            "query_text": query.strip(),
-            "dataset": dataset,
+            "query": query.strip(),
+            "datasets": [dataset],
+            "searchType": "SUMMARIES",
+            "onlyContext": True,
+            "topK": 5,
         }
 
         try:

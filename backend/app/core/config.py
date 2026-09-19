@@ -54,10 +54,21 @@ class Settings(BaseSettings):
     seed_random_seed: int = Field(default=42, alias="SEED_RANDOM_SEED")
     data_mode: str = Field(default="postgres", alias="DATA_MODE")
 
-    # AI / LLM settings (future module integration)
+    # AI / LLM settings
     llm_provider: str = Field(default="openai", alias="LLM_PROVIDER")
     llm_model: str = Field(default="gpt-4o-mini", alias="LLM_MODEL")
     llm_api_key: str = Field(default="", alias="LLM_API_KEY")
+
+    # Cognee Cloud — AI Memory Layer
+    cognee_api_key: str = Field(default="", alias="COGNEE_API_KEY")
+    cognee_base_url: str = Field(default="https://your-tenant.aws.cognee.ai", alias="COGNEE_BASE_URL")
+    cognee_tenant_id: str = Field(default="", alias="COGNEE_TENANT_ID")
+    cognee_user_id: str = Field(default="", alias="COGNEE_USER_ID")
+
+    # n8n — Campaign Delivery Automation
+    n8n_webhook_url: str = Field(default="", alias="N8N_WEBHOOK_URL")
+    # Optional: only sent when explicitly configured; n8n webhook may run without auth
+    n8n_webhook_secret: str = Field(default="", alias="N8N_WEBHOOK_SECRET")
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -24,6 +24,8 @@ from app.schemas.campaign import (
     CampaignListResponse,
     CampaignResultResponse,
     CampaignAuditHistoryResponse,
+    N8nCallbackRequest,
+    N8nCallbackResponse,
 )
 
 router = APIRouter(tags=["Campaign Management"])
@@ -213,4 +215,40 @@ def cancel_campaign(
     service = CampaignService(db)
     return service.cancel_campaign(
         campaign_id=campaign_id, merchant_id=m_id, reason=reason
+    )
+
+
+@router.post(
+    "/{campaign_id}/n8n-callback",
+    response_model=N8nCallbackResponse,
+    summary="n8n Execution Result Callback",
+    description=(
+        "Receives post-execution delivery results from the n8n workflow. "
+        "Validates merchant ownership and records an audit log entry. "
+        "Does NOT modify financial simulation results or campaign status. "
+        "Only EXECUTING or COMPLETED campaigns are accepted."
+    ),
+)
+def n8n_campaign_callback(
+    campaign_id: str,
+    request: N8nCallbackRequest = Body(...),
+    db: Session = Depends(get_db),
+) -> N8nCallbackResponse:
+    # Merchant isolation: request body must contain the merchant_id
+    service = CampaignService(db)
+    service.handle_n8n_callback(
+        campaign_id=campaign_id,
+        merchant_id=request.merchant_id,
+        n8n_status=request.status,
+        targeted=request.targeted,
+        delivered=request.delivered,
+        failed=request.failed,
+        execution_mode=request.execution_mode,
+        message=request.message,
+    )
+    return N8nCallbackResponse(
+        accepted=True,
+        campaign_id=campaign_id,
+        merchant_id=request.merchant_id,
+        message="n8n execution result recorded successfully.",
     )

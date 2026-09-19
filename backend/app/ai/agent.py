@@ -18,6 +18,7 @@ from app.ai.schemas import (
 )
 from app.ai.tools import ToolRegistry, ALLOWED_TOOLS
 from app.ai.llm_client import get_llm_client, BaseLLMClient
+from app.ai.cognee_client import get_cognee_client
 from app.schemas.campaign import CampaignResponse, CampaignResultResponse
 from app.schemas.what_if import SimulationScenario
 
@@ -129,6 +130,25 @@ class MarketingCampaignAgent:
             intent = DeterministicFallbackClient().parse_intent(request.message, session_context)
 
         logger.info(f"Interpreted intent for merchant '{self.merchant_id}': {intent.intent} ({intent.requested_action})")
+
+        # 1b. Recall relevant merchant memory from Cognee (best-effort, non-blocking)
+        cognee_context_text = ""
+        try:
+            cognee = get_cognee_client()
+            recall_results = cognee.recall(
+                merchant_id=self.merchant_id,
+                query=request.message,
+            )
+            cognee_context_text = cognee.extract_context_text(recall_results)
+            if cognee_context_text:
+                session_context["cognee_memory"] = cognee_context_text
+                logger.info(
+                    f"CogneeClient: Injected {len(recall_results)} memory item(s) "
+                    f"into context for merchant '{self.merchant_id}'."
+                )
+        except Exception as _cog_err:  # noqa: BLE001
+            logger.warning(f"Cognee recall failed (non-fatal): {_cog_err}")
+
 
 
         insights: List[str] = []
@@ -445,6 +465,40 @@ class MarketingCampaignAgent:
         if status_str:
             context_update["status"] = status_str
         update_conversation_context(conv_id, context_update)
+
+        # 5. Persist useful business context to Cognee memory (best-effort, non-blocking)
+        try:
+            cognee = get_cognee_client()
+            memory_parts: list = []
+
+            if insights:
+                memory_parts.append("Business Insights: " + " | ".join(insights[:3]))
+            if intent.intent in (
+                "increase_weekend_revenue",
+                "recover_inactive_customers",
+                "create_campaign",
+                "analyze_business",
+            ) and self.actions_taken:
+                memory_parts.append(
+                    f"Intent processed: {intent.intent} "
+                    f"for segment '{intent.target_segment}'."
+                )
+            if campaign_id and status_str:
+                memory_parts.append(
+                    f"Campaign {campaign_id} created with status {status_str}."
+                )
+            if simulation_obj:
+                memory_parts.append(
+                    f"Simulation projected ROI: {simulation_obj.roi_multiplier_label}, "
+                    f"net impact: INR {simulation_obj.net_incremental_impact:,.2f}."
+                )
+
+            if memory_parts:
+                memory_text = " ".join(memory_parts)
+                cognee.remember(merchant_id=self.merchant_id, content=memory_text)
+        except Exception as _cog_err:  # noqa: BLE001
+            logger.warning(f"Cognee remember failed (non-fatal): {_cog_err}")
+
 
         return AgentChatResponse(
             message=response_text,

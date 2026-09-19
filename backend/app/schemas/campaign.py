@@ -206,3 +206,31 @@ class CampaignAuditHistoryResponse(BaseModel):
     events: List[CampaignAuditLogResponse] = Field(default_factory=list)
     audit_logs: List[CampaignAuditLogResponse] = Field(default_factory=list)
 
+
+# ---------------------------------------------------------------------------
+# n8n Callback Schemas
+# ---------------------------------------------------------------------------
+
+class N8nCallbackRequest(BaseModel):
+    """
+    Payload posted back to FastAPI by the n8n workflow after campaign delivery.
+    All fields are optional so partial n8n responses are handled gracefully.
+    """
+    campaign_id: str = Field(..., description="Campaign unique identifier")
+    merchant_id: str = Field(..., description="Merchant unique identifier for isolation validation")
+    status: Optional[str] = Field(None, description="Workflow execution status from n8n")
+    targeted: Optional[int] = Field(None, ge=0, description="Number of customers targeted by n8n")
+    delivered: Optional[int] = Field(None, ge=0, description="Number of successful deliveries")
+    failed: Optional[int] = Field(None, ge=0, description="Number of failed deliveries")
+    execution_mode: Optional[str] = Field(None, description="live | simulated_demo")
+    message: Optional[str] = Field(None, max_length=500, description="Human-readable status message from n8n")
+
+
+class N8nCallbackResponse(BaseModel):
+    """Response returned to n8n after processing the callback."""
+    accepted: bool
+    campaign_id: str
+    merchant_id: str
+    message: str
+
+

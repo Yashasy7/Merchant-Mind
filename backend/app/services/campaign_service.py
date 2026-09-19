@@ -40,6 +40,7 @@ from app.schemas.campaign import (
     CampaignAuditHistoryResponse,
 )
 from app.schemas.what_if import SimulationRequest
+from app.services.n8n_client import get_n8n_client
 
 VALID_SEGMENTS = {
     "all customers": "All Customers",
@@ -566,6 +567,55 @@ class CampaignService(BaseService):
             end_date=campaign.end_date,
         )
 
+        # 2b. Trigger n8n workflow (best-effort; does NOT override simulation results)
+        #     Safety invariant: only APPROVED campaigns reach this point.
+        n8n_result = None
+        try:
+            n8n = get_n8n_client()
+            # Determine approximate target count from segment (rough estimate for payload)
+            from app.services.customer_service import CustomerService
+            _cs = CustomerService(self.db)
+            try:
+                _seg_data = _cs.get_segment_summary(merchant_id=merchant_id)
+                _seg_counts = {s.get("segment", ""): s.get("count", 0) for s in (_seg_data.get("segments") or [])}
+                _target_count = _seg_counts.get(campaign.target_segment, 0) or 0
+            except Exception:
+                _target_count = 0
+
+            n8n_result = n8n.trigger_campaign(
+                campaign_id=campaign_id,
+                merchant_id=merchant_id,
+                campaign_status=CampaignStatus.APPROVED.value,  # Safety: always pass literal APPROVED
+                offer_type=campaign.offer_type,
+                target_segment=campaign.target_segment,
+                cashback_amount=float(campaign.cashback_amount) if campaign.cashback_amount else None,
+                discount_percent=float(campaign.discount_percent) if campaign.discount_percent else None,
+                minimum_transaction_amount=float(campaign.minimum_transaction_amount or 0),
+                target_count=_target_count,
+                campaign_name=campaign.name or "",
+                campaign_description=campaign.description,
+                target_days=campaign.target_days,
+                target_hours=campaign.target_hours,
+                marketing_copy_headline=getattr(campaign, "marketing_copy_headline", None),
+                marketing_copy_body=getattr(campaign, "marketing_copy_body", None),
+            )
+            if n8n_result.success:
+                logger.info(
+                    f"n8n workflow triggered for campaign '{campaign_id}': "
+                    f"targeted={n8n_result.targeted}, delivered={n8n_result.delivered}."
+                )
+            else:
+                logger.warning(
+                    f"n8n trigger failed for campaign '{campaign_id}': {n8n_result.error}. "
+                    f"Continuing with internal simulation."
+                )
+        except Exception as _n8n_err:  # noqa: BLE001
+            logger.warning(
+                f"n8n integration error for campaign '{campaign_id}' (non-fatal): {_n8n_err}. "
+                f"Proceeding with internal simulation."
+            )
+
+
         # 3. Transition to EXECUTING
         campaign.status = CampaignStatus.EXECUTING.value
         self.campaign_repo.update_campaign(campaign)
@@ -919,4 +969,74 @@ class CampaignService(BaseService):
             ),
         )
 
+    # -------------------------------------------------------------------------
+    # n8n Callback Handler
+    # -------------------------------------------------------------------------
 
+    def handle_n8n_callback(
+        self,
+        campaign_id: str,
+        merchant_id: str,
+        n8n_status: Optional[str],
+        targeted: Optional[int],
+        delivered: Optional[int],
+        failed: Optional[int],
+        execution_mode: Optional[str],
+        message: Optional[str],
+    ) -> None:
+        """
+        Process execution-result callback POSTed by the n8n workflow.
+
+        Validates:
+          - Campaign exists and belongs to merchant (isolation gate).
+          - Campaign is in EXECUTING or COMPLETED state (no state is overridden
+            by n8n alone — financial figures remain deterministic).
+
+        Records an informational audit log entry with n8n delivery summary.
+        """
+        campaign = self.campaign_repo.get_campaign(campaign_id=campaign_id, merchant_id=merchant_id)
+        if not campaign:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Campaign '{campaign_id}' not found for merchant '{merchant_id}'.",
+            )
+
+        # Only accept callback for campaigns that passed through execution
+        if campaign.status not in (
+            CampaignStatus.COMPLETED.value,
+            CampaignStatus.EXECUTING.value,
+        ):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=(
+                    f"Cannot accept n8n callback for campaign '{campaign_id}' "
+                    f"with status '{campaign.status}'. Must be EXECUTING or COMPLETED."
+                ),
+            )
+
+        # Build informational audit note (no financial data modified)
+        note_parts = [f"n8n callback received (mode={execution_mode or 'unknown'})."]
+        if targeted is not None:
+            note_parts.append(f"Targeted: {targeted}.")
+        if delivered is not None:
+            note_parts.append(f"Delivered: {delivered}.")
+        if failed is not None:
+            note_parts.append(f"Failed: {failed}.")
+        if message:
+            note_parts.append(f"n8n message: {message[:200]}")
+
+        self.campaign_repo.create_audit_log(
+            campaign_id=campaign_id,
+            merchant_id=merchant_id,
+            action="N8N_CALLBACK",
+            previous_status=campaign.status,
+            new_status=campaign.status,
+            actor="n8n",
+            reason=" ".join(note_parts),
+        )
+
+        logger.info(
+            f"n8n callback processed for campaign '{campaign_id}' "
+            f"(merchant '{merchant_id}'): "
+            f"targeted={targeted}, delivered={delivered}, failed={failed}."
+        )

@@ -1,0 +1,1616 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Paytm MerchantMind — Project Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#07090f;--surface:#0e1117;--surface2:#131720;--surface3:#1a2030;--border:#1e2535;--border2:#252d3d;--text:#e8eaf0;--text2:#9ba3b8;--text3:#5e6880;--accent:#4f8ef7;--accent2:#6366f1;--accent3:#8b5cf6;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--orange:#f97316;--paytm:#00baf2;--glow:rgba(79,142,247,0.15);--radius:12px;--radius2:8px;--sidebar-w:260px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+#sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+.sb-brand{padding:20px 20px 16px;border-bottom:1px solid var(--border)}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sb-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--paytm),var(--accent));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.sb-logo-text{font-size:15px;font-weight:700;color:var(--text)}
+.sb-logo-sub{font-size:10px;color:var(--text3);margin-top:2px}
+.sb-badge{background:linear-gradient(135deg,rgba(0,186,242,0.15),rgba(79,142,247,0.15));border:1px solid rgba(0,186,242,0.3);border-radius:6px;padding:6px 10px;font-size:10px;color:var(--paytm);font-weight:600;text-align:center;margin-top:10px}
+.team-pills{display:flex;gap:6px;margin-top:8px}
+.tp{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:5px 8px;text-align:center;font-size:10px}
+.tp .n{font-weight:700;color:var(--text);display:block}.tp .r{font-size:9px;color:var(--text3);display:block}
+.sb-nav{flex:1;padding:12px 0;overflow-y:auto}
+.sb-section{padding:6px 16px 2px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+.sb-item{display:flex;align-items:center;gap:8px;padding:7px 16px;cursor:pointer;transition:all 0.2s;border-left:2px solid transparent;font-size:12.5px;color:var(--text2);text-decoration:none}
+.sb-item:hover{background:var(--surface2);color:var(--text);border-left-color:var(--accent)}
+.sb-item.active{background:rgba(79,142,247,0.1);color:var(--accent);border-left-color:var(--accent);font-weight:600}
+.sb-item .num{font-size:10px;color:var(--text3);min-width:18px;font-family:'JetBrains Mono',monospace}
+.sb-footer{padding:16px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);text-align:center}
+#main{margin-left:var(--sidebar-w);min-height:100vh}
+.section{padding:56px 48px;border-bottom:1px solid var(--border);max-width:1100px}
+h1{font-size:34px;font-weight:900;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
+h2{font-size:22px;font-weight:800;color:var(--text);margin-bottom:8px}
+h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
+h4{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em}
+p{color:var(--text2);margin-bottom:12px;line-height:1.7}p:last-child{margin-bottom:0}
+ul,ol{color:var(--text2);padding-left:20px;margin-bottom:12px}li{margin-bottom:4px;line-height:1.6}
+strong{color:var(--text);font-weight:600}
+code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 6px;color:var(--accent)}
+.sec-num{font-size:11px;font-weight:700;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:4px}
+.sec-label{font-size:11px;font-weight:700;color:var(--paytm);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--paytm);border-radius:1px}
+.sec-desc{color:var(--text2);font-size:14px;max-width:700px;line-height:1.7;margin-top:8px}
+.sec-hdr{margin-bottom:32px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color 0.2s}
+.card:hover{border-color:var(--border2)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}
+.b-core{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
+.b-mvp{background:rgba(79,142,247,0.15);color:var(--accent);border:1px solid rgba(79,142,247,0.3)}
+.b-str{background:rgba(245,158,11,0.15);color:var(--yellow);border:1px solid rgba(245,158,11,0.3)}
+.b-fut{background:rgba(139,92,246,0.15);color:var(--accent3);border:1px solid rgba(139,92,246,0.3)}
+.b-y{background:rgba(0,186,242,0.12);color:var(--paytm);border:1px solid rgba(0,186,242,0.25)}
+.b-v{background:rgba(99,102,241,0.12);color:var(--accent2);border:1px solid rgba(99,102,241,0.25)}
+.b-b{background:rgba(139,92,246,0.12);color:var(--accent3);border:1px solid rgba(139,92,246,0.25)}
+.b-hi{background:rgba(239,68,68,0.12);color:var(--red);border:1px solid rgba(239,68,68,0.25)}
+.b-me{background:rgba(245,158,11,0.12);color:var(--yellow);border:1px solid rgba(245,158,11,0.25)}
+.b-lo{background:rgba(16,185,129,0.12);color:var(--green);border:1px solid rgba(16,185,129,0.25)}
+.tw{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px}thead{background:var(--surface2)}
+th{padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,0.02)}
+.cb{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;overflow-x:auto;color:var(--text2)}
+.ck{color:#c792ea}.cs{color:#c3e88d}.cc{color:var(--text3)}.cf{color:#82aaff}.cn{color:#ffcb6b}
+.arch{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;overflow-x:auto}
+.ar{display:flex;justify-content:center;gap:8px;margin:4px 0;flex-wrap:wrap}
+.an{background:var(--surface3);border:1px solid var(--border2);border-radius:8px;padding:8px 14px;color:var(--text2);font-size:11px;text-align:center;white-space:nowrap}
+.an.m{background:rgba(0,186,242,0.1);border-color:var(--paytm);color:var(--paytm);font-weight:700}
+.an.f{background:rgba(99,102,241,0.1);border-color:var(--accent2);color:var(--accent2);font-weight:600}
+.an.b{background:rgba(79,142,247,0.1);border-color:var(--accent);color:var(--accent);font-weight:600}
+.an.a{background:rgba(139,92,246,0.1);border-color:var(--accent3);color:var(--accent3);font-weight:600}
+.an.d{background:rgba(16,185,129,0.1);border-color:var(--green);color:var(--green);font-weight:600}
+.an.x{background:rgba(245,158,11,0.1);border-color:var(--yellow);color:var(--yellow);font-weight:600}
+.aa{text-align:center;color:var(--text3);font-size:16px;margin:2px 0}
+.loop{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:center;padding:20px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius)}
+.ls{display:flex;align-items:center;gap:4px}
+.ln{padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid;white-space:nowrap}
+.la{color:var(--text3);font-size:14px}
+.kpi-g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kpi.bl::before{background:linear-gradient(90deg,var(--accent),transparent)}
+.kpi.gr::before{background:linear-gradient(90deg,var(--green),transparent)}
+.kpi.ye::before{background:linear-gradient(90deg,var(--yellow),transparent)}
+.kpi.pu::before{background:linear-gradient(90deg,var(--accent3),transparent)}
+.kpi-l{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px}
+.kpi-v{font-size:22px;font-weight:800;color:var(--text);font-family:'JetBrains Mono',monospace}
+.kpi-s{font-size:11px;color:var(--text3);margin-top:3px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:28px 0}
+.hero{background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);border:1px solid var(--border);border-radius:var(--radius);padding:36px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,186,242,0.12),transparent 70%);pointer-events:none}
+.alert{border-radius:var(--radius2);padding:12px 16px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.aw{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);color:var(--yellow)}
+.ai{background:rgba(79,142,247,0.08);border:1px solid rgba(79,142,247,0.25);color:var(--accent)}
+.ad{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:var(--red)}
+.as{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);color:var(--green)}
+.ai-ico{font-size:16px;flex-shrink:0;margin-top:1px}
+.at{color:var(--text2)}.at strong{color:var(--text)}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:all 0.2s;margin-bottom:16px}
+.mc:hover{border-color:var(--accent);box-shadow:0 0 20px var(--glow)}
+.mc-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.mc-num{font-size:11px;font-weight:700;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.mc-bd{display:flex;gap:6px;flex-wrap:wrap}
+.p1{border-left:3px solid var(--red)!important}.p2{border-left:3px solid var(--yellow)!important}
+.sep{width:100%;height:1px;background:var(--border);margin:14px 0}
+.flow{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.fn{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 20px;font-size:13px;font-weight:600;color:var(--text);min-width:200px}
+.fn.ac{border-color:var(--accent);background:rgba(79,142,247,0.08);color:var(--accent)}
+.fn.gr{border-color:var(--green);background:rgba(16,185,129,0.08);color:var(--green)}
+.fn.ye{border-color:var(--yellow);background:rgba(245,158,11,0.08);color:var(--yellow)}
+.fn.re{border-color:var(--red);background:rgba(239,68,68,0.08);color:var(--red)}
+.fa{font-size:16px;color:var(--text3)}
+.jc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.jh{padding:14px 18px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.jb{padding:18px}
+.js{display:flex;flex-direction:column;gap:8px}
+.jst{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}
+.jsl{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;padding-top:2px}
+.jsc{font-size:13px;color:var(--text2);background:var(--surface2);border-radius:6px;padding:8px 12px}
+.tl{position:relative;padding-left:32px}
+.tl::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent3))}
+.tl-i{position:relative;margin-bottom:24px}
+.tl-i::before{content:'';position:absolute;left:-28px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.tl-i:last-child{margin-bottom:0}
+.tl-h{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;font-family:'JetBrains Mono',monospace}
+.tl-t{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.tl-g{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.tl-c{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2);padding:12px}
+.tl-ch{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
+.tl-ch.y{color:var(--paytm)}.tl-ch.v{color:var(--accent2)}.tl-ch.b{color:var(--accent3)}
+.tl-c ul{padding-left:14px;margin:0}.tl-c li{font-size:12px;color:var(--text2);margin-bottom:3px}
+.cmp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.cc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center}
+.cc-card.hl{border-color:var(--accent);background:rgba(79,142,247,0.05)}
+.cc-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.cc-i{font-size:12px;color:var(--text2);padding:4px 0;display:flex;align-items:center;justify-content:center;gap:6px}
+.ft{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2}
+.ft-d{color:var(--accent);font-weight:700}.ft-f{color:var(--text2)}.ft-c{color:var(--text3);font-style:italic}
+.env-b{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2);padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px}
+.env-l{display:flex;gap:16px;padding:4px 0;border-bottom:1px solid var(--border);align-items:baseline}
+.env-l:last-child{border-bottom:none}
+.env-k{color:var(--accent);min-width:200px;flex-shrink:0}.env-v{color:var(--text3);font-size:11px}.env-c{color:var(--text3);font-style:italic;font-size:11px}
+.cl{list-style:none;padding:0}
+.cl li{padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:start;gap:8px;font-size:13px;color:var(--text2)}
+.cl li:last-child{border-bottom:none}
+.ci{color:var(--green);flex-shrink:0;margin-top:2px}.xi{color:var(--red);flex-shrink:0;margin-top:2px}
+.rm{display:flex;flex-direction:column}
+.rm-p{display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid var(--border);padding:16px 0}
+.rm-p:last-child{border-bottom:none}
+.rm-n{font-size:11px;font-weight:700;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.rm-t{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.rm-d{font-size:12px;color:var(--text2)}
+.tc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2);padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;margin-bottom:8px}
+.tc .tf{color:var(--green);font-weight:700}.tc .tp{color:var(--text3);font-size:11px}
+.tc .td{color:var(--text2);font-size:11px;font-family:'Inter',sans-serif;margin-top:4px}
+.tc .tb{float:right;margin-top:-2px}
+#topbar{position:sticky;top:0;background:rgba(7,9,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 48px;display:flex;align-items:center;justify-content:space-between;z-index:50}
+.tb-t{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.tb-s{display:flex;gap:8px}
+#search{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius2);padding:6px 12px;color:var(--text);font-size:12px;font-family:'Inter',sans-serif;width:200px;outline:none}
+#search:focus{border-color:var(--accent)}
+.risk-h{color:var(--red)}.risk-m{color:var(--yellow)}.risk-l{color:var(--green)}
+.tg{color:var(--green)}.tr{color:var(--red)}.ta{color:var(--accent)}
+@media(max-width:900px){#sidebar{display:none}#main{margin-left:0}.section{padding:36px 20px}.g2,.g3,.g4,.tl-g,.kpi-g,.cmp{grid-template-columns:1fr}.jst{grid-template-columns:1fr}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:fadeInUp 0.4s ease both}
+@media print{#sidebar,#topbar{display:none}#main{margin-left:0}}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">M</div>
+      <div><div class="sb-logo-text">MerchantMind</div><div class="sb-logo-sub">Project Blueprint v1.0</div></div>
+    </div>
+    <div class="sb-badge">⚡ Paytm Build for India AI Hackathon — Bengaluru</div>
+    <div class="team-pills">
+      <div class="tp"><span class="n">Yashas</span><span class="r">Backend + AI/ML</span></div>
+      <div class="tp"><span class="n">Vishal</span><span class="r">Frontend + UX</span></div>
+    </div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <a class="sb-item" href="#s1"><span class="num">01</span>Project Overview</a>
+    <a class="sb-item" href="#s2"><span class="num">02</span>Problem Statement</a>
+    <a class="sb-item" href="#s3"><span class="num">03</span>Solution</a>
+    <a class="sb-item" href="#s4"><span class="num">04</span>MVP Scope</a>
+    <a class="sb-item" href="#s5"><span class="num">05</span>What NOT to Build</a>
+    <div class="sb-section">Product</div>
+    <a class="sb-item" href="#s6"><span class="num">06</span>Core Modules (11)</a>
+    <a class="sb-item" href="#s7"><span class="num">07</span>User Journeys</a>
+    <a class="sb-item" href="#s8"><span class="num">08</span>Hero Workflow</a>
+    <div class="sb-section">Architecture</div>
+    <a class="sb-item" href="#s9"><span class="num">09</span>System Architecture</a>
+    <a class="sb-item" href="#s10"><span class="num">10</span>AI Architecture</a>
+    <a class="sb-item" href="#s11"><span class="num">11</span>AI Orchestrator + Tools</a>
+    <div class="sb-section">Data &amp; API</div>
+    <a class="sb-item" href="#s12"><span class="num">12</span>Database Design</a>
+    <a class="sb-item" href="#s13"><span class="num">13</span>Synthetic Data</a>
+    <a class="sb-item" href="#s14"><span class="num">14</span>API Design</a>
+    <div class="sb-section">Implementation</div>
+    <a class="sb-item" href="#s15"><span class="num">15</span>Frontend Plan</a>
+    <a class="sb-item" href="#s16"><span class="num">16</span>Backend Plan</a>
+    <a class="sb-item" href="#s17"><span class="num">17</span>Responsibility Matrix</a>
+    <div class="sb-section">Execution</div>
+    <a class="sb-item" href="#s18"><span class="num">18</span>8-Hour Plan</a>
+    <a class="sb-item" href="#s19"><span class="num">19</span>Fallback Strategy</a>
+    <a class="sb-item" href="#s20"><span class="num">20</span>Risk Register</a>
+    <a class="sb-item" href="#s21"><span class="num">21</span>Testing Plan</a>
+    <div class="sb-section">Demo &amp; Ops</div>
+    <a class="sb-item" href="#s22"><span class="num">22</span>Demo Script</a>
+    <a class="sb-item" href="#s23"><span class="num">23</span>Success Criteria</a>
+    <a class="sb-item" href="#s24"><span class="num">24</span>Project Structure</a>
+    <a class="sb-item" href="#s25"><span class="num">25</span>Env &amp; Runbook</a>
+    <a class="sb-item" href="#s26"><span class="num">26</span>Security &amp; Trust</a>
+    <a class="sb-item" href="#s27"><span class="num">27</span>Accounting Safety</a>
+    <a class="sb-item" href="#s28"><span class="num">28</span>Tech Stack</a>
+    <a class="sb-item" href="#s29"><span class="num">29</span>Future Roadmap</a>
+    <a class="sb-item" href="#s30"><span class="num">30</span>Final Architecture</a>
+  </div>
+  <div class="sb-footer">
+    <div>Paytm Build for India AI Hackathon</div>
+    <div style="margin-top:4px;color:var(--paytm);font-weight:700">Track 1 — Merchant Growth AI</div>
+  </div>
+</nav>
+
+<div id="topbar" style="margin-left:var(--sidebar-w)">
+  <div class="tb-t"><span style="color:var(--paytm)">●</span> Paytm MerchantMind — Technical Blueprint</div>
+  <div class="tb-s">
+    <input id="search" type="text" placeholder="🔍 Search sections..." oninput="doSearch(this.value)"/>
+    <span class="badge b-core">MVP Focus</span>
+    <span class="badge b-mvp">8-Hour Plan</span>
+    <span class="badge b-y">2 Developers</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- S1 -->
+<section class="section" id="s1">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 01</div>
+    <div class="sec-label">Project Overview</div>
+    <h1>Paytm MerchantMind</h1>
+    <p class="sec-desc" style="font-size:16px;color:var(--text);font-weight:600">The AI Business Partner for Every Merchant</p>
+  </div>
+  <div class="hero" style="margin-bottom:24px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
+      <span class="badge b-mvp">⚡ Paytm Build for India AI Hackathon</span>
+      <span class="badge b-core">Bengaluru Edition</span>
+      <span class="badge b-fut">Track 1 — Merchant Growth AI</span>
+      <span class="badge b-y">Yashas + Vishal</span>
+    </div>
+    <h2 style="margin-bottom:10px">Product Statement</h2>
+    <p style="font-size:15px;color:var(--text);max-width:750px;line-height:1.8">Paytm MerchantMind is an <strong>AI-powered business partner</strong> that helps merchants understand their sales, customers, and finances — recommending growth opportunities and turning approved recommendations into actions.</p>
+    <div class="divider"></div>
+    <h3 style="margin-bottom:14px">Core Product Loop</h3>
+    <div class="loop">
+      <div class="ls"><div class="ln" style="border-color:var(--paytm);color:var(--paytm)">DATA</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--accent);color:var(--accent)">INTELLIGENCE</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--accent2);color:var(--accent2)">DECISION</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--yellow);color:var(--yellow)">ACTION</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--green);color:var(--green)">RESULT</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--accent3);color:var(--accent3)">LEARNING</div></div>
+    </div>
+  </div>
+  <div class="kpi-g">
+    <div class="kpi bl"><div class="kpi-l">Build Time</div><div class="kpi-v">8 hrs</div><div class="kpi-s">Hackathon window</div></div>
+    <div class="kpi gr"><div class="kpi-l">Team Size</div><div class="kpi-v">2</div><div class="kpi-s">Yashas + Vishal</div></div>
+    <div class="kpi ye"><div class="kpi-l">Core Modules</div><div class="kpi-v">11</div><div class="kpi-s">MVP scope</div></div>
+    <div class="kpi pu"><div class="kpi-l">Priority</div><div class="kpi-v">Hero</div><div class="kpi-s">Growth workflow first</div></div>
+  </div>
+</section>
+
+<!-- S2 -->
+<section class="section" id="s2">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 02</div>
+    <div class="sec-label">Problem Statement</div>
+    <h2>Merchants are data-rich but insight-poor.</h2>
+    <p class="sec-desc">Small and medium Paytm merchants generate significant transaction data every day. Yet data alone does not provide actionable intelligence.</p>
+  </div>
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.03)">
+      <h3 style="color:var(--red);margin-bottom:10px">❌ Current Reality</h3>
+      <ul>
+        <li>Merchants generate rich transaction data through Paytm payments</li>
+        <li>Data alone does not surface actionable intelligence</li>
+        <li>Small merchants typically lack analysts, accountants, or marketing staff</li>
+        <li>Business decisions are made by intuition, not data</li>
+        <li>Existing dashboards require merchants to interpret data themselves</li>
+        <li>Inactive customers are not systematically identified or re-engaged</li>
+        <li>Promotions are often based on guesswork with no measurable targeting</li>
+        <li>Financial organization is entirely manual with limited profit visibility</li>
+        <li>Inventory and growth decisions tend to be reactive rather than proactive</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.03)">
+      <h3 style="color:var(--green);margin-bottom:10px">✓ What Merchants Actually Need</h3>
+      <ul>
+        <li>Understand why sales are trending up or down</li>
+        <li>Know which customers are at risk of churning</li>
+        <li>Receive targeted, data-backed growth recommendations</li>
+        <li>Simulate outcomes before committing to a promotion</li>
+        <li>Get a clear picture of monthly profit and expenses</li>
+        <li>Take action on recommendations without needing a team</li>
+        <li>Have a trusted business partner that explains things in plain language</li>
+      </ul>
+    </div>
+  </div>
+  <div class="g3">
+    <div class="card"><div style="font-size:26px;margin-bottom:8px">📉</div><h4>Sales Intelligence Gap</h4><p>Merchants cannot easily identify peak hours, decline periods, or seasonal patterns without manual analysis.</p></div>
+    <div class="card"><div style="font-size:26px;margin-bottom:8px">👥</div><h4>Customer Blind Spot</h4><p>At-risk and inactive customers are invisible without systematic tracking. Re-engagement opportunities are missed.</p></div>
+    <div class="card"><div style="font-size:26px;margin-bottom:8px">💰</div><h4>Financial Opacity</h4><p>Monthly profit, operating margin, and expense anomalies require manual calculation and are rarely understood clearly.</p></div>
+  </div>
+</section>
+
+<!-- S3 -->
+<section class="section" id="s3">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 03</div>
+    <div class="sec-label">The Solution</div>
+    <h2>MerchantMind — An AI Business Partner</h2>
+    <p class="sec-desc">Not a generic chatbot. Not a static dashboard. A goal-oriented AI system that analyzes, recommends, acts, and learns.</p>
+  </div>
+  <div class="cmp" style="margin-bottom:28px">
+    <div class="cc-card">
+      <div class="cc-t">📊 Traditional Dashboard</div>
+      <div class="cc-i" style="color:var(--text3);font-size:15px;margin:6px 0">DATA → CHARTS</div>
+      <div class="cc-i">✗ Merchant must interpret</div>
+      <div class="cc-i">✗ No recommendations</div>
+      <div class="cc-i">✗ No action layer</div>
+      <div class="cc-i">✗ No learning loop</div>
+    </div>
+    <div class="cc-card">
+      <div class="cc-t">🤖 Generic AI Chatbot</div>
+      <div class="cc-i" style="color:var(--text3);font-size:15px;margin:6px 0">QUESTION → ANSWER</div>
+      <div class="cc-i">✗ No merchant data</div>
+      <div class="cc-i">✗ Cannot take action</div>
+      <div class="cc-i">✗ No approval workflow</div>
+      <div class="cc-i">✗ Hallucinated numbers</div>
+    </div>
+    <div class="cc-card hl">
+      <div class="cc-t" style="color:var(--accent)">🧠 MerchantMind</div>
+      <div class="cc-i" style="color:var(--accent);font-size:11px;margin:6px 0">GOAL → ANALYZE → PREDICT → RECOMMEND → APPROVE → ACT → MEASURE → LEARN</div>
+      <div class="cc-i tg">✓ Goal-oriented workflow</div>
+      <div class="cc-i tg">✓ Real data analysis</div>
+      <div class="cc-i tg">✓ Human-in-the-loop</div>
+      <div class="cc-i tg">✓ Simulated execution</div>
+      <div class="cc-i tg">✓ Feedback + learning</div>
+    </div>
+  </div>
+  <h3 style="margin-bottom:14px">MerchantMind Workflow</h3>
+  <div class="arch">
+    <div class="ar"><div class="an m">🏪 Merchant Goal / Question</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an a">🧠 MerchantMind Copilot (LLM + Orchestrator)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an b">📊 Data Analysis</div><div class="an b">👥 Customer Intelligence</div><div class="an b">💰 Financial Analysis</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an a">🔍 Business Reasoning + Recommendation</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an f">✋ Merchant Approval (Human-in-the-Loop)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an x">⚡ Action / Campaign Execution (Simulated)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an d">📈 Measurement + Feedback Loop</div></div>
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="section" id="s4">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 04</div>
+    <div class="sec-label">MVP Scope</div>
+    <h2>What We Build in 8 Hours</h2>
+    <p class="sec-desc">Every feature maps to an implementation task with a clear owner. Stretch and future features are explicitly called out.</p>
+  </div>
+  <div class="alert aw"><div class="ai-ico">⚠️</div><div class="at"><strong>Priority Rule:</strong> The hero growth workflow is the highest priority. Every other feature can be simplified or dropped before the hero workflow is compromised.</div></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Feature</th><th>Priority</th><th>MVP?</th><th>Implementation</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AI Merchant Copilot</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>LLM + orchestrator + tool calling</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Business Health Dashboard</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>KPI cards + charts from API</td><td><span class="badge b-v">Vishal</span></td></tr>
+        <tr><td><strong>Sales Intelligence Engine</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Pandas analytics + REST API</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Customer Segmentation</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Deterministic rules — no ML required</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Growth Recommendation Engine</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Rule-based + LLM explanation</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>What-if Campaign Simulator</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Deterministic simulation calculations</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Merchant Approval Workflow</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Approve/Reject UI + backend gate</td><td><span class="badge b-b">Both</span></td></tr>
+        <tr><td><strong>Campaign Execution Simulation</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Simulated result (no real Paytm API)</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Campaign Result Display</strong></td><td><span class="badge b-hi">P1 Critical</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Result cards + charts</td><td><span class="badge b-v">Vishal</span></td></tr>
+        <tr><td><strong>AI Accountant Copilot</strong></td><td><span class="badge b-me">P2 High</span></td><td><span class="badge b-core">✓ CORE</span></td><td>P&amp;L calc + LLM explanation</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>P&amp;L Calculation</strong></td><td><span class="badge b-me">P2 High</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Deterministic backend calculation</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Expense Intelligence</strong></td><td><span class="badge b-me">P2 High</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Category aggregation + anomaly detection</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td><strong>Customer Intelligence UI</strong></td><td><span class="badge b-me">P2 High</span></td><td><span class="badge b-core">✓ CORE</span></td><td>Segment table + at-risk list</td><td><span class="badge b-v">Vishal</span></td></tr>
+        <tr><td>Revenue Forecasting</td><td><span class="badge b-lo">P3 Medium</span></td><td><span class="badge b-str">~ SIMPLIFIED</span></td><td>Simple statistical trend projection</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td>Feedback Loop Visualization</td><td><span class="badge b-lo">P3 Medium</span></td><td><span class="badge b-str">~ SIMPLIFIED</span></td><td>Visual feedback simulation (no real ML)</td><td><span class="badge b-v">Vishal</span></td></tr>
+        <tr><td>ML Clustering (K-Means)</td><td>Optional</td><td><span class="badge b-str">⚡ STRETCH</span></td><td>Only if time permits after core is done</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td>Advanced Time-Series Forecasting</td><td>Optional</td><td><span class="badge b-str">⚡ STRETCH</span></td><td>Prophet/ARIMA only if time permits</td><td><span class="badge b-y">Yashas</span></td></tr>
+        <tr><td>Multi-store Intelligence</td><td>—</td><td><span class="badge b-fut">🔮 FUTURE</span></td><td>Not required for hackathon</td><td>—</td></tr>
+        <tr><td>GST / Tax Filing</td><td>—</td><td><span class="badge b-fut">🔮 FUTURE</span></td><td>Not required for hackathon</td><td>—</td></tr>
+        <tr><td>Real Paytm Campaign APIs</td><td>—</td><td><span class="badge b-fut">🔮 FUTURE</span></td><td>Simulated for demo</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- S5 -->
+<section class="section" id="s5">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 05</div>
+    <div class="sec-label">Scope Boundary</div>
+    <h2>🚫 Do NOT Build During 8 Hours</h2>
+    <p class="sec-desc">Explicit scope exclusions prevent scope creep and protect the hero workflow. These belong to the future roadmap.</p>
+  </div>
+  <div class="g2">
+    <div class="card" style="border-color:rgba(239,68,68,0.3)">
+      <h3 style="color:var(--red);margin-bottom:12px">❌ Excluded from Hackathon MVP</h3>
+      <ul class="cl">
+        <li><span class="xi">✗</span>Full GST filing or autonomous tax filing workflows</li>
+        <li><span class="xi">✗</span>Complete accounting software or ERP replacement</li>
+        <li><span class="xi">✗</span>Real banking integrations or payment settlement APIs</li>
+        <li><span class="xi">✗</span>Full inventory management system</li>
+        <li><span class="xi">✗</span>Voice assistant or WhatsApp integration</li>
+        <li><span class="xi">✗</span>Multi-store enterprise management</li>
+        <li><span class="xi">✗</span>Autonomous financial decisions without merchant approval</li>
+        <li><span class="xi">✗</span>Dozens of ML models with complex training pipelines</li>
+        <li><span class="xi">✗</span>Production-grade multi-agent microservices infrastructure</li>
+        <li><span class="xi">✗</span>Real-time payment processing or settlement</li>
+        <li><span class="xi">✗</span>Regulatory compliance or licensed financial advice</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(16,185,129,0.3)">
+      <h3 style="color:var(--green);margin-bottom:12px">✓ What IS in Scope</h3>
+      <ul class="cl">
+        <li><span class="ci">✓</span>AI Copilot with natural language understanding</li>
+        <li><span class="ci">✓</span>Sales trend analysis with synthetic demo data</li>
+        <li><span class="ci">✓</span>Deterministic customer segmentation (5 tiers)</li>
+        <li><span class="ci">✓</span>Data-backed growth recommendation with reasoning</li>
+        <li><span class="ci">✓</span>What-if simulator comparing campaign strategies</li>
+        <li><span class="ci">✓</span>Human-in-the-loop merchant approval workflow</li>
+        <li><span class="ci">✓</span>Simulated campaign execution and result display</li>
+        <li><span class="ci">✓</span>Deterministic P&amp;L + expense intelligence</li>
+        <li><span class="ci">✓</span>Simple statistical revenue forecast</li>
+        <li><span class="ci">✓</span>Business health dashboard with KPI cards</li>
+        <li><span class="ci">✓</span>Complete hero demo flow end-to-end</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert ai"><div class="ai-ico">ℹ️</div><div class="at"><strong>Hackathon Rule:</strong> Any feature not listed as CORE MVP must be dropped before the hero workflow is simplified. Demo reliability beats feature count.</div></div>
+</section>
+
+<!-- S6: MODULES -->
+<section class="section" id="s6">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 06</div>
+    <div class="sec-label">Core Product Modules</div>
+    <h2>11 Modules — MVP Architecture</h2>
+    <p class="sec-desc">Each module has a focused purpose, clear owner, and defined inputs/outputs.</p>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 01</div><h3>Merchant Dashboard</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-v">Vishal (Frontend)</span><span class="badge b-y">Yashas (APIs)</span></div></div>
+    <p>Merchant's high-level business snapshot. Entry point of the application.</p>
+    <div class="g3" style="margin-bottom:0"><div class="card"><h4>KPIs</h4><p>Revenue • Transactions • Avg Value • Repeat Customers • Estimated Profit • Growth Score</p></div><div class="card"><h4>AI Insight Cards</h4><p>2–3 proactive insights from recommendation engine based on latest patterns.</p></div><div class="card"><h4>API Deps</h4><p><code>GET /api/dashboard</code><br/><code>GET /api/sales/summary</code><br/><code>GET /api/sales/trends</code></p></div></div>
+    <div class="sep"></div>
+    <p style="font-size:12px;color:var(--text2)"><strong>Charts:</strong> 7-day revenue trend (line) · Top transaction hours (bar) · Customer segment distribution (donut)</p>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 02</div><h3>AI Merchant Copilot</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-y">Yashas (AI)</span><span class="badge b-v">Vishal (Chat UI)</span></div></div>
+    <p>Natural-language interface for merchant questions. Understands intent, selects tools, runs backend analysis, returns structured responses.</p>
+    <div class="g2" style="margin-bottom:0">
+      <div class="card"><h4>Example Queries</h4><ul><li>"Why did my sales drop?"</li><li>"Who are my best customers?"</li><li>"How can I increase weekend sales?"</li><li>"How much profit did I make?"</li><li>"Create a campaign for inactive customers."</li></ul></div>
+      <div class="card"><h4>Processing Pipeline</h4><div class="flow" style="gap:6px"><div class="fn ac">User Input (Natural Language)</div><div class="fa">↓</div><div class="fn">Intent Detection (LLM)</div><div class="fa">↓</div><div class="fn">Tool Selection + Execution</div><div class="fa">↓</div><div class="fn">Backend Analysis (Deterministic)</div><div class="fa">↓</div><div class="fn gr">LLM Explains Validated Results</div></div></div>
+    </div>
+    <div class="alert ad" style="margin-top:12px"><div class="ai-ico">🚫</div><div class="at"><strong>Hard Rule:</strong> The LLM must not calculate or invent financial metrics. All numbers come from deterministic backend code. LLM explains validated results only.</div></div>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 03</div><h3>Sales Intelligence Engine</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-y">Yashas (Backend)</span><span class="badge b-v">Vishal (Charts)</span></div></div>
+    <p>Analyzes transaction data to surface meaningful patterns. Powers both the dashboard and the copilot's sales analysis capability.</p>
+    <div class="g2" style="margin-bottom:0">
+      <div><h4>Computed Metrics</h4><ul><li>Total revenue (daily / weekly / monthly)</li><li>Transaction count and trend</li><li>Average transaction value</li><li>Peak hours and weak periods</li><li>Day-over-day and week-over-week growth/decline</li><li>Revenue by customer segment</li></ul></div>
+      <div><h4>Decline Detection Logic</h4><ul><li>Compare last 7 days vs. prior 7 days</li><li>Identify hours/days with steepest drop</li><li>Calculate % change per time bucket</li><li>Flag periods below rolling average</li><li>Return structured diagnosis object</li></ul></div>
+    </div>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 04</div><h3>Customer Intelligence</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-y">Yashas (Segmentation)</span><span class="badge b-v">Vishal (UI)</span></div></div>
+    <p>Deterministic customer segmentation. Identifies at-risk and inactive customers for targeted action. No ML required for MVP.</p>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:0">
+      <div class="card" style="border-color:rgba(245,158,11,0.3);padding:12px"><h4 style="color:var(--yellow)">👑 VIP</h4><p style="font-size:11px">top_5% spend<br/>≥8 transactions<br/>last_seen ≤14d</p></div>
+      <div class="card" style="border-color:rgba(79,142,247,0.3);padding:12px"><h4 style="color:var(--accent)">💙 Loyal</h4><p style="font-size:11px">≥5 transactions<br/>top_30% spend<br/>last_seen ≤21d</p></div>
+      <div class="card" style="border-color:rgba(16,185,129,0.3);padding:12px"><h4 style="color:var(--green)">🆕 New</h4><p style="font-size:11px">1–2 transactions<br/>first_seen ≤30d</p></div>
+      <div class="card" style="border-color:rgba(249,115,22,0.3);padding:12px"><h4 style="color:var(--orange)">⚠️ At-Risk</h4><p style="font-size:11px">≥3 transactions<br/>last_seen 22–45d</p></div>
+      <div class="card" style="border-color:rgba(239,68,68,0.3);padding:12px"><h4 style="color:var(--red)">💔 Inactive</h4><p style="font-size:11px">any history<br/>last_seen &gt;45d</p></div>
+    </div>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 05</div><h3>Growth Recommendation Engine</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-y">Yashas (Backend)</span></div></div>
+    <p>Combines sales diagnosis, customer intelligence, and business goals to generate a specific, reasoned recommendation. Core of the hero workflow.</p>
+    <div class="g2" style="margin-bottom:8px">
+      <div class="card"><h4>Inputs</h4><ul><li>Sales trend analysis result</li><li>Customer segment distribution</li><li>At-risk / inactive customer list</li><li>Transaction patterns (time, amount)</li><li>Merchant's stated goal</li></ul></div>
+      <div class="card"><h4>Output Object</h4><ul><li><code>diagnosis</code> — what's wrong and why</li><li><code>opportunity</code> — identified gap</li><li><code>target_segment</code> — who to target</li><li><code>offer</code> — specific offer (e.g. ₹50 cashback)</li><li><code>timing</code> — when (e.g. 6 PM–9 PM)</li><li><code>reasoning</code> — why this recommendation</li><li><code>expected_impact</code> — estimated uplift</li></ul></div>
+    </div>
+    <div class="card" style="background:rgba(16,185,129,0.04);border-color:rgba(16,185,129,0.3)">
+      <h4 style="color:var(--green);margin-bottom:8px">📋 Demo Recommendation Example <span style="font-size:10px;color:var(--text3);font-weight:400">(Synthetic / Illustrative Data)</span></h4>
+      <div class="g2" style="margin:0"><div><strong>Target:</strong> Inactive + At-Risk (126+43 customers)<br/><strong>Offer:</strong> ₹50 cashback on ₹300+ transactions<br/><strong>Timing:</strong> 6 PM–9 PM weekdays</div><div><strong>Reasoning:</strong> Evening hours show steepest 31% decline. Inactive customers last transacted 45+ days ago — reactivation window.<br/><strong>Expected Impact:</strong> +18–24% evening revenue uplift (illustrative projection)</div></div>
+    </div>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 06</div><h3>What-if Campaign Simulator</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-y">Yashas (Calc)</span><span class="badge b-v">Vishal (UI)</span></div></div>
+    <p>Deterministic comparison of campaign strategies. All values are synthetic demo projections. No ML required.</p>
+    <div class="alert ad"><div class="ai-ico">⚠️</div><div class="at"><strong>Labeling Requirement:</strong> Every simulator output MUST be clearly labeled "Synthetic / Illustrative Demo Projection — Not a guaranteed forecast."</div></div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Strategy</th><th>Expected Txns</th><th>Expected Revenue</th><th>Incentive Cost</th><th>Incremental Rev</th><th>Est. ROI</th></tr></thead>
+        <tbody>
+          <tr><td>No Offer (Baseline)</td><td>45</td><td>₹18,000</td><td>₹0</td><td>₹0</td><td>—</td></tr>
+          <tr><td>5% Discount</td><td>58</td><td>₹22,040</td><td>₹1,102</td><td>₹2,938</td><td>2.7x</td></tr>
+          <tr><td>10% Discount</td><td>65</td><td>₹23,400</td><td>₹2,600</td><td>₹2,800</td><td>2.1x</td></tr>
+          <tr style="background:rgba(16,185,129,0.04)"><td><strong>₹50 Cashback (Recommended)</strong></td><td>72</td><td>₹28,800</td><td>₹3,600</td><td><strong>₹7,200</strong></td><td><strong>3.0x</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--text3);margin-top:6px">⚠️ All values above are synthetic illustrative projections for demonstration purposes only.</p>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 07</div><h3>AI Marketing / Campaign Agent</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-b">Both</span></div></div>
+    <p>Orchestrates the full campaign workflow from goal to execution. If actual Paytm campaign APIs are unavailable, simulation is used. The agentic workflow is the demonstration value.</p>
+    <div class="arch" style="padding:16px">
+      <div class="ar"><div class="an m">Goal / Merchant Intent</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an a">Analyze Sales + Customer Data</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an b">Find Target Customers (Inactive + At-Risk)</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an a">Generate Campaign + Copy</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an b">Simulate Outcome (What-if)</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an f">Merchant Approval</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an x">Execute / Simulate Campaign</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an d">Monitor + Record Result</div></div>
+    </div>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 08</div><h3>Approval &amp; Action Layer</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE — Trust Feature</span><span class="badge b-b">Both</span></div></div>
+    <p>No sensitive action executes without explicit merchant approval. This is a core trust and safety design principle, not optional.</p>
+    <div class="g2" style="margin-bottom:0">
+      <div><h4>Approval UI</h4><ul><li>Campaign summary card (target, offer, timing)</li><li>Expected impact display (labeled synthetic)</li><li>Estimated cost to merchant</li><li>✅ <strong>APPROVE</strong> → triggers execution</li><li>❌ <strong>REJECT</strong> → returns to recommendation</li></ul></div>
+      <div class="flow" style="gap:6px">
+        <div class="fn ac">AI Recommendation + Expected Impact</div><div class="fa">↓</div>
+        <div class="fn ye">Merchant Reviews</div><div class="fa">↓</div>
+        <div class="fn gr">APPROVE → Validate → Execute</div><div class="fa">or</div>
+        <div class="fn re">REJECT → Return to Copilot</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc p1">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 09</div><h3>AI Accountant Copilot</h3></div><div class="mc-bd"><span class="badge b-core">✓ CORE</span><span class="badge b-y">Yashas (Calc)</span><span class="badge b-v">Vishal (UI)</span></div></div>
+    <div class="alert ai" style="margin-bottom:12px"><div class="ai-ico">ℹ️</div><div class="at"><strong>Scope Boundary:</strong> MerchantMind assists with financial organization and understanding. It does not replace a certified accountant or CA. All results use synthetic demo data.</div></div>
+    <div class="g2" style="margin-bottom:8px">
+      <div class="card"><h4>Backend — Deterministic</h4><ul><li>Total revenue from transaction history</li><li>Total expenses from expense records</li><li>Estimated operating profit = revenue − expenses</li><li>Estimated operating margin %</li><li>Expense breakdown by category</li><li>Largest expense category identification</li><li>Expense anomaly detection (spike vs. average)</li></ul></div>
+      <div class="card"><h4>LLM Role — Explain Only</h4><ul><li>Narrate the P&amp;L in plain language</li><li>Highlight largest expense category</li><li>Explain anomaly in business context</li><li>Suggest where to look for cost reduction</li><li>Never invent or recalculate numbers</li></ul>
+        <div style="margin-top:10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;padding:10px;font-size:12px">
+          <strong style="color:var(--green)">Demo P&amp;L (Synthetic)</strong><br/>Revenue: ₹5,00,000<br/>Expenses: ₹3,85,000<br/>Est. Operating Profit: ₹1,15,000<br/>Est. Margin: 23%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc p2">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 10</div><h3>Revenue Forecasting</h3></div><div class="mc-bd"><span class="badge b-str">~ SIMPLIFIED</span><span class="badge b-y">Yashas</span></div></div>
+    <p>Simple statistical forecast. No advanced ML required for MVP. Drop before simplifying the hero workflow.</p>
+    <div class="g2" style="margin-bottom:0">
+      <div><h4>Method (MVP)</h4><ul><li>Calculate 4-week rolling average</li><li>Apply trend factor from last 2 weeks</li><li>Return range: lower / central / upper bound</li><li>LLM explains in plain language</li></ul></div>
+      <div class="card" style="background:rgba(139,92,246,0.05);border-color:rgba(139,92,246,0.3)">
+        <h4 style="color:var(--accent3)">Demo Output (Synthetic)</h4>
+        <div style="font-size:20px;font-weight:800;color:var(--text);margin:6px 0">₹2.1L – ₹2.3L</div>
+        <div style="font-size:12px;color:var(--text2)">Projected next-month revenue based on 4-week trend</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:4px">⚠️ Prototype estimate — synthetic demo data only</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mc p2">
+    <div class="mc-hdr"><div><div class="mc-num">MODULE 11</div><h3>Feedback / Learning Representation</h3></div><div class="mc-bd"><span class="badge b-str">~ SIMPLIFIED</span><span class="badge b-v">Vishal (UI)</span><span class="badge b-y">Yashas (Data)</span></div></div>
+    <p>Demonstrates the learning loop concept visually. For the 8-hour prototype, this is a simplified feedback simulation, not a live ML online learning system.</p>
+    <div class="arch" style="padding:16px">
+      <div class="ar"><div class="an x">Campaign Executed</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an d">Transactions Attributed to Campaign</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an b">Revenue + Customer Response Measured</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an a">Performance vs. Projection Evaluated</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an f">Result Stored → Informs Next Recommendation</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S7: USER JOURNEYS -->
+<section class="section" id="s7">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 07</div>
+    <div class="sec-label">User Journeys</div>
+    <h2>5 Core User Journeys</h2>
+  </div>
+  <div class="jc">
+    <div class="jh"><span style="font-size:20px">📉</span><div><strong style="color:var(--accent)">Journey A — Sales Decline → Growth Campaign (Hero)</strong></div></div>
+    <div class="jb"><div class="js">
+      <div class="jst"><div class="jsl">User Action</div><div class="jsc">Merchant types: "My sales are falling. Help me increase weekend revenue."</div></div>
+      <div class="jst"><div class="jsl">Intent Detection</div><div class="jsc">LLM identifies: sales_decline + growth_recommendation intent. Selects tools: analyze_sales_decline + get_customer_segments + generate_growth_recommendation.</div></div>
+      <div class="jst"><div class="jsl">Backend Analysis</div><div class="jsc">Sales service detects 16% decline over last 2 weeks. Largest drop in weekday evenings (6–9 PM). Calculates transaction count delta per hour bucket.</div></div>
+      <div class="jst"><div class="jsl">Customer Analysis</div><div class="jsc">Customer service identifies 126 inactive + 43 at-risk customers. Returns segment summary with last transaction dates.</div></div>
+      <div class="jst"><div class="jsl">Recommendation</div><div class="jsc">Growth engine generates: ₹50 cashback on ₹300+ transactions, 6–9 PM, targeting inactive + at-risk customers. LLM explains reasoning.</div></div>
+      <div class="jst"><div class="jsl">What-if</div><div class="jsc">Merchant compares 4 strategies. Selects ₹50 cashback. Clicks "Approve this Campaign."</div></div>
+      <div class="jst"><div class="jsl">Approval</div><div class="jsc">Approval modal shows campaign details, estimated cost (₹3,600), expected uplift (₹7,200). Merchant clicks APPROVE.</div></div>
+      <div class="jst"><div class="jsl">Execution</div><div class="jsc">Campaign simulated. Result card: 72 transactions, ₹28,800 revenue, status ACTIVE.</div></div>
+      <div class="jst"><div class="jsl">Next Action</div><div class="jsc">Feedback loop card shows result vs. projection. Copilot: "Campaign is live. I'll track performance and update recommendations."</div></div>
+    </div></div>
+  </div>
+  <div class="jc">
+    <div class="jh"><span style="font-size:20px">💰</span><div><strong style="color:var(--green)">Journey B — Profit &amp; Loss Question</strong></div></div>
+    <div class="jb"><div class="js">
+      <div class="jst"><div class="jsl">User Action</div><div class="jsc">Merchant types: "How much profit did I make this month?"</div></div>
+      <div class="jst"><div class="jsl">Backend Calc</div><div class="jsc">Accounting service deterministically calculates: Revenue ₹5,00,000 − Expenses ₹3,85,000 = Operating Profit ₹1,15,000 (23% margin). Largest expense: inventory ₹1,20,000. Anomaly: electricity +15% vs. prior month.</div></div>
+      <div class="jst"><div class="jsl">LLM Explains</div><div class="jsc">LLM narrates validated numbers in plain language. Highlights largest expense. Flags electricity spike. Does NOT invent numbers.</div></div>
+      <div class="jst"><div class="jsl">UI Response</div><div class="jsc">P&amp;L card shown with revenue/expense/profit breakdown. Expense donut chart. Anomaly alert for electricity spike.</div></div>
+    </div></div>
+  </div>
+  <div class="jc">
+    <div class="jh"><span style="font-size:20px">💬</span><div><strong style="color:var(--accent2)">Journey C — Business Question</strong></div></div>
+    <div class="jb"><div class="js">
+      <div class="jst"><div class="jsl">User Action</div><div class="jsc">"How is my business doing this week?"</div></div>
+      <div class="jst"><div class="jsl">Processing</div><div class="jsc">Orchestrator calls get_sales_summary + get_business_health. Returns structured metrics.</div></div>
+      <div class="jst"><div class="jsl">UI Response</div><div class="jsc">Copilot responds: "This week your revenue is ₹87,500, up 4% vs last week. Your busiest day was Saturday. You have 12 new customers…"</div></div>
+    </div></div>
+  </div>
+  <div class="jc">
+    <div class="jh"><span style="font-size:20px">👥</span><div><strong style="color:var(--yellow)">Journey D — Customer Retention</strong></div></div>
+    <div class="jb"><div class="js">
+      <div class="jst"><div class="jsl">User Action</div><div class="jsc">"Who are my at-risk customers and what should I do?"</div></div>
+      <div class="jst"><div class="jsl">Processing</div><div class="jsc">identify_at_risk_customers() → returns list. generate_growth_recommendation() with customer_retention goal.</div></div>
+      <div class="jst"><div class="jsl">UI Response</div><div class="jsc">Customer Intelligence screen shows 43 at-risk + 126 inactive. Copilot recommends reactivation campaign. Merchant can launch from this screen.</div></div>
+    </div></div>
+  </div>
+  <div class="jc">
+    <div class="jh"><span style="font-size:20px">✅</span><div><strong style="color:var(--accent3)">Journey E — Campaign Approval Flow</strong></div></div>
+    <div class="jb"><div class="js">
+      <div class="jst"><div class="jsl">Trigger</div><div class="jsc">AI recommendation ready. Merchant shown campaign details: target segment, offer, timing, expected cost, expected impact.</div></div>
+      <div class="jst"><div class="jsl">Decision</div><div class="jsc">Merchant reviews. APPROVE (campaign simulated) or REJECT (returns with option to modify goal).</div></div>
+      <div class="jst"><div class="jsl">Post-Approval</div><div class="jsc">Campaign record created. Status: ACTIVE. Simulated result generated. Result screen displayed.</div></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- S8: HERO WORKFLOW -->
+<section class="section" id="s8">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 08</div>
+    <div class="sec-label">Hero Workflow</div>
+    <h2>The Most Important Demo Sequence</h2>
+    <p class="sec-desc">The hero workflow must work flawlessly above all else. Every other feature can be simplified if this is at risk.</p>
+  </div>
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:14px">14-Step Hero Flow</h3>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="card p1" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">1</div><div><strong>Merchant asks the question</strong><br/><span style="font-size:12px;color:var(--text2)">"My sales are falling. Help me increase weekend revenue."</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">2</div><div><strong>Transaction history analyzed</strong><br/><span style="font-size:12px;color:var(--text2)">Sales service processes synthetic dataset</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">3</div><div><strong>Sales decline detected</strong><br/><span style="font-size:12px;color:var(--text2)">16% decline vs. prior 2 weeks (synthetic data)</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">4</div><div><strong>Primary reason diagnosed</strong><br/><span style="font-size:12px;color:var(--text2)">Weekday evenings — steepest 31% drop 6–9 PM</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">5</div><div><strong>Customer behavior analyzed</strong><br/><span style="font-size:12px;color:var(--text2)">Segments calculated, inactive customers identified</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">6</div><div><strong>126 inactive customers found</strong><br/><span style="font-size:12px;color:var(--text2)">Last transacted 45+ days ago (synthetic)</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">7</div><div><strong>Growth opportunity identified</strong><br/><span style="font-size:12px;color:var(--text2)">Reactivate evening customers with targeted offer</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">8</div><div><strong>Specific recommendation generated</strong><br/><span style="font-size:12px;color:var(--text2)">₹50 cashback on ₹300+ transactions, 6–9 PM</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">9</div><div><strong>Reasoning explained</strong><br/><span style="font-size:12px;color:var(--text2)">LLM explains why this specific offer was selected</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px"><div style="font-size:16px;font-weight:800;color:var(--accent);min-width:24px">10</div><div><strong>What-if simulator opened</strong><br/><span style="font-size:12px;color:var(--text2)">Merchant compares 4 strategies side-by-side</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px;border-color:rgba(16,185,129,0.4)"><div style="font-size:16px;font-weight:800;color:var(--green);min-width:24px">11</div><div><strong>Merchant approves campaign</strong><br/><span style="font-size:12px;color:var(--text2)">Approval modal → APPROVE clicked</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px;border-color:rgba(16,185,129,0.4)"><div style="font-size:16px;font-weight:800;color:var(--green);min-width:24px">12</div><div><strong>Campaign created/simulated</strong><br/><span style="font-size:12px;color:var(--text2)">Backend creates campaign record, simulates result</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px;border-color:rgba(16,185,129,0.4)"><div style="font-size:16px;font-weight:800;color:var(--green);min-width:24px">13</div><div><strong>Campaign result displayed</strong><br/><span style="font-size:12px;color:var(--text2)">72 transactions, ₹28,800 revenue, 3.0x ROI shown</span></div></div>
+        <div class="card" style="display:flex;gap:10px;align-items:start;padding:12px;border-color:rgba(139,92,246,0.4)"><div style="font-size:16px;font-weight:800;color:var(--accent3);min-width:24px">14</div><div><strong>Feedback loop shown</strong><br/><span style="font-size:12px;color:var(--text2)">Result vs. projection comparison, future learning indicated</span></div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:14px">Demo Numbers (All Synthetic)</h3>
+      <div class="alert aw"><div class="ai-ico">⚠️</div><div class="at">All values below are <strong>synthetic / illustrative demo data</strong>. Not real Paytm merchant data.</div></div>
+      <div class="card" style="margin-bottom:10px"><h4>📉 Decline Signal</h4><ul><li>Overall decline: <strong>~16%</strong> vs. prior 2 weeks</li><li>Evening 6–9 PM decline: <strong>~31%</strong></li><li>Weekdays affected more than weekends</li></ul></div>
+      <div class="card" style="margin-bottom:10px"><h4>👥 Customer Signal</h4><ul><li>Inactive customers: <strong>126</strong></li><li>At-risk customers: <strong>43</strong></li><li>VIP customers: <strong>18</strong></li><li>Loyal customers: <strong>67</strong></li></ul></div>
+      <div class="card"><h4>📊 Campaign Simulation</h4><ul><li>Strategy: ₹50 cashback on ₹300+</li><li>Timing: 6–9 PM weekdays</li><li>Projected transactions: <strong>72</strong></li><li>Projected revenue: <strong>₹28,800</strong></li><li>Incentive cost: <strong>₹3,600</strong></li><li>Incremental revenue: <strong>₹7,200</strong></li><li>Estimated ROI: <strong>3.0x</strong></li></ul><div style="font-size:10px;color:var(--text3);margin-top:6px">⚠️ Synthetic illustrative projections only</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S9: SYSTEM ARCHITECTURE -->
+<section class="section" id="s9">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 09</div>
+    <div class="sec-label">System Architecture</div>
+    <h2>Hackathon-Optimized Architecture</h2>
+    <p class="sec-desc">Modular monolith. Single FastAPI backend. No unnecessary microservices. Designed for 8 hours / 2 developers.</p>
+  </div>
+  <div class="arch" style="margin-bottom:24px">
+    <div class="ar"><div class="an m" style="padding:12px 28px;font-size:13px">🏪 PAYTM MERCHANT</div></div>
+    <div class="aa">↓ Browser</div>
+    <div class="ar"><div class="an f" style="padding:10px 24px">React + TypeScript + Tailwind + Recharts</div></div>
+    <div class="aa">↓ REST API / JSON</div>
+    <div class="ar"><div class="an b" style="padding:10px 24px">FastAPI (Python) — Modular Monolith</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an a" style="padding:10px 24px">AI Orchestrator</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an a">Growth Agent</div><div class="an a">Accountant Agent</div><div class="an a">Customer Agent</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an b">Sales Analytics Engine</div><div class="an b">Finance Engine</div><div class="an b">Customer Intelligence</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an d">PostgreSQL</div><div class="an d">Pandas / NumPy</div><div class="an d">Scikit-learn (opt.)</div><div class="an d">LLM API</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an b">Recommendation Engine</div><div class="an x">Campaign Engine</div><div class="an b">Forecast Engine</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an d">Feedback Loop → Future Recommendations</div></div>
+  </div>
+  <div class="g3">
+    <div class="card"><h4>🔵 Frontend Layer</h4><p>React SPA. Communicates via REST API only. No direct database access. Vishal's responsibility.</p></div>
+    <div class="card"><h4>🟣 Backend Layer</h4><p>Single FastAPI application. All business logic, analytics, and AI orchestration. Yashas's responsibility.</p></div>
+    <div class="card"><h4>🟢 Data Layer</h4><p>PostgreSQL for persistence. Pandas for in-memory analytics. Synthetic dataset seeded at startup.</p></div>
+  </div>
+</section>
+
+<!-- S10: AI ARCHITECTURE -->
+<section class="section" id="s10">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 10</div>
+    <div class="sec-label">AI Architecture</div>
+    <h2>LLM vs. Deterministic Backend — Clear Separation</h2>
+    <p class="sec-desc">The most critical architectural rule: the LLM explains validated results. It does not calculate financial metrics.</p>
+  </div>
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card" style="border-color:rgba(139,92,246,0.4)">
+      <h3 style="color:var(--accent3);margin-bottom:10px">🧠 LLM Responsibilities</h3>
+      <ul>
+        <li>Natural language understanding and intent detection</li>
+        <li>Business reasoning and problem framing</li>
+        <li>Tool / function selection for orchestration</li>
+        <li>Plan generation for multi-step tasks</li>
+        <li>Explanation of validated backend results</li>
+        <li>Conversational narrative responses</li>
+        <li>Campaign marketing copy generation</li>
+        <li>Anomaly explanation in business context</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(79,142,247,0.4)">
+      <h3 style="color:var(--accent);margin-bottom:10px">⚙️ Backend (Deterministic) Responsibilities</h3>
+      <ul>
+        <li>All revenue, expense, and profit calculations</li>
+        <li>All aggregations and time-series computations</li>
+        <li>Customer segmentation logic</li>
+        <li>Sales trend detection and diagnosis</li>
+        <li>Campaign simulation calculations</li>
+        <li>Revenue forecasting (statistical)</li>
+        <li>Data validation and business rules</li>
+        <li>Expense anomaly detection</li>
+      </ul>
+    </div>
+  </div>
+  <div class="arch" style="max-width:500px">
+    <div class="ar"><div class="an d">Transaction Data (Synthetic)</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an b">Python Backend — Deterministic Calculation</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an d">Validated Metrics Object</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an a">LLM — Narrate + Explain Only</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an f">Human-Readable Response to Merchant</div></div>
+  </div>
+  <div class="alert ad" style="margin-top:16px"><div class="ai-ico">🚫</div><div class="at"><strong>Hard Rule:</strong> "The LLM must not blindly calculate or invent important financial metrics. All financial numbers must be computed by deterministic backend code and validated before being passed to the LLM for explanation."</div></div>
+</section>
+
+<!-- S11: AI ORCHESTRATOR -->
+<section class="section" id="s11">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 11</div>
+    <div class="sec-label">AI Orchestrator</div>
+    <h2>Tool-Calling Orchestration</h2>
+    <p class="sec-desc">The orchestrator receives merchant goals and coordinates tools to produce a structured recommendation.</p>
+  </div>
+  <h3 style="margin-bottom:10px">Orchestration Example: Hero Query</h3>
+  <div class="cb" style="margin-bottom:20px">
+<span class="cc"># User: "My sales are falling. Help me increase weekend revenue."</span>
+
+<span class="cc"># Step 1 — LLM detects intent</span>
+intent = <span class="cf">detect_intent</span>(user_message)
+<span class="cc"># → {type: "growth_recommendation", context: "sales_decline"}</span>
+
+<span class="cc"># Step 2 — Orchestrator calls tools sequentially</span>
+sales_data    = <span class="cf">get_sales_summary</span>(merchant_id, days=<span class="cn">14</span>)
+decline_data  = <span class="cf">analyze_sales_decline</span>(merchant_id, period=<span class="cn">14</span>)
+segments      = <span class="cf">get_customer_segments</span>(merchant_id)
+at_risk       = <span class="cf">identify_at_risk_customers</span>(merchant_id)
+
+<span class="cc"># Step 3 — Generate recommendation (deterministic backend)</span>
+recommendation = <span class="cf">generate_growth_recommendation</span>(
+    sales_data=sales_data,
+    decline=decline_data,
+    customers=at_risk,
+    goal=<span class="cs">"increase_evening_revenue"</span>
+)
+
+<span class="cc"># Step 4 — LLM explains validated result (no inventing numbers)</span>
+response = <span class="cf">llm_explain</span>(recommendation, tone=<span class="cs">"merchant-friendly"</span>)
+
+<span class="ck">return</span> {<span class="cs">"recommendation"</span>: recommendation, <span class="cs">"explanation"</span>: response}
+  </div>
+  <h3 style="margin-bottom:12px">Available Tools / Functions</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="tc"><div><span class="tf">get_sales_summary</span><span class="tp">(merchant_id, days)</span><span class="tb badge b-core">MVP</span></div><div class="td">Returns aggregated revenue, transaction count, avg value, trend for period.</div></div>
+    <div class="tc"><div><span class="tf">analyze_sales_decline</span><span class="tp">(merchant_id, period)</span><span class="tb badge b-core">MVP</span></div><div class="td">Detects decline magnitude, affected time windows, calculates % change per bucket.</div></div>
+    <div class="tc"><div><span class="tf">get_customer_segments</span><span class="tp">(merchant_id)</span><span class="tb badge b-core">MVP</span></div><div class="td">Returns customer counts per segment (VIP / Loyal / New / At-Risk / Inactive).</div></div>
+    <div class="tc"><div><span class="tf">identify_at_risk_customers</span><span class="tp">(merchant_id)</span><span class="tb badge b-core">MVP</span></div><div class="td">Returns list of at-risk + inactive customers with recency and value data.</div></div>
+    <div class="tc"><div><span class="tf">get_business_health</span><span class="tp">(merchant_id)</span><span class="tb badge b-core">MVP</span></div><div class="td">Returns overall health score, key strengths, concerns, top opportunity.</div></div>
+    <div class="tc"><div><span class="tf">generate_growth_recommendation</span><span class="tp">(sales, customers, goal)</span><span class="tb badge b-core">MVP</span></div><div class="td">Produces structured recommendation: target, offer, timing, reasoning, impact.</div></div>
+    <div class="tc"><div><span class="tf">simulate_campaign</span><span class="tp">(strategy, target_segment)</span><span class="tb badge b-core">MVP</span></div><div class="td">Deterministic what-if calculation. Returns projected transactions, revenue, cost, ROI.</div></div>
+    <div class="tc"><div><span class="tf">create_campaign</span><span class="tp">(approved_recommendation)</span><span class="tb badge b-core">MVP</span></div><div class="td">Creates campaign record after merchant approval. Simulates execution + result.</div></div>
+    <div class="tc"><div><span class="tf">get_profit_loss</span><span class="tp">(merchant_id, month)</span><span class="tb badge b-core">MVP</span></div><div class="td">Deterministic P&amp;L: revenue, expenses, operating profit, margin, category breakdown.</div></div>
+    <div class="tc"><div><span class="tf">get_expense_summary</span><span class="tp">(merchant_id, month)</span><span class="tb badge b-core">MVP</span></div><div class="td">Returns expense by category, anomaly flags, comparison vs. prior month.</div></div>
+    <div class="tc"><div><span class="tf">forecast_revenue</span><span class="tp">(merchant_id, horizon)</span><span class="tb badge b-str">Simplified</span></div><div class="td">Statistical rolling-average forecast. Returns range estimate with trend explanation.</div></div>
+    <div class="tc"><div><span class="tf">get_campaign_result</span><span class="tp">(campaign_id)</span><span class="tb badge b-core">MVP</span></div><div class="td">Returns simulated campaign performance: transactions, revenue, customer response rate.</div></div>
+  </div>
+</section>
+
+<!-- S12: DATABASE -->
+<section class="section" id="s12">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 12</div>
+    <div class="sec-label">Database Design</div>
+    <h2>PostgreSQL Schema</h2>
+    <p class="sec-desc">Minimal schema sufficient for the hackathon demo. Designed to be created in under 30 minutes.</p>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <h3 style="color:var(--paytm);margin-bottom:10px">merchants</h3>
+      <div class="cb" style="padding:12px;font-size:11px">merchant_id    UUID PRIMARY KEY<br/>business_name  VARCHAR(200)<br/>business_type  VARCHAR(100)  <span class="cc">-- grocery, restaurant…</span><br/>location       VARCHAR(200)<br/>business_age   INTEGER       <span class="cc">-- months in operation</span><br/>created_at     TIMESTAMP</div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:10px">transactions</h3>
+      <div class="cb" style="padding:12px;font-size:11px">transaction_id  UUID PRIMARY KEY<br/>merchant_id     UUID REFERENCES merchants<br/>customer_id     UUID REFERENCES customers<br/>timestamp       TIMESTAMP<br/>amount          DECIMAL(12,2)<br/>status          VARCHAR(20)   <span class="cc">-- success/failed/refunded</span><br/>payment_method  VARCHAR(50)   <span class="cc">-- UPI/card/cash</span></div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--green);margin-bottom:10px">customers</h3>
+      <div class="cb" style="padding:12px;font-size:11px">customer_id          UUID PRIMARY KEY<br/>merchant_id          UUID REFERENCES merchants<br/>transaction_count    INTEGER<br/>total_spend          DECIMAL(12,2)<br/>last_transaction     TIMESTAMP<br/>average_transaction  DECIMAL(10,2)<br/>segment              VARCHAR(20)  <span class="cc">-- VIP/Loyal/New/At-Risk/Inactive</span></div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--yellow);margin-bottom:10px">expenses</h3>
+      <div class="cb" style="padding:12px;font-size:11px">expense_id   UUID PRIMARY KEY<br/>merchant_id  UUID REFERENCES merchants<br/>date         DATE<br/>category     VARCHAR(100)  <span class="cc">-- inventory/rent/utilities…</span><br/>amount       DECIMAL(12,2)<br/>vendor       VARCHAR(200)</div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent3);margin-bottom:10px">campaigns</h3>
+      <div class="cb" style="padding:12px;font-size:11px">campaign_id       UUID PRIMARY KEY<br/>merchant_id       UUID REFERENCES merchants<br/>target_segment    VARCHAR(50)<br/>offer_type        VARCHAR(50)   <span class="cc">-- cashback/discount</span><br/>offer_value       DECIMAL(8,2)<br/>min_transaction   DECIMAL(8,2)<br/>start_date        TIMESTAMP<br/>status            VARCHAR(20)   <span class="cc">-- pending/active/completed</span><br/>estimated_cost    DECIMAL(10,2)<br/>actual_revenue    DECIMAL(12,2) <span class="cc">-- post-simulation</span><br/>actual_txn_count  INTEGER</div>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--orange);margin-bottom:10px">ai_insights (optional)</h3>
+      <div class="cb" style="padding:12px;font-size:11px">insight_id    UUID PRIMARY KEY<br/>merchant_id   UUID REFERENCES merchants<br/>type          VARCHAR(50)   <span class="cc">-- recommendation/alert/forecast</span><br/>title         VARCHAR(200)<br/>body          TEXT<br/>data_json     JSONB         <span class="cc">-- structured data payload</span><br/>created_at    TIMESTAMP<br/>is_acted_on   BOOLEAN</div>
+    </div>
+  </div>
+</section>
+
+<!-- S13: SYNTHETIC DATA -->
+<section class="section" id="s13">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 13</div>
+    <div class="sec-label">Synthetic Data Strategy</div>
+    <h2>Demo Data Design</h2>
+    <p class="sec-desc">We do not assume access to real Paytm merchant data. The dataset is intentionally designed to produce the exact patterns needed for the demo narrative.</p>
+  </div>
+  <div class="alert ad"><div class="ai-ico">🚨</div><div class="at"><strong>Mandatory Disclosure:</strong> All data in the demo is synthetic and generated programmatically. It does not represent real Paytm merchant data. All UI elements displaying demo values must be labeled as such.</div></div>
+  <div class="g2" style="margin-top:12px">
+    <div class="card"><h3 style="margin-bottom:10px">Demo Merchant — Sharma General Store</h3><ul><li><strong>Type:</strong> General Store / Kirana, Bengaluru</li><li><strong>Age:</strong> 36 months</li><li><strong>Monthly Revenue:</strong> ~₹5,00,000</li><li><strong>Daily Avg Transactions:</strong> ~80</li><li><strong>Total Customers:</strong> ~350</li></ul></div>
+    <div class="card"><h3 style="margin-bottom:10px">Dataset Scale</h3><ul><li>~2,000–3,000 transactions (90 days of history)</li><li>350–400 unique customers</li><li>Multiple expense records per month (by category)</li><li>2–3 historical campaign records</li><li>AI insights pre-seeded for demo smoothness</li><li>Fixed random seed: <code>numpy.random.seed(42)</code></li></ul></div>
+  </div>
+  <h3 style="margin-top:16px;margin-bottom:12px">Intentional Demo Patterns</h3>
+  <div class="g3">
+    <div class="card" style="border-color:rgba(239,68,68,0.3)"><h4 style="color:var(--red)">📉 Sales Decline Pattern</h4><ul><li>Weeks 1–10: normal baseline activity</li><li>Weeks 11–12: gradual decline begins</li><li>Evening 6–9 PM: steepest decline (~31%)</li><li>Weekend mornings: remain strong</li><li>Overall: 16% revenue decline vs. prior period</li></ul></div>
+    <div class="card" style="border-color:rgba(245,158,11,0.3)"><h4 style="color:var(--yellow)">👥 Customer Segment Pattern</h4><ul><li>VIP: 18 customers</li><li>Loyal: 67 customers</li><li>New: 45 customers</li><li>At-Risk: 43 customers</li><li>Inactive: 126 customers (45+ days absent)</li></ul></div>
+    <div class="card" style="border-color:rgba(16,185,129,0.3)"><h4 style="color:var(--green)">💰 Financial Pattern</h4><ul><li>Revenue: ₹5,00,000 this month</li><li>Expenses: ₹3,85,000</li><li>Inventory: ₹1,20,000 (largest category)</li><li>Electricity: spike +15% vs. last month</li><li>Rent, salaries, marketing: stable</li></ul></div>
+  </div>
+</section>
+
+<!-- S14: API DESIGN -->
+<section class="section" id="s14">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 14</div>
+    <div class="sec-label">API Design</div>
+    <h2>FastAPI Endpoint Reference</h2>
+    <p class="sec-desc">Every endpoint maps to a real MVP requirement. No padding endpoints.</p>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th><th>Owner</th><th>MVP</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/dashboard</code></td><td>Full dashboard summary: KPIs, insight cards, quick actions</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/sales/summary</code></td><td>Revenue, txn count, avg value for configurable period</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/sales/trends</code></td><td>Daily revenue + transaction time series for charts</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/sales/decline-analysis</code></td><td>Decline detection: magnitude, affected hours, diagnosis</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/customers/segments</code></td><td>Customer count per segment with summary stats</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/customers/at-risk</code></td><td>List of at-risk + inactive customers with recency/value</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-me">POST</span></td><td><code>/api/copilot/chat</code></td><td>Main chat endpoint. Accepts message, returns AI response + structured data</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-me">POST</span></td><td><code>/api/growth/analyze</code></td><td>Runs full sales + customer analysis, returns diagnosis</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-me">POST</span></td><td><code>/api/growth/recommend</code></td><td>Generates structured recommendation from analysis</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-me">POST</span></td><td><code>/api/campaign/simulate</code></td><td>What-if simulation for given strategy + segment</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-me">POST</span></td><td><code>/api/campaign/approve</code></td><td>Records merchant approval, triggers execution simulation</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/campaigns/{id}</code></td><td>Campaign details and simulated result</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/accounting/profit-loss</code></td><td>Deterministic P&amp;L: revenue, expenses, profit, margin</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/accounting/expenses</code></td><td>Expense breakdown by category, anomaly flags</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-core">✓</span></td></tr>
+        <tr><td><span class="badge b-lo">GET</span></td><td><code>/api/forecast/revenue</code></td><td>Statistical rolling-average revenue forecast with range</td><td><span class="badge b-y">Yashas</span></td><td><span class="badge b-str">Simplified</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:14px">
+    <h4 style="margin-bottom:8px">Standard Response Format (All Endpoints)</h4>
+    <div class="cb">{<br/>  <span class="cs">"success"</span>: <span class="ck">true</span>,<br/>  <span class="cs">"data"</span>: { <span class="cc">/* endpoint-specific payload */</span> },<br/>  <span class="cs">"meta"</span>: {<br/>    <span class="cs">"merchant_id"</span>: <span class="cs">"demo-merchant-001"</span>,<br/>    <span class="cs">"data_type"</span>: <span class="cs">"SYNTHETIC_DEMO"</span>,  <span class="cc">// MANDATORY label</span><br/>    <span class="cs">"generated_at"</span>: <span class="cs">"2024-01-15T14:30:00Z"</span><br/>  }<br/>}</div>
+  </div>
+</section>
+
+<!-- S15: FRONTEND PLAN -->
+<section class="section" id="s15">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 15</div>
+    <div class="sec-label">Frontend Implementation Plan</div>
+    <h2>React Application — Vishal's Domain</h2>
+    <p class="sec-desc">9 screens, component hierarchy, and API integration plan.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
+    <div class="card p1"><div class="mc-num">SCREEN 1</div><h3 style="margin-bottom:8px">Dashboard</h3><ul style="font-size:12px"><li>Revenue + Transactions + Avg Value KPIs</li><li>Estimated Profit KPI</li><li>7-day revenue trend chart</li><li>Top hours bar chart</li><li>AI Insight cards (2–3)</li><li>Growth opportunity banner</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 2</div><h3 style="margin-bottom:8px">MerchantMind Copilot</h3><ul style="font-size:12px"><li>Chat message window</li><li>User input box</li><li>Suggested prompt chips</li><li>Structured response cards inline</li><li>Recommendation card in chat</li><li>Loading/thinking indicator</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 3</div><h3 style="margin-bottom:8px">Growth Opportunity</h3><ul style="font-size:12px"><li>Problem diagnosis display</li><li>Opportunity summary</li><li>Recommendation card</li><li>Target segment badge</li><li>Offer + timing details</li><li>Expected impact (labeled synthetic)</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 4</div><h3 style="margin-bottom:8px">What-if Simulator</h3><ul style="font-size:12px"><li>4-column strategy comparison</li><li>Revenue / Cost / ROI per strategy</li><li>Highlight recommended strategy</li><li>Synthetic label on all values</li><li>Select strategy button</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 5</div><h3 style="margin-bottom:8px">Campaign Approval</h3><ul style="font-size:12px"><li>Campaign summary card</li><li>Target / Offer / Timing</li><li>Expected impact display</li><li>Estimated cost</li><li>APPROVE (green) button</li><li>REJECT (outline) button</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 6</div><h3 style="margin-bottom:8px">Campaign Result</h3><ul style="font-size:12px"><li>Campaign status badge (ACTIVE)</li><li>Transactions / Revenue / Cost</li><li>ROI vs. projection</li><li>Feedback loop visualization</li><li>Next recommendation preview</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 7</div><h3 style="margin-bottom:8px">AI Accountant</h3><ul style="font-size:12px"><li>Revenue / Expenses / Profit cards</li><li>Margin % display</li><li>Expense donut chart by category</li><li>Anomaly alert card</li><li>AI explanation text</li><li>Accounting safety disclaimer</li></ul></div>
+    <div class="card p1"><div class="mc-num">SCREEN 8</div><h3 style="margin-bottom:8px">Customer Intelligence</h3><ul style="font-size:12px"><li>Segment summary cards (5 tiers)</li><li>At-risk customer list table</li><li>Inactive customer count badge</li><li>Quick reactivate action</li></ul></div>
+    <div class="card p2"><div class="mc-num">SCREEN 9</div><h3 style="margin-bottom:8px">Revenue Forecast</h3><ul style="font-size:12px"><li>Forecast range display</li><li>Historical + projected trend chart</li><li>AI explanation text</li><li>Synthetic/prototype label</li></ul><span class="badge b-str">Simplified — drop if behind</span></div>
+  </div>
+  <h3 style="margin-bottom:10px">Component Hierarchy</h3>
+  <div class="ft">
+<span class="ft-d">App</span><br/>
+├── <span class="ft-d">Layout/</span><br/>
+│   ├── <span class="ft-f">Sidebar.tsx</span>         <span class="ft-c">-- Navigation</span><br/>
+│   ├── <span class="ft-f">Topbar.tsx</span>          <span class="ft-c">-- Merchant name + actions</span><br/>
+│   └── <span class="ft-f">Layout.tsx</span>          <span class="ft-c">-- Wrapper with sidebar + content</span><br/>
+├── <span class="ft-d">Dashboard/</span><br/>
+│   ├── <span class="ft-f">KPICard.tsx</span>         <span class="ft-c">-- Reusable metric card</span><br/>
+│   ├── <span class="ft-f">RevenueChart.tsx</span>    <span class="ft-c">-- Recharts line chart</span><br/>
+│   ├── <span class="ft-f">HoursBarChart.tsx</span>   <span class="ft-c">-- Transaction hours distribution</span><br/>
+│   ├── <span class="ft-f">InsightCard.tsx</span>     <span class="ft-c">-- AI insight card (reusable)</span><br/>
+│   └── <span class="ft-f">Dashboard.tsx</span>       <span class="ft-c">-- Page assembly</span><br/>
+├── <span class="ft-d">Copilot/</span><br/>
+│   ├── <span class="ft-f">ChatWindow.tsx</span>      <span class="ft-c">-- Message history + scroll</span><br/>
+│   ├── <span class="ft-f">ChatMessage.tsx</span>     <span class="ft-c">-- User/AI message bubble</span><br/>
+│   ├── <span class="ft-f">ChatInput.tsx</span>       <span class="ft-c">-- Input box + send button</span><br/>
+│   ├── <span class="ft-f">SuggestedPrompts.tsx</span><span class="ft-c">-- Quick prompt chip buttons</span><br/>
+│   ├── <span class="ft-f">RecommendationCard.tsx</span><span class="ft-c">-- Inline recommendation in chat</span><br/>
+│   └── <span class="ft-f">Copilot.tsx</span>         <span class="ft-c">-- Page + state management</span><br/>
+├── <span class="ft-d">Growth/</span><br/>
+│   ├── <span class="ft-f">DiagnosisCard.tsx</span>   <span class="ft-c">-- Problem / opportunity display</span><br/>
+│   ├── <span class="ft-f">WhatIfSimulator.tsx</span> <span class="ft-c">-- Strategy comparison table</span><br/>
+│   ├── <span class="ft-f">ApprovalModal.tsx</span>   <span class="ft-c">-- Full-screen approval flow</span><br/>
+│   ├── <span class="ft-f">CampaignResult.tsx</span>  <span class="ft-c">-- Post-approval result screen</span><br/>
+│   └── <span class="ft-f">Growth.tsx</span>          <span class="ft-c">-- Growth page assembly</span><br/>
+├── <span class="ft-d">Customers/</span>  <span class="ft-d">Accountant/</span>  <span class="ft-d">Forecast/</span><br/>
+└── <span class="ft-d">shared/</span><br/>
+    ├── <span class="ft-f">api.ts</span>              <span class="ft-c">-- Centralized API client</span><br/>
+    ├── <span class="ft-f">Badge.tsx</span>           <span class="ft-c">-- Reusable badge/status chip</span><br/>
+    └── <span class="ft-f">SyntheticLabel.tsx</span> <span class="ft-c">-- "Demo data" disclaimer component</span>
+  </div>
+  <div class="alert ai" style="margin-top:12px"><div class="ai-ico">💡</div><div class="at"><strong>Tip:</strong> The <code>SyntheticLabel</code> component must appear on every screen that shows projected or simulated numbers.</div></div>
+</section>
+
+<!-- S16: BACKEND PLAN -->
+<section class="section" id="s16">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 16</div>
+    <div class="sec-label">Backend Implementation Plan</div>
+    <h2>FastAPI Project Structure — Yashas's Domain</h2>
+  </div>
+  <div class="ft" style="margin-bottom:16px">
+<span class="ft-d">backend/</span><br/>
+├── <span class="ft-f">main.py</span>                    <span class="ft-c">-- FastAPI app entry, router registration, CORS</span><br/>
+├── <span class="ft-f">config.py</span>                  <span class="ft-c">-- Settings (pydantic-settings), env vars</span><br/>
+├── <span class="ft-d">api/</span>                       <span class="ft-c">-- Route handlers only (thin layer)</span><br/>
+│   ├── <span class="ft-f">dashboard.py  sales.py  customers.py</span><br/>
+│   ├── <span class="ft-f">copilot.py  growth.py  campaign.py</span><br/>
+│   └── <span class="ft-f">accounting.py  forecast.py</span><br/>
+├── <span class="ft-d">services/</span>                  <span class="ft-c">-- Business logic (all deterministic calculations)</span><br/>
+│   ├── <span class="ft-f">sales_service.py</span>       <span class="ft-c">-- Revenue aggregation, trend detection, decline analysis</span><br/>
+│   ├── <span class="ft-f">customer_service.py</span>    <span class="ft-c">-- Segmentation logic, at-risk identification</span><br/>
+│   ├── <span class="ft-f">growth_service.py</span>      <span class="ft-c">-- Recommendation generation, opportunity detection</span><br/>
+│   ├── <span class="ft-f">campaign_service.py</span>    <span class="ft-c">-- Simulation calculations, approval, result gen</span><br/>
+│   ├── <span class="ft-f">accounting_service.py</span>  <span class="ft-c">-- P&amp;L calc, expense aggregation, anomaly detection</span><br/>
+│   ├── <span class="ft-f">forecast_service.py</span>    <span class="ft-c">-- Rolling-average forecast, trend projection</span><br/>
+│   └── <span class="ft-f">dashboard_service.py</span>   <span class="ft-c">-- Aggregate KPIs for dashboard endpoint</span><br/>
+├── <span class="ft-d">ai/</span>                        <span class="ft-c">-- AI orchestration only</span><br/>
+│   ├── <span class="ft-f">orchestrator.py</span>        <span class="ft-c">-- Main orchestrator: intent → tools → response</span><br/>
+│   ├── <span class="ft-f">tools.py</span>               <span class="ft-c">-- Tool definitions for function calling</span><br/>
+│   ├── <span class="ft-f">prompts.py</span>             <span class="ft-c">-- System prompts + output templates</span><br/>
+│   └── <span class="ft-f">llm_client.py</span>          <span class="ft-c">-- LLM API wrapper (with fallback)</span><br/>
+├── <span class="ft-d">models/</span>                    <span class="ft-c">-- SQLAlchemy ORM models</span><br/>
+│   └── <span class="ft-f">merchant.py  transaction.py  customer.py  expense.py  campaign.py</span><br/>
+├── <span class="ft-d">schemas/</span>                   <span class="ft-c">-- Pydantic request/response schemas</span><br/>
+│   └── <span class="ft-f">chat.py  campaign.py  common.py</span><br/>
+├── <span class="ft-d">data/</span><br/>
+│   ├── <span class="ft-f">generate_demo_data.py</span>  <span class="ft-c">-- Synthetic dataset generator</span><br/>
+│   ├── <span class="ft-f">seed.py</span>                <span class="ft-c">-- Seeds PostgreSQL from generated data</span><br/>
+│   └── <span class="ft-d">fallback/</span>              <span class="ft-c">-- JSON fallback files for demo safety</span><br/>
+├── <span class="ft-d">db/</span>  →  <span class="ft-f">database.py</span>        <span class="ft-c">-- SQLAlchemy engine + session</span><br/>
+└── <span class="ft-f">requirements.txt</span>
+  </div>
+  <div class="g2">
+    <div class="card"><h4>Key Dependencies</h4><div class="cb" style="padding:12px;font-size:11px">fastapi&gt;=0.104.0<br/>uvicorn&gt;=0.24.0<br/>sqlalchemy&gt;=2.0.0<br/>psycopg2-binary&gt;=2.9.0<br/>pandas&gt;=2.1.0<br/>numpy&gt;=1.24.0<br/>pydantic&gt;=2.4.0<br/>pydantic-settings&gt;=2.0.0<br/>openai&gt;=1.3.0  <span class="cc"># or google-generativeai</span><br/>scikit-learn&gt;=1.3.0  <span class="cc"># optional</span><br/>python-dotenv&gt;=1.0.0</div></div>
+    <div class="card"><h4>Startup Sequence</h4><ol><li>Load config from .env</li><li>Initialize database connection</li><li>Run <code>create_all()</code> to create tables</li><li>Check if demo data exists</li><li>If not, run <code>generate_demo_data.py</code> + <code>seed.py</code></li><li>Register API routers</li><li>Start Uvicorn on port 8000</li></ol></div>
+  </div>
+</section>
+
+<!-- S17: RESPONSIBILITY MATRIX -->
+<section class="section" id="s17">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 17</div>
+    <div class="sec-label">Team Responsibility Matrix</div>
+    <h2>Who Builds What</h2>
+    <p class="sec-desc">Clear ownership prevents blocking. Collaboration happens at API integration points.</p>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card" style="border-color:rgba(0,186,242,0.4)">
+      <h3 style="color:var(--paytm);margin-bottom:12px">👨‍💻 Yashas — Backend + AI/ML</h3>
+      <ul class="cl">
+        <li><span class="ci">●</span>FastAPI application setup + CORS</li>
+        <li><span class="ci">●</span>PostgreSQL schema + SQLAlchemy models</li>
+        <li><span class="ci">●</span>Synthetic data generator + seeding script</li>
+        <li><span class="ci">●</span>Sales analytics service (trend, decline, summary)</li>
+        <li><span class="ci">●</span>Customer segmentation service (deterministic rules)</li>
+        <li><span class="ci">●</span>Growth recommendation engine</li>
+        <li><span class="ci">●</span>What-if simulation calculations</li>
+        <li><span class="ci">●</span>Campaign service (approval logic, result simulation)</li>
+        <li><span class="ci">●</span>Accounting service (P&amp;L, expense, anomaly)</li>
+        <li><span class="ci">●</span>Forecast service (rolling average)</li>
+        <li><span class="ci">●</span>LLM API integration (llm_client.py)</li>
+        <li><span class="ci">●</span>AI Orchestrator (intent → tools → response)</li>
+        <li><span class="ci">●</span>Tool definitions and function calling</li>
+        <li><span class="ci">●</span>All API endpoint handlers + Pydantic schemas</li>
+        <li><span class="ci">●</span>Backend testing + data validation</li>
+        <li><span class="ci">●</span>Fallback responses (if LLM fails)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(99,102,241,0.4)">
+      <h3 style="color:var(--accent2);margin-bottom:12px">🎨 Vishal — Frontend + UI/UX</h3>
+      <ul class="cl">
+        <li><span class="ci">●</span>React + TypeScript + Vite project setup</li>
+        <li><span class="ci">●</span>Tailwind CSS configuration + design tokens</li>
+        <li><span class="ci">●</span>Application layout (Sidebar, Topbar, routing)</li>
+        <li><span class="ci">●</span>Centralized API client (api.ts)</li>
+        <li><span class="ci">●</span>Dashboard screen (KPI cards, charts, insights)</li>
+        <li><span class="ci">●</span>Recharts integration (line, bar, donut)</li>
+        <li><span class="ci">●</span>MerchantMind Copilot chat interface</li>
+        <li><span class="ci">●</span>Suggested prompt chips</li>
+        <li><span class="ci">●</span>Growth Opportunity screen</li>
+        <li><span class="ci">●</span>What-if Simulator comparison UI</li>
+        <li><span class="ci">●</span>Campaign Approval modal</li>
+        <li><span class="ci">●</span>Campaign Result screen</li>
+        <li><span class="ci">●</span>AI Accountant screen</li>
+        <li><span class="ci">●</span>Customer Intelligence screen</li>
+        <li><span class="ci">●</span>Loading states + error handling</li>
+        <li><span class="ci">●</span>SyntheticLabel component on all demo data</li>
+        <li><span class="ci">●</span>Responsive layout + visual polish</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="border-color:rgba(139,92,246,0.4)">
+    <h3 style="color:var(--accent3);margin-bottom:12px">🤝 Both — Shared Responsibilities</h3>
+    <div class="g3" style="margin:0">
+      <ul><li>API contract definition (agree on schemas early)</li><li>End-to-end hero workflow testing</li><li>Bug fixing during integration phase</li></ul>
+      <ul><li>Demo scenario walkthrough (Hours 6–7)</li><li>Demo data consistency verification</li><li>Final integration testing</li></ul>
+      <ul><li>Fallback planning (if LLM or DB fails)</li><li>Pitch narrative and demo flow</li><li>Judge Q&amp;A preparation</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- S18: 8-HOUR PLAN -->
+<section class="section" id="s18">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 18</div>
+    <div class="sec-label">Execution Plan</div>
+    <h2>Hour-by-Hour Plan</h2>
+    <p class="sec-desc">If behind, drop lower-priority tasks, never the hero workflow.</p>
+  </div>
+  <div class="alert aw"><div class="ai-ico">⏰</div><div class="at"><strong>Drop Priority (if behind):</strong> Forecasting → Advanced ML → Secondary screens → Animations → Accountant → Customer screen → Dashboard charts → Hero workflow (LAST to drop)</div></div>
+  <div class="tl" style="margin-top:20px">
+    <div class="tl-i">
+      <div class="tl-h">HOUR 0–1 (0:00 – 1:00)</div>
+      <div class="tl-t">🏗️ Foundation — Get Everything Running</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas — Backend</div><ul><li>Create FastAPI project structure</li><li>Setup PostgreSQL + SQLAlchemy</li><li>Define all database models</li><li>Run <code>create_all()</code> for tables</li><li>Write synthetic data generator script</li><li>Seed demo merchant + transactions</li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal — Frontend</div><ul><li>Create React + TypeScript + Vite project</li><li>Install Tailwind CSS + Recharts</li><li>Setup React Router</li><li>Build Sidebar + Topbar layout</li><li>Create Dashboard skeleton</li><li>Setup api.ts client</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 1–2 (1:00 – 2:00)</div>
+      <div class="tl-t">📊 Data + Analytics — Core APIs Online</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas</div><ul><li>Implement sales_service.py (summary, trends, decline)</li><li>Implement customer_service.py (segmentation)</li><li>Implement accounting_service.py (P&amp;L)</li><li>Create all API route handlers</li><li>Test endpoints with curl/Postman</li><li><strong>Share API contract with Vishal</strong></li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal</div><ul><li>Build KPICard component</li><li>Build RevenueChart (Recharts line)</li><li>Build HoursBarChart</li><li>Wire Dashboard to /api/dashboard</li><li>Handle loading + error states</li><li>Add SyntheticLabel component</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 2–3 (2:00 – 3:00)</div>
+      <div class="tl-t">🧠 MerchantMind Copilot — Core AI Feature</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas</div><ul><li>Integrate LLM API (OpenAI / Gemini)</li><li>Build AI Orchestrator skeleton</li><li>Implement tool definitions in tools.py</li><li>Connect get_sales_summary + get_customer_segments tools</li><li>Implement POST /api/copilot/chat</li><li>Test with hero query manually</li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal</div><ul><li>Build ChatWindow component</li><li>Build ChatMessage (user + AI bubbles)</li><li>Build ChatInput with send handler</li><li>Build SuggestedPrompts chips</li><li>Wire to /api/copilot/chat</li><li>Show loading indicator during LLM call</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 3–4 (3:00 – 4:00)</div>
+      <div class="tl-t">💡 Growth Intelligence — Hero Workflow Core</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas</div><ul><li>Implement growth_service.py</li><li>Build sales decline diagnosis logic</li><li>Build customer targeting logic</li><li>Build recommendation generator</li><li>Implement POST /api/growth/analyze + /recommend</li><li>Verify LLM does not invent numbers</li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal</div><ul><li>Build Growth Opportunity screen</li><li>Build DiagnosisCard component</li><li>Build RecommendationCard component</li><li>Wire to growth API endpoints</li><li>Add inline recommendation card in Copilot chat</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 4–5 (4:00 – 5:00)</div>
+      <div class="tl-t">🎯 What-if + Campaign + Approval — Hero Workflow Complete</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas</div><ul><li>Implement campaign_service.py</li><li>Build what-if simulation calculations (4 strategies)</li><li>Implement POST /api/campaign/simulate + /approve</li><li>Implement GET /api/campaigns/{id}</li><li>Build simulated campaign result generator</li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal</div><ul><li>Build WhatIfSimulator comparison UI</li><li>Build ApprovalModal (APPROVE/REJECT)</li><li>Build CampaignResult screen</li><li>Build feedback loop visualization</li><li>Wire all campaign endpoints</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 5–6 (5:00 – 6:00)</div>
+      <div class="tl-t">💰 Accountant + Customers + Forecast</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas</div><ul><li>Complete accounting P&amp;L endpoint</li><li>Add expense anomaly detection</li><li>Implement forecast rolling-average</li><li>Ensure all endpoints return synthetic label in meta</li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal</div><ul><li>Build Accountant screen (P&amp;L cards, donut chart)</li><li>Build Customer Intelligence screen</li><li>Build Forecast screen (if time permits)</li><li>Add accounting safety disclaimer</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 6–7 (6:00 – 7:00)</div>
+      <div class="tl-t">🔗 Integration + End-to-End Testing</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch b">🤝 Both</div><ul><li>Run complete hero workflow end-to-end</li><li>Fix API integration bugs</li><li>Verify all data shows "synthetic" label</li><li>Check LLM fallback works if API slow</li><li>Remove broken/nonessential features</li></ul></div>
+        <div class="tl-c"><div class="tl-ch b">🤝 Both</div><ul><li>Test from fresh browser window</li><li>Verify demo numbers are consistent</li><li>Test secondary demo query (profit question)</li><li>Fix loading states that look bad</li></ul></div>
+      </div>
+    </div>
+    <div class="tl-i">
+      <div class="tl-h">HOUR 7–8 (7:00 – 8:00)</div>
+      <div class="tl-t">🏁 Demo Hardening — Final Polish</div>
+      <div class="tl-g">
+        <div class="tl-c"><div class="tl-ch y">⚡ Yashas</div><ul><li>Verify synthetic data produces correct demo numbers</li><li>Pre-warm LLM API (avoid cold start during demo)</li><li>Prepare fallback responses if LLM is slow</li><li>Final API smoke test</li></ul></div>
+        <div class="tl-c"><div class="tl-ch v">🎨 Vishal</div><ul><li>Visual polish: spacing, colors, fonts</li><li>Add missing micro-animations</li><li>Ensure error states don't break demo</li><li>Practice demo flow 2x</li><li>Prepare pitch narrative</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S19: FALLBACK -->
+<section class="section" id="s19">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 19</div>
+    <div class="sec-label">Fallback Strategy</div>
+    <h2>Emergency Fallback Plans</h2>
+    <p class="sec-desc">The demo must never fail due to an external service. Every dependency has a fallback.</p>
+  </div>
+  <div class="g2">
+    <div class="card" style="border-left:3px solid var(--red)"><h3 style="color:var(--red);margin-bottom:10px">🔴 LLM API Fails / Slow</h3><ul><li>Use deterministic intent routing in orchestrator</li><li>Return pre-validated structured response objects</li><li>Pre-written explanation templates per intent type</li><li>Copilot still shows correct backend data with template text</li></ul></div>
+    <div class="card" style="border-left:3px solid var(--red)"><h3 style="color:var(--red);margin-bottom:10px">🔴 PostgreSQL Fails</h3><ul><li>Pre-load demo data into memory (Python dict/Pandas DataFrames)</li><li>All services have an in-memory data mode flag</li><li>JSON fallback files in <code>data/fallback/</code></li><li>Switch mode via env var: <code>DATA_MODE=memory</code></li></ul></div>
+    <div class="card" style="border-left:3px solid var(--yellow)"><h3 style="color:var(--yellow);margin-bottom:10px">🟡 Campaign API Unavailable</h3><ul><li>Simulated campaign execution (already planned from day 1)</li><li>Result generated deterministically</li><li>Status shows "SIMULATED" badge clearly in UI</li></ul></div>
+    <div class="card" style="border-left:3px solid var(--yellow)"><h3 style="color:var(--yellow);margin-bottom:10px">🟡 ML Clustering Fails</h3><ul><li>Fall back to deterministic rule-based segmentation</li><li>customer_service.py needs no scikit-learn for rules mode</li><li>Same 5 segments produced — no visible difference in demo</li></ul></div>
+    <div class="card" style="border-left:3px solid var(--yellow)"><h3 style="color:var(--yellow);margin-bottom:10px">🟡 Chat Integration Breaks</h3><ul><li>Use suggested prompts that trigger pre-wired backend calls</li><li>Copilot renders as structured Q&amp;A flow</li><li>Backend analytics still run; result cards displayed directly</li></ul></div>
+    <div class="card" style="border-left:3px solid var(--green)"><h3 style="color:var(--green);margin-bottom:10px">🟢 Time Runs Short</h3><ul><li>Drop: Forecasting screen, advanced ML, secondary animations</li><li>Simplify: Customer screen to static data display</li><li>Keep: Hero growth workflow, Copilot, Approval, Accountant</li><li>A working 6-screen demo beats a broken 12-screen demo</li></ul></div>
+  </div>
+</section>
+
+<!-- S20: RISK REGISTER -->
+<section class="section" id="s20">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 20</div>
+    <div class="sec-label">Risk Register</div>
+    <h2>Hackathon Risk Management</h2>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LLM API rate limit / failure</strong></td><td><span class="risk-h">High</span></td><td><span class="risk-h">High</span></td><td>Deterministic fallback responses; pre-warmed API; exponential backoff</td></tr>
+        <tr><td><strong>PostgreSQL connection issues</strong></td><td><span class="risk-m">Medium</span></td><td><span class="risk-h">High</span></td><td>In-memory fallback mode (Pandas DataFrames + JSON files)</td></tr>
+        <tr><td><strong>API contract mismatch (Yashas/Vishal)</strong></td><td><span class="risk-h">High</span></td><td><span class="risk-m">Medium</span></td><td>Define API schemas together in Hour 1; share Pydantic models as source of truth</td></tr>
+        <tr><td><strong>Time shortage / scope creep</strong></td><td><span class="risk-h">High</span></td><td><span class="risk-h">High</span></td><td>Explicit drop priority list; hero workflow protected at all times</td></tr>
+        <tr><td><strong>LLM hallucinating financial numbers</strong></td><td><span class="risk-m">Medium</span></td><td><span class="risk-h">High</span></td><td>Architectural rule: LLM only explains backend-validated numbers; enforced in system prompt</td></tr>
+        <tr><td><strong>Incorrect accounting calculations</strong></td><td><span class="risk-m">Medium</span></td><td><span class="risk-h">High</span></td><td>Deterministic Python code with explicit test assertions; validate against known seeded values</td></tr>
+        <tr><td><strong>Demo data inconsistency</strong></td><td><span class="risk-m">Medium</span></td><td><span class="risk-m">Medium</span></td><td>Generate data from fixed seed (numpy.random.seed(42)); verify narrative coherence manually before demo</td></tr>
+        <tr><td><strong>Network / internet failure at venue</strong></td><td><span class="risk-l">Low</span></td><td><span class="risk-h">High</span></td><td>Run backend + frontend locally; all data synthetic; pre-cache LLM responses for demo queries</td></tr>
+        <tr><td><strong>CORS errors blocking frontend</strong></td><td><span class="risk-m">Medium</span></td><td><span class="risk-m">Medium</span></td><td>Configure FastAPI CORS middleware in Hour 0; test from frontend in Hour 1</td></tr>
+        <tr><td><strong>Campaign API unavailable</strong></td><td><span class="risk-h">High</span></td><td><span class="risk-l">Low</span></td><td>Simulated execution is the plan from the start — no real Paytm campaign API assumed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- S21: TESTING -->
+<section class="section" id="s21">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 21</div>
+    <div class="sec-label">Testing Plan</div>
+    <h2>Hackathon Testing Strategy</h2>
+    <p class="sec-desc">Focused on demo-critical paths. Automated where easy, manual where time is tight.</p>
+  </div>
+  <div class="g2">
+    <div class="card"><h3 style="margin-bottom:10px">⚙️ Backend Tests (Yashas)</h3><ul><li><strong>P&amp;L:</strong> Assert revenue − expenses = expected profit for seeded data</li><li><strong>Decline Detection:</strong> Assert 16% decline detected from synthetic time series</li><li><strong>Segmentation:</strong> Assert known customers land in correct segments</li><li><strong>Simulation:</strong> Assert cashback ROI calculation is mathematically correct</li><li><strong>Forecast:</strong> Assert forecast range is positive and above baseline</li><li><strong>API Smoke:</strong> All endpoints return 200 with valid structure</li></ul></div>
+    <div class="card"><h3 style="margin-bottom:10px">🎨 Frontend Tests (Vishal)</h3><ul><li><strong>Screen Rendering:</strong> All screens render without crash</li><li><strong>API Integration:</strong> KPI cards show data from API (not hardcoded)</li><li><strong>Loading States:</strong> Skeleton / spinner shown during API call</li><li><strong>Error State:</strong> API failure shows error message, not crash</li><li><strong>Approval Flow:</strong> APPROVE button calls correct endpoint</li><li><strong>Synthetic Labels:</strong> All simulated values show disclaimer</li></ul></div>
+    <div class="card"><h3 style="margin-bottom:10px">🧠 AI / Orchestrator Tests (Yashas)</h3><ul><li><strong>Intent Detection:</strong> Hero query routes to correct tools</li><li><strong>Tool Execution:</strong> All tools return valid structured output</li><li><strong>No Hallucination:</strong> LLM response contains no numbers not in backend payload</li><li><strong>Fallback:</strong> Deterministic fallback triggers when LLM slow/unavailable</li><li><strong>Response Shape:</strong> Chat response matches ChatResponse Pydantic schema</li></ul></div>
+    <div class="card"><h3 style="margin-bottom:10px">🔗 End-to-End (Both — Hour 6–7)</h3><ul><li>Open fresh browser → Dashboard loads with demo data</li><li>Open Copilot → Type hero query → Receive analysis + recommendation</li><li>Navigate to Growth → See recommendation + simulator</li><li>Approve campaign → Campaign result appears correctly</li><li>Open Accountant → P&amp;L matches expected demo numbers</li><li>Ask profit question in Copilot → Correct narrative answer</li><li>All synthetic labels visible on demo values</li></ul></div>
+  </div>
+</section>
+
+<!-- S22: DEMO SCRIPT -->
+<section class="section" id="s22">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 22</div>
+    <div class="sec-label">Demo Script</div>
+    <h2>Judge Demo Sequence — Sharma General Store</h2>
+    <p class="sec-desc">A single coherent narrative. All data synthetic. Total demo time: ~5 minutes.</p>
+  </div>
+  <div class="alert ai"><div class="ai-ico">🎬</div><div class="at"><strong>Demo State:</strong> Application running locally. Browser open to Dashboard. Demo merchant: "Sharma General Store." All synthetic data pre-seeded and consistent.</div></div>
+  <div class="tl" style="margin-top:16px">
+    <div class="tl-i"><div class="tl-h">STEP 1 — Dashboard</div><div class="tl-t">Show current business state</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "This is Sharma General Store's AI business dashboard. Revenue, transactions, estimated profit, and three AI-generated insights. The system has already detected a pattern worth investigating."</p><p><strong>UI shows:</strong> Revenue ₹17,500 today • 80 transactions • 23% margin • AI Insight: "Sales declining 16% vs. last 2 weeks" • Growth opportunity banner</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 2 — Open MerchantMind Copilot</div><div class="tl-t">Ask the hero question</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Type:</strong> "My sales are falling. Help me increase weekend revenue."</p><p><strong>Wait ~15 seconds for LLM response</strong></p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 3 — AI Analysis</div><div class="tl-t">Show diagnosis and insights</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "MerchantMind ran a full analysis. It detected a 16% sales decline, identified the biggest drop is in weekday evenings 6–9 PM, and found 126 inactive customers who haven't visited in over 45 days."</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 4 — Recommendation</div><div class="tl-t">Specific data-backed action</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "MerchantMind didn't say 'run a discount.' It generated a specific, reasoned recommendation: ₹50 cashback on ₹300+ transactions, targeting these specific inactive customers, during exactly 6–9 PM when sales are weakest."</p><p><strong>Click:</strong> "Explore this recommendation"</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 5 — What-if Simulator</div><div class="tl-t">Compare strategies before deciding</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "Before committing, the merchant compares strategies. The simulator shows the cashback offer delivers the highest incremental revenue at estimated 3.0x ROI. These are illustrative projections, clearly labeled as synthetic."</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 6 — Merchant Approves</div><div class="tl-t">Human in the loop — no autonomous action</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "MerchantMind never acts without permission. The merchant reviews the details, sees the estimated cost of ₹3,600, and clicks Approve. The AI is an assistant, not an autonomous agent that spends money without asking."</p><p><strong>Click:</strong> APPROVE</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 7 — Campaign Result</div><div class="tl-t">Simulated execution and feedback</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "Campaign is active. Simulation shows 72 transactions, ₹28,800 revenue. MerchantMind records this result to calibrate future recommendations — that's the learning loop."</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 8 — AI Accountant</div><div class="tl-t">Second demo: profit question</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Type:</strong> "How much profit did I make this month?"</p><p><strong>Talking point:</strong> "The AI Accountant calculates deterministically — not by asking the LLM to guess. Revenue ₹5,00,000, expenses ₹3,85,000, estimated operating profit ₹1,15,000 at 23% margin. The LLM explains this in plain language and flags the electricity spike. This is accounting assistance — not a replacement for a CA."</p></div></div>
+    <div class="tl-i"><div class="tl-h">STEP 9 — Closing</div><div class="tl-t">MerchantMind value proposition</div><div class="card" style="margin-top:8px;padding:12px"><p><strong>Talking point:</strong> "In under 5 minutes, a merchant with no analyst, no accountant, and no marketing team has identified a sales problem, understood the root cause, targeted the right customers, simulated outcomes, approved a campaign, and got a financial health check. That is MerchantMind — an AI business partner for every Paytm merchant."</p></div></div>
+  </div>
+</section>
+
+<!-- S23: SUCCESS CRITERIA -->
+<section class="section" id="s23">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 23</div>
+    <div class="sec-label">Success Criteria</div>
+    <h2>What a Judge Should See</h2>
+    <p class="sec-desc">The project succeeds by completing the loop, not by implementing the maximum number of features.</p>
+  </div>
+  <ul class="cl">
+    <li><span class="ci">✓</span><div><strong>Merchant asks a business question</strong> — Natural language input accepted by Copilot</div></li>
+    <li><span class="ci">✓</span><div><strong>AI understands the intent</strong> — Orchestrator correctly routes to relevant tools</div></li>
+    <li><span class="ci">✓</span><div><strong>Backend analyzes realistic synthetic data</strong> — Real calculations on seeded dataset</div></li>
+    <li><span class="ci">✓</span><div><strong>AI explains what is happening</strong> — LLM narrates validated results in plain language</div></li>
+    <li><span class="ci">✓</span><div><strong>Customer intelligence identifies opportunity</strong> — 126 inactive + 43 at-risk customers surfaced</div></li>
+    <li><span class="ci">✓</span><div><strong>AI recommends a specific action</strong> — Not generic advice; specific offer/timing/segment</div></li>
+    <li><span class="ci">✓</span><div><strong>What-if simulation compares strategies</strong> — 4 options with revenue/cost/ROI comparison</div></li>
+    <li><span class="ci">✓</span><div><strong>Merchant approves</strong> — Human-in-the-loop approval before any action</div></li>
+    <li><span class="ci">✓</span><div><strong>System executes / simulates the action</strong> — Campaign created, result generated</div></li>
+    <li><span class="ci">✓</span><div><strong>Results are displayed</strong> — Transaction count, revenue, ROI shown clearly</div></li>
+    <li><span class="ci">✓</span><div><strong>Feedback is represented</strong> — Result vs. projection, future recommendation seeded</div></li>
+    <li><span class="ci">✓</span><div><strong>Accountant produces validated financial summary</strong> — Deterministic P&amp;L, expense breakdown, anomaly</div></li>
+    <li><span class="ci">✓</span><div><strong>All synthetic data labeled clearly</strong> — No false implication of real Paytm data</div></li>
+    <li><span class="ci">✓</span><div><strong>Complete loop demonstrated</strong> — DATA → INTELLIGENCE → DECISION → ACTION → RESULT → LEARNING</div></li>
+  </ul>
+</section>
+
+<!-- S24: PROJECT STRUCTURE -->
+<section class="section" id="s24">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 24</div>
+    <div class="sec-label">Project Structure</div>
+    <h2>Complete Repository Layout</h2>
+  </div>
+  <div class="ft">
+<span class="ft-d">merchantmind/</span>              <span class="ft-c">-- Root repository</span><br/>
+├── <span class="ft-d">frontend/</span>              <span class="ft-c">-- React + TypeScript application (Vishal)</span><br/>
+│   ├── <span class="ft-f">package.json  vite.config.ts  tailwind.config.ts  tsconfig.json</span><br/>
+│   ├── <span class="ft-f">index.html</span><br/>
+│   └── <span class="ft-d">src/</span><br/>
+│       ├── <span class="ft-f">main.tsx  App.tsx</span><br/>
+│       ├── <span class="ft-d">components/</span>    <span class="ft-c">-- Reusable components</span><br/>
+│       ├── <span class="ft-d">pages/</span>          <span class="ft-c">-- Screen-level components</span><br/>
+│       ├── <span class="ft-d">hooks/</span>          <span class="ft-c">-- Custom React hooks</span><br/>
+│       ├── <span class="ft-d">api/</span>            <span class="ft-c">-- api.ts + endpoint functions</span><br/>
+│       └── <span class="ft-d">types/</span>          <span class="ft-c">-- TypeScript types matching backend schemas</span><br/>
+├── <span class="ft-d">backend/</span>               <span class="ft-c">-- FastAPI application (Yashas)</span><br/>
+│   ├── <span class="ft-f">main.py  config.py  requirements.txt</span><br/>
+│   ├── <span class="ft-d">api/  services/  ai/  models/  schemas/  db/</span><br/>
+│   └── <span class="ft-d">data/</span><br/>
+│       ├── <span class="ft-f">generate_demo_data.py  seed.py</span><br/>
+│       └── <span class="ft-d">fallback/</span>      <span class="ft-c">-- JSON fallback files for demo safety</span><br/>
+├── <span class="ft-f">docker-compose.yml</span>     <span class="ft-c">-- PostgreSQL + backend + frontend services</span><br/>
+├── <span class="ft-f">.env.example</span>           <span class="ft-c">-- Template for environment variables</span><br/>
+├── <span class="ft-f">README.md</span><br/>
+└── <span class="ft-d">docs/</span>  →  <span class="ft-f">blueprint.html</span>
+  </div>
+</section>
+
+<!-- S25: ENV + RUNBOOK -->
+<section class="section" id="s25">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 25</div>
+    <div class="sec-label">Environment &amp; Developer Runbook</div>
+    <h2>Setup and Run</h2>
+  </div>
+  <h3 style="margin-bottom:10px">Environment Variables</h3>
+  <div class="env-b" style="margin-bottom:20px">
+    <div class="env-l"><span class="env-k">LLM_API_KEY</span><span class="env-v">your-api-key-here</span><span class="env-c"># OpenAI / Gemini / Anthropic key</span></div>
+    <div class="env-l"><span class="env-k">LLM_PROVIDER</span><span class="env-v">openai</span><span class="env-c"># openai | gemini | anthropic</span></div>
+    <div class="env-l"><span class="env-k">LLM_MODEL</span><span class="env-v">gpt-4o-mini</span><span class="env-c"># model name for chosen provider</span></div>
+    <div class="env-l"><span class="env-k">DATABASE_URL</span><span class="env-v">postgresql://user:pass@localhost:5432/merchantmind</span><span class="env-c"># PostgreSQL connection</span></div>
+    <div class="env-l"><span class="env-k">APP_ENV</span><span class="env-v">development</span><span class="env-c"># development | production</span></div>
+    <div class="env-l"><span class="env-k">DATA_MODE</span><span class="env-v">postgres</span><span class="env-c"># postgres | memory (fallback)</span></div>
+    <div class="env-l"><span class="env-k">CORS_ORIGINS</span><span class="env-v">http://localhost:5173</span><span class="env-c"># Vite dev server origin</span></div>
+    <div class="env-l"><span class="env-k">DEMO_MERCHANT_ID</span><span class="env-v">demo-merchant-001</span><span class="env-c"># Fixed ID for demo merchant</span></div>
+    <div class="env-l"><span class="env-k">SEED_RANDOM_SEED</span><span class="env-v">42</span><span class="env-c"># Fixed seed for reproducible synthetic data</span></div>
+  </div>
+  <div class="g2">
+    <div>
+      <h4 style="margin-bottom:8px">Backend Setup</h4>
+      <div class="cb" style="font-size:11px">
+<span class="cc"># 1. Clone repository</span>
+git clone [repo-url] merchantmind
+cd merchantmind/backend
+
+<span class="cc"># 2. Create virtual environment</span>
+python -m venv venv
+source venv/bin/activate  <span class="cc"># Windows: venv\Scripts\activate</span>
+
+<span class="cc"># 3. Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="cc"># 4. Configure environment</span>
+cp ../.env.example .env
+<span class="cc"># Edit .env with LLM_API_KEY and DATABASE_URL</span>
+
+<span class="cc"># 5. Start PostgreSQL (Docker recommended)</span>
+docker run -d --name pg -e POSTGRES_DB=merchantmind \
+  -e POSTGRES_USER=user -e POSTGRES_PASSWORD=pass \
+  -p 5432:5432 postgres:15
+
+<span class="cc"># 6. Seed synthetic demo data</span>
+python data/generate_demo_data.py
+python data/seed.py
+
+<span class="cc"># 7. Start FastAPI backend</span>
+uvicorn main:app --reload --port 8000
+<span class="cc"># API docs at http://localhost:8000/docs</span>
+      </div>
+    </div>
+    <div>
+      <h4 style="margin-bottom:8px">Frontend Setup</h4>
+      <div class="cb" style="font-size:11px">
+<span class="cc"># From project root</span>
+cd frontend
+
+<span class="cc"># Install dependencies</span>
+npm install
+
+<span class="cc"># Create .env.local</span>
+echo "VITE_API_URL=http://localhost:8000" > .env.local
+
+<span class="cc"># Start development server</span>
+npm run dev
+<span class="cc"># Frontend at http://localhost:5173</span>
+
+<span class="cc">---</span>
+
+<span class="cc"># Docker Compose (full stack)</span>
+cd ../
+docker-compose up --build
+<span class="cc"># Access at http://localhost:5173</span>
+      </div>
+      <div class="alert as" style="margin-top:10px"><div class="ai-ico">✅</div><div class="at"><strong>Smoke Test:</strong> Open <code>localhost:5173</code> → Dashboard shows revenue data → Copilot → Type "How is my business doing?" → AI response within 15s.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S26: SECURITY -->
+<section class="section" id="s26">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 26</div>
+    <div class="sec-label">Security &amp; Trust</div>
+    <h2>Security Principles for MVP</h2>
+  </div>
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:10px">Backend Security</h3>
+      <ul>
+        <li><strong>Input validation:</strong> All inputs validated via Pydantic schemas before processing</li>
+        <li><strong>SQL injection prevention:</strong> SQLAlchemy ORM (parameterized queries only)</li>
+        <li><strong>LLM context filtering:</strong> Only validated business metrics passed to LLM; no raw user data</li>
+        <li><strong>Output validation:</strong> LLM responses validated against expected schema before returning</li>
+        <li><strong>Environment secrets:</strong> API keys via env vars only; never hardcoded</li>
+        <li><strong>CORS:</strong> Origin whitelist enforced in FastAPI middleware</li>
+        <li><strong>Audit logging:</strong> Campaign approvals + rejections logged with timestamp</li>
+      </ul>
+    </div>
+    <div class="arch" style="padding:16px">
+      <div class="ar"><div class="an d">Raw Data (Synthetic)</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an b">Data Filtering + Validation</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an d">Relevant Business Context Only</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an a">LLM (Explanation Only)</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an f">Merchant Review</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an d">Merchant Approval Required</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an b">Validation + Business Rules Check</div></div><div class="aa">↓</div>
+      <div class="ar"><div class="an x">Action Executed / Simulated</div></div>
+    </div>
+  </div>
+  <div class="alert aw" style="margin-top:14px"><div class="ai-ico">🔒</div><div class="at"><strong>Tool Permissions:</strong> Campaign creation tool can only be called after a verified approval record exists in the database. The backend validates this gate — the LLM cannot bypass it.</div></div>
+</section>
+
+<!-- S27: ACCOUNTING SAFETY -->
+<section class="section" id="s27">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 27</div>
+    <div class="sec-label">Accounting Safety Boundary</div>
+    <h2>What MerchantMind Is and Is Not</h2>
+  </div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card" style="border-color:rgba(239,68,68,0.3)">
+      <h3 style="color:var(--red);margin-bottom:10px">❌ MerchantMind Is NOT</h3>
+      <ul>
+        <li>A replacement for a Chartered Accountant (CA)</li>
+        <li>An autonomous tax filing system</li>
+        <li>A regulated financial advisor</li>
+        <li>A certified accounting software replacement</li>
+        <li>A provider of licensed investment advice</li>
+        <li>A system for official financial reporting</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(16,185,129,0.3)">
+      <h3 style="color:var(--green);margin-bottom:10px">✓ MerchantMind IS</h3>
+      <ul>
+        <li>Accounting organization and financial data preparation assistance</li>
+        <li>Revenue and expense summarization (from structured transaction data)</li>
+        <li>Expense category organization</li>
+        <li>Estimated P&amp;L assistance</li>
+        <li>Financial anomaly identification (for merchant awareness)</li>
+        <li>A tool to help merchants understand and prepare — not to replace professional review</li>
+      </ul>
+    </div>
+  </div>
+  <div class="arch" style="max-width:400px">
+    <div class="ar"><div class="an a">AI Accountant</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an b">Organize financial data</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an b">Prepare P&amp;L summary</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an b">Explain results in plain language</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an m">Merchant informed</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an d" style="border-color:var(--red);color:var(--red)">Professional CA Review (external)</div></div><div class="aa">↓</div>
+    <div class="ar"><div class="an d">Final Decisions Made by Human</div></div>
+  </div>
+  <div class="alert aw" style="margin-top:14px"><div class="ai-ico">📋</div><div class="at"><strong>UI Requirement:</strong> The AI Accountant screen must include a visible disclaimer: "MerchantMind helps you understand and organize your financial data. For tax filings, compliance, or official financial statements, please consult a qualified CA."</div></div>
+</section>
+
+<!-- S28: TECH STACK -->
+<section class="section" id="s28">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 28</div>
+    <div class="sec-label">Technology Stack</div>
+    <h2>Chosen Technologies</h2>
+    <p class="sec-desc">Practical, battle-tested technologies chosen for 8-hour implementation speed.</p>
+  </div>
+  <div class="g3">
+    <div class="card" style="border-color:rgba(99,102,241,0.4)">
+      <h3 style="color:var(--accent2);margin-bottom:10px">Frontend</h3>
+      <ul>
+        <li><strong>React 18</strong> — Component framework</li>
+        <li><strong>TypeScript</strong> — Type safety</li>
+        <li><strong>Vite</strong> — Build tool + dev server</li>
+        <li><strong>Tailwind CSS</strong> — Utility-first styling</li>
+        <li><strong>Recharts</strong> — Charts (line, bar, pie)</li>
+        <li><strong>React Router v6</strong> — Client-side routing</li>
+        <li><strong>Axios / Fetch</strong> — API client</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(79,142,247,0.4)">
+      <h3 style="color:var(--accent);margin-bottom:10px">Backend</h3>
+      <ul>
+        <li><strong>Python 3.11+</strong></li>
+        <li><strong>FastAPI</strong> — REST API framework</li>
+        <li><strong>Uvicorn</strong> — ASGI server</li>
+        <li><strong>SQLAlchemy 2.0</strong> — ORM</li>
+        <li><strong>Pydantic v2</strong> — Schema validation</li>
+        <li><strong>Pandas</strong> — Data analytics</li>
+        <li><strong>NumPy</strong> — Numerical computing</li>
+        <li><strong>Scikit-learn</strong> — ML (optional)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(139,92,246,0.4)">
+      <h3 style="color:var(--accent3);margin-bottom:10px">AI + Data + Infra</h3>
+      <ul>
+        <li><strong>LLM API</strong> — OpenAI / Gemini (function calling)</li>
+        <li><strong>PostgreSQL 15</strong> — Primary database</li>
+        <li><strong>Docker + docker-compose</strong> — Container orchestration</li>
+        <li><strong>python-dotenv</strong> — Env management</li>
+        <li><strong>Synthetic dataset</strong> — numpy-seeded generation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alert ai" style="margin-top:12px"><div class="ai-ico">💡</div><div class="at"><strong>LLM Provider Choice:</strong> Both OpenAI (gpt-4o-mini) and Gemini (gemini-1.5-flash) support function/tool calling and structured outputs. The llm_client.py wrapper abstracts the provider so switching is trivial.</div></div>
+</section>
+
+<!-- S29: ROADMAP -->
+<section class="section" id="s29">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 29</div>
+    <div class="sec-label">Future Roadmap</div>
+    <h2>Beyond the Hackathon</h2>
+    <p class="sec-desc">Post-hackathon vision. None of these are required for the 8-hour MVP.</p>
+  </div>
+  <div class="card rm" style="margin-bottom:20px">
+    <div class="rm-p"><div><div class="rm-n">PHASE 1</div></div><div><div class="rm-t">AI Business Analytics (Current MVP)</div><div class="rm-d">Sales intelligence, customer segmentation, basic recommendations, AI copilot, P&amp;L overview, revenue forecasting</div></div></div>
+    <div class="rm-p"><div><div class="rm-n">PHASE 2</div></div><div><div class="rm-t">AI Accountant + Financial Intelligence</div><div class="rm-d">Advanced expense management, GST preparation assistance, tax-ready reporting, invoice analysis, cash flow forecasting</div></div></div>
+    <div class="rm-p"><div><div class="rm-n">PHASE 3</div></div><div><div class="rm-t">AI Growth &amp; Marketing Agent</div><div class="rm-d">Real Paytm campaign API integration, customer acquisition agent, AI pricing advisor, WhatsApp merchant notifications, voice interface</div></div></div>
+    <div class="rm-p"><div><div class="rm-n">PHASE 4</div></div><div><div class="rm-t">Multi-Agent Business Team</div><div class="rm-d">Autonomous multi-agent orchestration: Growth Agent, Accountant Agent, Customer Agent, Supplier Agent with coordination protocols</div></div></div>
+    <div class="rm-p"><div><div class="rm-n">PHASE 5</div></div><div><div class="rm-t">AI-Powered Merchant Operating Layer</div><div class="rm-d">Multi-store intelligence, business loan readiness advisor, AI inventory advisor, supplier negotiation assistant, autonomous business goal execution</div></div></div>
+  </div>
+</section>
+
+<!-- S30: FINAL ARCHITECTURE -->
+<section class="section" id="s30">
+  <div class="sec-hdr">
+    <div class="sec-num">SECTION 30</div>
+    <div class="sec-label">Final Architecture Summary</div>
+    <h2>Complete System in One View</h2>
+  </div>
+  <div class="arch" style="padding:28px">
+    <div class="ar"><div class="an m" style="padding:12px 36px;font-size:14px">🏪 PAYTM MERCHANT</div></div>
+    <div class="aa">↓ natural language goal / question</div>
+    <div class="ar"><div class="an f" style="padding:10px 28px">🖥️ MERCHANTMIND UI (React + Tailwind)</div></div>
+    <div class="aa">↓ REST API</div>
+    <div class="ar"><div class="an b" style="padding:10px 28px">⚙️ FASTAPI BACKEND (Python)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an a" style="padding:10px 28px">🧠 AI ORCHESTRATOR (Intent → Tools → Response)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an a">Sales Intelligence</div><div class="an a">Customer Intelligence</div><div class="an a">Accounting Intelligence</div></div>
+    <div class="aa">↓ deterministic calculations</div>
+    <div class="ar"><div class="an d">PostgreSQL</div><div class="an d">Pandas Analytics</div><div class="an d">LLM API (explain only)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an b" style="padding:10px 24px">📊 RECOMMENDATION ENGINE</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an b" style="padding:10px 24px">🧮 WHAT-IF SIMULATOR</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an f" style="padding:10px 24px">✋ MERCHANT APPROVAL (Human-in-the-Loop)</div></div>
+    <div class="aa">↓ only after explicit approval</div>
+    <div class="ar"><div class="an x" style="padding:10px 24px">⚡ ACTION AGENT (Campaign / Business Action)</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an d" style="padding:10px 24px">📈 RESULTS MEASUREMENT</div></div>
+    <div class="aa">↓</div>
+    <div class="ar"><div class="an d" style="padding:10px 24px">🔄 FEEDBACK LOOP → Future Recommendations</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="hero" style="text-align:center;padding:36px">
+    <div style="font-size:12px;color:var(--paytm);font-weight:700;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.1em">The Complete Product Loop</div>
+    <div class="loop">
+      <div class="ls"><div class="ln" style="border-color:var(--paytm);color:var(--paytm)">DATA</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--accent);color:var(--accent)">INTELLIGENCE</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--accent2);color:var(--accent2)">DECISION</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--yellow);color:var(--yellow)">ACTION</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--green);color:var(--green)">RESULT</div><div class="la">→</div></div>
+      <div class="ls"><div class="ln" style="border-color:var(--accent3);color:var(--accent3)">LEARNING</div></div>
+    </div>
+    <div style="margin-top:20px;font-size:20px;font-weight:800;color:var(--text)">Paytm MerchantMind</div>
+    <div style="color:var(--text2);margin-top:6px">The AI Business Partner for Every Merchant</div>
+    <div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <span class="badge b-y">Yashas — Backend + AI/ML</span>
+      <span class="badge b-v">Vishal — Frontend + UI/UX</span>
+      <span class="badge b-core">Paytm Build for India AI Hackathon</span>
+      <span class="badge b-mvp">Track 1 — Merchant Growth AI</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const sections = document.querySelectorAll('section[id]');
+const sbItems = document.querySelectorAll('.sb-item');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      sbItems.forEach(i => {
+        i.classList.remove('active');
+        if (i.getAttribute('href') === '#' + id) i.classList.add('active');
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => obs.observe(s));
+sbItems.forEach(i => {
+  i.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(i.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+function doSearch(v) {
+  const q = v.toLowerCase().trim();
+  sections.forEach(s => s.style.display = q && !s.textContent.toLowerCase().includes(q) ? 'none' : '');
+}
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); document.getElementById('search').focus(); }
+});
+</script>
+</body>
+</html>
+

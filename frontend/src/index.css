@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sidebar-w: 260px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Custom Light Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ── Modern Fintech Component Utilities ── */
+@layer components {
+  /* Clean Card */
+  .mm-card {
+    @apply bg-surface border border-border rounded-card p-5 shadow-card transition-all duration-200;
+  }
+  .mm-card:hover {
+    @apply shadow-card-hover border-border2;
+  }
+
+  /* Section animation */
+  .mm-section {
+    animation: fadeInUp 0.35s ease-out both;
+  }
+
+  /* Financial numbers & codes */
+  .mm-mono {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.02em;
+  }
+
+  /* Form Input */
+  .mm-input {
+    @apply bg-white border border-border rounded-lg px-3.5 py-2.5 text-textPrimary text-sm font-sans outline-none transition-all duration-200 w-full placeholder:text-textMuted shadow-sm;
+  }
+  .mm-input:focus {
+    @apply border-accent ring-2 ring-accent/10;
+  }
+
+  /* Primary Fintech Buttons */
+  .mm-btn-primary {
+    @apply bg-paytmNavy text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-[#001f54] active:scale-[0.98] shadow-sm focus:outline-none focus:ring-2 focus:ring-paytmNavy/20;
+  }
+  .mm-btn-paytm {
+    @apply bg-paytm text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition-all duration-200 hover:brightness-95 active:scale-[0.98] shadow-sm focus:outline-none focus:ring-2 focus:ring-paytm/20;
+  }
+  .mm-btn-success {
+    @apply bg-success text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-green-700 active:scale-[0.98] shadow-sm focus:outline-none focus:ring-2 focus:ring-success/20;
+  }
+  .mm-btn-danger-outline {
+    @apply border border-danger/30 text-danger bg-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-danger/5 active:scale-[0.98] focus:outline-none;
+  }
+  .mm-btn-ghost {
+    @apply border border-border bg-white text-textSecondary font-medium px-4 py-2 rounded-lg text-sm transition-colors duration-200 hover:bg-surface2 hover:text-textPrimary hover:border-border2 active:scale-[0.98] focus:outline-none;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Light skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
